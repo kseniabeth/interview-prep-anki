@@ -1,0 +1,79 @@
+[
+  {
+    "id": "coding-range-sum-contract",
+    "section": "coding",
+    "tags": "trigger prefix-sums",
+    "front": "Prefix sums: what does prefix[right] - prefix[left] return?",
+    "back": "The sum of the half-open range [left,right), when prefix[i] stores the sum of the first i items and prefix[0]=0. Build once in O(n), then answer immutable range queries in O(1).",
+    "difficulty": "foundational",
+    "priority": "core",
+    "guideId": "coding-prefix-sums",
+    "guideAnchor": "range"
+  },
+  {
+    "id": "coding-binary-search-boundaries",
+    "section": "coding",
+    "tags": "trigger binary-search",
+    "front": "Binary search: lower bound versus upper bound?",
+    "back": "Lower bound is the first index with value >= target; upper bound is first > target. Either can equal Length. Their difference counts target occurrences in a sorted array. Array.BinarySearch does not promise the first duplicate.",
+    "difficulty": "foundational",
+    "priority": "core",
+    "guideId": "coding-binary-search",
+    "guideAnchor": "boundary"
+  },
+  {
+    "id": "coding-greedy-proof",
+    "section": "coding",
+    "tags": "trigger greedy",
+    "front": "How do you justify a greedy choice instead of guessing?",
+    "back": "Show that discarded alternatives cannot improve a future result, or exchange the greedy choice into an optimal solution without making it worse. Example: for one stock trade, the cheapest earlier buy dominates every more expensive earlier buy.",
+    "difficulty": "foundational",
+    "priority": "core",
+    "guideId": "coding-greedy-basics",
+    "guideAnchor": "profit"
+  },
+  {
+    "id": "coding-maximum-subarray",
+    "section": "coding",
+    "tags": "trigger dynamic-programming",
+    "front": "Maximum sum of a NONEMPTY contiguous subarray?",
+    "back": "Kadane: endingHere = max(current, endingHere + current); best = max(best, endingHere). Initialize both from the first value so all-negative input is correct. Reject empty input or define its meaning. O(n) time, O(1) auxiliary space.",
+    "difficulty": "foundational",
+    "priority": "core",
+    "guideId": "coding-greedy-basics",
+    "guideAnchor": "maximum-subarray"
+  },
+  {
+    "id": "coding-jump-game",
+    "section": "coding",
+    "tags": "trigger greedy",
+    "front": "Reach the last index when each value is a maximum forward jump?",
+    "back": "Track farthest reachable index. Scan only while i <= farthest and extend farthest=max(farthest,i+jumps[i]). A gap beyond the frontier cannot be crossed. Nonnegative jumps required; this answers reachability, not minimum jumps.",
+    "difficulty": "intermediate",
+    "priority": "reinforcement",
+    "guideId": "coding-greedy-basics",
+    "guideAnchor": "reachability"
+  },
+  {
+    "id": "coding-bit-xor",
+    "section": "coding",
+    "tags": "trigger bit-manipulation",
+    "front": "One value appears once; every other value appears exactly twice. O(1) extra space?",
+    "back": "XOR all values: equal pairs cancel and the remaining value is the singleton. The exact occurrence contract matters. This is not a generic solution for arbitrary frequency patterns.",
+    "difficulty": "intermediate",
+    "priority": "optional",
+    "guideId": "coding-bit-basics",
+    "guideAnchor": "xor"
+  },
+  {
+    "id": "coding-graph-modeling",
+    "section": "coding",
+    "tags": "trigger graphs",
+    "front": "Before traversing a graph, what must you model explicitly?",
+    "back": "Vertices, edge direction, allowed moves, weights, and the complete visited state. Add both directions for undirected edges, retain isolated vertices, and restart from every unseen vertex when counting all components.",
+    "difficulty": "foundational",
+    "priority": "core",
+    "guideId": "coding-graph-modeling",
+    "guideAnchor": "representation"
+  }
+]

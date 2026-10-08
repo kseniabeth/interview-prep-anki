@@ -1,0 +1,646 @@
+[
+  {
+    "url": "https://aws.amazon.com/builders-library/caching-challenges-and-strategies/",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://blog.cloudflare.com/sometimes-i-cache/",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://d1.awsstatic.com/builderslibrary/pdfs/timeouts-retries-and-backoff-with-jitter.pdf",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Official AWS PDF opened; HTML article URL redirected to a JavaScript-only Builder page, so the verified readable PDF is used."
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/understanding-the-cache-key.html",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html#ConsistencyModel",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-sharding.html",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/transactional-outbox.html",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_planning_for_recovery_disaster_recovery.html",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_planning_for_recovery_objective_defined_recovery.html",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://kafka.apache.org/41/design/design/",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://kafka.apache.org/41/getting-started/introduction/",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/aspnet/core/security/authentication/",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/aspnet/core/security/authorization/resource-based",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/azure/architecture/guide/technology-choices/load-balancing-overview",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/cache-aside",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/compensating-transaction",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/idempotent-consumer",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/queue-based-load-leveling",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/rate-limiting-pattern",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/dotnet/core/diagnostics/observability-with-otel",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection/overview",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/floating-point-numeric-types",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/record",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-types",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/lock",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/dotnet/fundamentals/networking/http/httpclient-guidelines",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/dotnet/standard/base-types/character-encoding-introduction",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/dotnet/standard/collections/selecting-a-collection-class",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/dotnet/standard/datetime/choosing-between-datetime",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/dotnet/standard/exceptions/best-practices-for-exceptions",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/dotnet/standard/garbage-collection/implementing-dispose",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/dotnet/standard/linq/deferred-execution-lazy-evaluation",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/overview",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/dotnet/standard/threading/cancellation-in-managed-threads",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/dotnet/standard/threading/managed-threading-best-practices",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/dotnet/standard/threading/threads-and-threading",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/ef/core/saving/transactions",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/relational-databases/performance/display-an-actual-execution-plan?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/relational-databases/performance/joins?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/relational-databases/security/sql-injection?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/relational-databases/sql-server-deadlocks-guide?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/relational-databases/sql-server-index-design-guide?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/relational-databases/tables/create-tables-database-engine?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/relational-databases/tables/primary-and-foreign-key-constraints?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/t-sql/data-types/rowversion-transact-sql?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/t-sql/functions/aggregate-functions-transact-sql?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/t-sql/functions/row-number-transact-sql?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/t-sql/language-elements/begin-transaction-transact-sql?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/t-sql/language-elements/case-transact-sql?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/t-sql/language-elements/exists-transact-sql?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/t-sql/language-elements/null-and-unknown-transact-sql?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/t-sql/language-elements/set-operators-union-transact-sql?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/t-sql/queries/from-transact-sql?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/t-sql/queries/select-clause-transact-sql?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/t-sql/queries/select-group-by-transact-sql?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/t-sql/queries/select-order-by-clause-transact-sql?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/t-sql/queries/select-over-clause-transact-sql?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/t-sql/queries/top-transact-sql?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/t-sql/queries/where-transact-sql?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/t-sql/queries/with-common-table-expression-transact-sql?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/t-sql/statements/insert-transact-sql?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://learn.microsoft.com/en-us/sql/t-sql/statements/set-transaction-isolation-level-transact-sql?view=sql-server-ver17",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://redis.io/docs/latest/develop/reference/eviction/",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://sre.google/sre-book/handling-overload/",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://sre.google/sre-book/monitoring-distributed-systems/",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://sre.google/workbook/implementing-slos/",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://www.elastic.co/docs/reference/elasticsearch/rest-apis/refresh-parameter",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://www.hellointerview.com/learn/system-design/core-concepts/cap-theorem",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Public page opened. Original guide text and toy examples authored independently; no copied solution keys or premium content."
+  },
+  {
+    "url": "https://www.hellointerview.com/learn/system-design/core-concepts/data-modeling",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Public page opened. Original guide text and toy examples authored independently; no copied solution keys or premium content."
+  },
+  {
+    "url": "https://www.hellointerview.com/learn/system-design/in-a-hurry/delivery",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Public page opened. Original guide text and toy examples authored independently; no copied solution keys or premium content."
+  },
+  {
+    "url": "https://www.postgresql.org/docs/current/functions-admin.html#FUNCTIONS-RECOVERY-INFO",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://www.postgresql.org/docs/current/indexes-intro.html",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://www.postgresql.org/docs/current/indexes-multicolumn.html",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://www.postgresql.org/docs/current/runtime-config-wal.html#GUC-SYNCHRONOUS-COMMIT",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://www.postgresql.org/docs/current/transaction-iso.html",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://www.postgresql.org/docs/current/tutorial-transactions.html",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://www.postgresql.org/docs/current/warm-standby.html",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://www.rabbitmq.com/docs/confirms",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  },
+  {
+    "url": "https://www.rfc-editor.org/rfc/rfc9110.html",
+    "checkedAt": "2026-10-06",
+    "status": "verified-content",
+    "method": "web open/search and canonical redirect verification",
+    "notes": "Opened with web research tool and retrieved page content; redirects to versioned/canonical documentation accepted."
+  }
+]

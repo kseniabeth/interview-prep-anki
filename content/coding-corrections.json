@@ -1,0 +1,202 @@
+[
+  {
+    "id": "card-0",
+    "back": "Small n can permit exhaustive search, but estimate actual output: 10! = 3,628,800 and 12! = 479,001,600 permutations. Copying/storing each permutation adds O(n) work and space per result. n <= 12 is not a runtime guarantee.",
+    "reason": "Original factorial cutoff presents a potentially enormous workload as reliably feasible."
+  },
+  {
+    "id": "card-1",
+    "back": "Small n can permit subset enumeration or bitmask DP, but 2^20 is about 1 million and 2^25 about 33.6 million states. Multiply by transition/copy cost and check memory. O(n·2^n) is materially larger than O(2^n).",
+    "reason": "Original cutoff omits transition and materialized-output costs."
+  },
+  {
+    "id": "card-2",
+    "back": "Estimate loops: 100^3 is 1 million, while 100^4 is 100 million iterations. Some cubic algorithms fit; quartic work may not. A 2-D DP is often O(mn), not inherently cubic or quartic.",
+    "reason": "Original answer incorrectly associates dimensionality of DP with cubic/quartic complexity."
+  },
+  {
+    "id": "card-3",
+    "back": "500^3 is 125 million iterations, so cubic work needs a careful time-limit and transition-cost check. Treat it as a rough candidate, not a safe rule. Also estimate table memory.",
+    "reason": "Original cubic cutoff is too categorical."
+  },
+  {
+    "id": "card-4",
+    "back": "Quadratic work is about 25 million iterations at n=5,000. That may fit simple loops, but a full 5,000×5,000 int table alone uses about 100 MB. Check both time and memory.",
+    "reason": "Original answer omits large quadratic storage cost."
+  },
+  {
+    "id": "card-5",
+    "back": "O(n log n) is often a reasonable target around n=100,000; O(n^2) is about 10 billion iterations. Sorting, heaps, and balanced trees are candidates when their invariants match the task. Complexity cutoffs remain estimates.",
+    "reason": "Qualifies heuristic cutoff without changing its useful comparison."
+  },
+  {
+    "id": "card-6",
+    "back": "At millions of items, aim for a small number of linear passes when possible. A ten-million-element int array alone has about 40 MB of payload; O(n) maps can be much larger. Hashing, windows, and prefix sums each need the right contract.",
+    "reason": "Original answer treats every linear approach as equally feasible."
+  },
+  {
+    "id": "card-7",
+    "back": "If 10^9 or 10^18 is a numeric answer range, consider math or binary search on a proven monotone predicate. If n is actual explicit input length, reading it already costs Ω(n). Search cost also includes the cost of each predicate evaluation.",
+    "reason": "Distinguishes input length from numeric answer range; original conflates them."
+  },
+  {
+    "id": "card-11",
+    "back": "Consider a variable window only if validity and boundary movement have a monotone relationship. Longest-valid windows often expand, shrink while invalid, then measure. Shortest-valid windows often measure and shrink while valid. Negative-sum constraints may need prefix sums instead.",
+    "reason": "Original blanket substring trigger and loop direction are not generally correct."
+  },
+  {
+    "id": "card-15",
+    "back": "Compare character frequencies for O(n) expected time, or O(n) with a fixed declared alphabet. int[26] requires lowercase ASCII a-z. Sorting is also correct (O(n log n)); it is a tradeoff, not forbidden.",
+    "reason": "Original incorrectly forbids a correct sorting approach and omits alphabet contract."
+  },
+  {
+    "id": "card-20",
+    "back": "Use a monotonic stack of indices, with the comparator and output tailored to the question. Next strictly greater pops smaller values; daily temperatures writes i-poppedIndex; stock span pops previous values <= current and measures distance to the previous greater value.",
+    "reason": "Stock span and next-greater require different output/comparison details."
+  },
+  {
+    "id": "card-28",
+    "back": "Binary search a proven monotone answer predicate. Shipping and nonnegative contiguous splitting use greedy capacity checks. Eating-speed tasks sum ceiling(pile/speed). Establish feasible bounds and use wide arithmetic; these predicates are not interchangeable.",
+    "reason": "Distinguishes capacity packing from eating-speed feasibility."
+  },
+  {
+    "id": "card-32",
+    "back": "Use BFS or DFS flood fill for each unvisited land component. Mark when scheduling/entering a cell. In-place marking saves a separate visited array only when mutation is allowed; an explicit stack avoids deep recursion.",
+    "reason": "Original recommends mutation without a permission/contract qualifier."
+  },
+  {
+    "id": "card-38",
+    "back": "Use Dijkstra for nonnegative edge weights. Equal-cost edges can use BFS. Negative edges may require Bellman-Ford with reachable negative-cycle handling, or topological relaxation in a DAG. A relevant reachable negative cycle means no finite shortest path.",
+    "reason": "Dijkstra needs nonnegative weights; negative cycles invalidate a finite answer."
+  },
+  {
+    "id": "card-42",
+    "back": "Use a trie for shared-prefix queries. A node can hold 26 children plus an end-of-word flag only with a lowercase ASCII a-z contract; use a suitable mapping for a broader alphabet. A HashSet is often simpler for exact membership alone.",
+    "reason": "Original assumes a fixed alphabet without stating it."
+  },
+  {
+    "id": "card-44",
+    "back": "Define a precise DP state first, then enumerate legal final decisions and base cases. Minimum stair cost can use min(dp[i-1]+cost[i-1], dp[i-2]+cost[i-2]); a different profit/cost problem may need entirely different state.",
+    "reason": "Original trigger is too broad to identify a universal recurrence."
+  },
+  {
+    "id": "card-46",
+    "back": "For unlimited positive denominations, dp[amount] = min(dp[amount-coin]+1) over legal coins, with dp[0]=0. In a coin-outer compressed DP, forward capacities allow reuse. Counting combinations versus sequences requires different loop ordering.",
+    "reason": "Original forward-loop rule omits state and counting semantics."
+  },
+  {
+    "id": "card-54",
+    "back": "General binary tree: recurse, return a target node when found, and return the current node when both child calls find a target. This concise version assumes both target references exist. BST with known-present unique keys: walk until the values split around the current node.",
+    "reason": "Original LCA answer omits the target-presence assumption."
+  },
+  {
+    "id": "card-59",
+    "back": "Floyd cycle detection using values as next indices works for n+1 entries, values in 1..n, and exactly one distinct duplicate. It finds the cycle entry without mutation. Arbitrary arrays do not meet this contract.",
+    "reason": "Original array-cycle trigger omits essential constraints."
+  },
+  {
+    "id": "card-60",
+    "back": "Boyer-Moore voting finds a candidate by canceling unequal pairs. If a strict majority is not guaranteed, make a second pass to verify its count exceeds n/2. Empty/no-majority input needs an explicit absence result.",
+    "reason": "Original voting answer omits required candidate verification."
+  },
+  {
+    "id": "card-62",
+    "back": "Choose a proven constant-space approach under the actual contract: two-pointer compaction, in-place swapping, or index marking when values map to valid indices and mutation is allowed. Negation marking needs positive-domain/zero/overflow care. O(1) alone does not identify a pattern.",
+    "reason": "Original suggests unsafe marking without domain constraints."
+  },
+  {
+    "id": "card-64",
+    "back": "int[][] dirs = {new[]{1,0},new[]{-1,0},new[]{0,1},new[]{0,-1}};\nvar q = new Queue<(int r,int c)>();\nq.Enqueue((sr,sc)); seen[sr][sc] = true;\n// Counts processed BFS levels, not a source-to-target distance.\n// See linked GridTraversal.ShortestPath for full endpoints/walls/return contract.\nint levelsProcessed = 0;\nwhile (q.Count > 0) {\n    int sz = q.Count;\n    for (int i = 0; i < sz; i++) {\n        var (r,c) = q.Dequeue();\n        foreach (var d in dirs) {\n            int nr = r+d[0], nc = c+d[1];\n            if (nr<0||nr>=m||nc<0||nc>=n||seen[nr][nc]) continue;\n            seen[nr][nc] = true;\n            q.Enqueue((nr,nc));\n        }\n    }\n    levelsProcessed++;\n}",
+    "reason": "Original counting loop is ambiguous about levels versus edge distance and lacks usable endpoint/wall contract; guide supplies full method."
+  },
+  {
+    "id": "card-74",
+    "back": "See the linked complete Windows.LongestAtMostKDistinct method.\nMaintain counts for exactly [left,right]. Add text[right]; while counts.Count > k, remove text[left++] and delete zero-count keys. After validity is restored, best = Math.Max(best, right-left+1).\nThis concrete template handles k=0 and returns a UTF-16 code-unit length. Other window conditions need their own proof.",
+    "reason": "Replaces a non-executable placeholder with an exact concrete contract and directly linked full implementation."
+  },
+  {
+    "id": "card-79",
+    "back": "Use Union-Find with path compression AND union by size/rank. Find returns the component representative. Union(a,b) returns false when already joined; for undirected edge insertion this indicates a cycle.\nThe linked complete UnionFind class uses iterative path halving, union by size, and a component count.",
+    "reason": "Original recursive unbalanced union can form a long chain and its cycle interpretation omits undirected graph context."
+  },
+  {
+    "id": "card-81",
+    "back": "Concrete 1-D DP example: ways to reach n with moves 1 or 2.\nways[0]=1, ways[1]=1, ways[i]=ways[i-1]+ways[i-2]. Handle n=0 before indexing state 1; use a documented numeric bound or BigInteger.\nThe linked DynamicProgramming.StairWays method is complete and uses two rolling values. Other recurrences require their own state/base cases.",
+    "reason": "Original placeholder template accesses dp[1] for n=0 and does not define Combine/base values."
+  },
+  {
+    "id": "card-83",
+    "back": "// Requires nonnegative weights; unreachable stays long.MaxValue.\nvar dist = new long[n];\nArray.Fill(dist, long.MaxValue);\ndist[src] = 0;\nvar pq = new PriorityQueue<int,long>();\npq.Enqueue(src, 0);\nwhile (pq.TryDequeue(out int u, out long d)) {\n    if (d > dist[u]) continue;           // stale entry\n    foreach (var (v, w) in adj[u])\n        if (d + w < dist[v]) {\n            dist[v] = d + w;\n            pq.Enqueue(v, dist[v]);\n        }\n}",
+    "reason": "Original int-distance arithmetic can overflow for legitimate weighted paths."
+  },
+  {
+    "id": "card-85",
+    "back": "Use a reverse priority comparer:\nnew PriorityQueue<int,int>(Comparer<int>.Create((a,b) => b.CompareTo(a)));\nAvoid int priority negation at int.MinValue, and avoid b-a comparers because subtraction can overflow.",
+    "reason": "Original default recommendation -x overflows at int.MinValue."
+  },
+  {
+    "id": "card-86",
+    "back": "Use TryGetValue when you need both presence and the value:\nif (d.TryGetValue(k, out var v)) { /* use v */ }\nGetValueOrDefault(k, 0) is useful when absence should mean zero. ContainsKey followed by d[k] is valid, but repeats lookup; it is not forbidden.",
+    "reason": "Original NEVER wording overstates an efficiency preference as correctness rule."
+  },
+  {
+    "id": "card-90",
+    "back": "For the .NET 8 baseline, use LinkedList<T> as a deque: AddFirst/AddLast, RemoveFirst/RemoveLast, and First?.Value/Last?.Value after checking emptiness. Endpoint operations are O(1); searching for a value is O(n).",
+    "reason": "Version-qualifies no-deque claim and adds empty/read semantics."
+  },
+  {
+    "id": "card-93",
+    "back": "Use StringBuilder for many incremental appends to a growing string:\nvar sb = new StringBuilder();\nsb.Append(c);\nreturn sb.ToString();\nRepeated growing-string += can copy quadratically; a small fixed concatenation or interpolation is fine.",
+    "reason": "Original NEVER and unconditional quadratic claim is too broad."
+  },
+  {
+    "id": "card-96",
+    "back": "int i = Array.BinarySearch(a, target);\n// a must be sorted under the same ordering.\n// i >= 0: an equal index, not necessarily the first duplicate.\n// i < 0: ~i is the insertion point.",
+    "reason": "Adds missing sortedness and duplicate-index contracts."
+  },
+  {
+    "id": "card-97",
+    "back": "Inspect the supplied signature. int[][] is jagged (rows may differ or be null); int[,] is rectangular.\nHandle grid.Length == 0 before grid[0].Length, and rely on or validate rectangularity before using one width for every row.",
+    "reason": "Original universal platform assumption and grid[0] access omit empty/jagged cases."
+  },
+  {
+    "id": "card-99",
+    "back": "var q = new Queue<(int r, int c)>();\nq.Enqueue((0, 0));\nvar (r, c) = q.Dequeue();\n// The default comparer orders comparable tuple components lexicographically.\n// Tuples do not support < or > operators; arbitrary component types may not be sortable.",
+    "reason": "Qualifies the original natural-sorting claim."
+  },
+  {
+    "id": "card-104",
+    "back": "For nonnegative array indices:\nint mid = lo + (hi - lo) / 2;\n// Across arbitrary signed int bounds, widen the difference too:\nint wideMid = (int)((long)lo + ((long)hi - lo) / 2);",
+    "reason": "Original overflow-safe label omits the difference-overflow case."
+  },
+  {
+    "id": "card-108",
+    "back": "BFS gives shortest paths in equal-cost/unweighted graphs. Ordinary DFS finds a path, but its first path need not be shortest. Nonnegative unequal weights -> Dijkstra; negative edges require a different algorithm and cycle handling.",
+    "reason": "Original weighted->Dijkstra rule lacks nonnegative constraint."
+  },
+  {
+    "id": "card-112",
+    "back": "In the standard longest-valid-window template, right advances once per outer loop; shrink left with while until validity is restored, then measure. Shortest-valid windows often measure and shrink while valid. Some specialized windows legitimately use a single if; follow the invariant, not a blanket rule.",
+    "reason": "Original never-if advice and universal shrink direction are false."
+  },
+  {
+    "id": "card-115",
+    "back": "Recursion depth can be O(n) on a skewed tree/list or thin grid component. Safe depth depends on runtime stack and frame size; there is no universal node cutoff. Use an explicit stack or iterative DP when depth may be large.",
+    "reason": "Original stack-overflow cutoff is stated as certainty."
+  },
+  {
+    "id": "card-118",
+    "back": "Many collection mutations invalidate foreach enumeration, but exact behavior depends on collection, operation, and runtime. A reliable general pattern is to iterate a snapshot of keys (new List<TKey>(d.Keys)) and apply changes to the original, or collect changes and apply afterward.",
+    "reason": "Original blanket exception claim is false for some modern Dictionary operations."
+  },
+  {
+    "id": "card-119",
+    "back": "Think aloud at useful decision points: state assumptions, explain an invariant, describe why a plan failed, and narrate test results. Short quiet thinking is normal; there is no universal 20-second rule or guarantee an interviewer will hint.",
+    "reason": "Original makes unsupported universal claims about interviewer behavior."
+  },
+  {
+    "id": "card-120",
+    "back": "Before coding, clarify the contract, give a correct baseline, explain the key invariant, and state expected time/space. Check for questions when useful, then implement and test purposeful edge cases. A ritual permission request is not required in every interview.",
+    "reason": "Original presents a particular communication script as a universal senior signal."
+  }
+]

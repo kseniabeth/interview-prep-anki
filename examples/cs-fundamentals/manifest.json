@@ -1,0 +1,74 @@
+[
+  {
+    "guideId": "guide-cs-value-reference",
+    "project": "value-reference/Example.csproj",
+    "codeFile": "examples/cs-fundamentals/value-reference/Program.cs",
+    "expectedOutput": "3, 9"
+  },
+  {
+    "guideId": "guide-cs-immutability-equality",
+    "project": "immutability-equality/Example.csproj",
+    "codeFile": "examples/cs-fundamentals/immutability-equality/Program.cs",
+    "expectedOutput": "True"
+  },
+  {
+    "guideId": "guide-cs-dispose-resources",
+    "project": "dispose-resources/Example.csproj",
+    "codeFile": "examples/cs-fundamentals/dispose-resources/Program.cs",
+    "expectedOutput": "Read and released"
+  },
+  {
+    "guideId": "guide-cs-collections-complexity",
+    "project": "collections-complexity/Example.csproj",
+    "codeFile": "examples/cs-fundamentals/collections-complexity/Program.cs",
+    "expectedOutput": "True\n10"
+  },
+  {
+    "guideId": "guide-cs-unicode-strings",
+    "project": "unicode-strings/Example.csproj",
+    "codeFile": "examples/cs-fundamentals/unicode-strings/Program.cs",
+    "expectedOutput": "2, 1"
+  },
+  {
+    "guideId": "guide-cs-numbers-time",
+    "project": "numbers-time/Example.csproj",
+    "codeFile": "examples/cs-fundamentals/numbers-time/Program.cs",
+    "expectedOutput": "17.96\n2147483648"
+  },
+  {
+    "guideId": "guide-cs-async-await",
+    "project": "async-await/Example.csproj",
+    "codeFile": "examples/cs-fundamentals/async-await/Program.cs",
+    "expectedOutput": "Both completed"
+  },
+  {
+    "guideId": "guide-cs-cancellation-limits",
+    "project": "cancellation-limits/Example.csproj",
+    "codeFile": "examples/cs-fundamentals/cancellation-limits/Program.cs",
+    "expectedOutput": "Slot released; cancellation observed"
+  },
+  {
+    "guideId": "guide-cs-races-locks",
+    "project": "races-locks/Example.csproj",
+    "codeFile": "examples/cs-fundamentals/races-locks/Program.cs",
+    "expectedOutput": "Exactly 10 successful spends"
+  },
+  {
+    "guideId": "guide-cs-serialization",
+    "project": "serialization/Example.csproj",
+    "codeFile": "examples/cs-fundamentals/serialization/Program.cs",
+    "expectedOutput": "{\"OrderId\":501,\"Total\":25.50}"
+  },
+  {
+    "guideId": "guide-cs-exceptions",
+    "project": "exceptions/Example.csproj",
+    "codeFile": "examples/cs-fundamentals/exceptions/Program.cs",
+    "expectedOutput": "True"
+  },
+  {
+    "guideId": "guide-cs-linq-deferred",
+    "project": "linq-deferred/Example.csproj",
+    "codeFile": "examples/cs-fundamentals/linq-deferred/Program.cs",
+    "expectedOutput": "2,4"
+  }
+]

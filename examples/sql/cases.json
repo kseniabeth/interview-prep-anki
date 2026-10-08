@@ -1,0 +1,574 @@
+[
+  {
+    "id": "sql-tables-seed",
+    "query": "SELECT customer_id, name, city\nFROM Customers\nORDER BY customer_id;",
+    "columns": [
+      "customer_id",
+      "name",
+      "city"
+    ],
+    "expected": [
+      [
+        1,
+        "Ada",
+        "Oslo"
+      ],
+      [
+        2,
+        "Ben",
+        "Paris"
+      ],
+      [
+        3,
+        "Cy",
+        null
+      ],
+      [
+        4,
+        "Dee",
+        "Oslo"
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-select",
+    "query": "SELECT order_id, total_cents, total_cents / 100.0 AS total_units\nFROM Orders\nWHERE order_id IN (101, 102)\nORDER BY order_id;",
+    "columns": [
+      "order_id",
+      "total_cents",
+      "total_units"
+    ],
+    "expected": [
+      [
+        101,
+        1200,
+        12.0
+      ],
+      [
+        102,
+        800,
+        8.0
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-where",
+    "query": "SELECT order_id, customer_id, total_cents\nFROM Orders\nWHERE status = 'paid'\n  AND (customer_id = 1 OR total_cents >= 2000)\nORDER BY order_id;",
+    "columns": [
+      "order_id",
+      "customer_id",
+      "total_cents"
+    ],
+    "expected": [
+      [
+        101,
+        1,
+        1200
+      ],
+      [
+        103,
+        2,
+        2000
+      ],
+      [
+        106,
+        1,
+        1200
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-ordering-top",
+    "query": "SELECT order_id, ordered_on\nFROM Orders\nORDER BY ordered_on DESC, order_id DESC\nLIMIT 2;",
+    "columns": [
+      "order_id",
+      "ordered_on"
+    ],
+    "expected": [
+      [
+        106,
+        "2026-02-02"
+      ],
+      [
+        105,
+        "2026-02-02"
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-null",
+    "query": "SELECT customer_id, name, COALESCE(city, '(unknown)') AS city_label\nFROM Customers\nWHERE city <> 'Oslo' OR city IS NULL\nORDER BY customer_id;",
+    "columns": [
+      "customer_id",
+      "name",
+      "city_label"
+    ],
+    "expected": [
+      [
+        2,
+        "Ben",
+        "Paris"
+      ],
+      [
+        3,
+        "Cy",
+        "(unknown)"
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-aggregate",
+    "query": "SELECT COUNT(*) AS order_count,\n       SUM(total_cents) AS total_cents,\n       AVG(total_cents * 1.0) AS average_cents,\n       MIN(total_cents) AS smallest, MAX(total_cents) AS largest\nFROM Orders;",
+    "columns": [
+      "order_count",
+      "total_cents",
+      "average_cents",
+      "smallest",
+      "largest"
+    ],
+    "expected": [
+      [
+        6,
+        7200,
+        1200.0,
+        800,
+        2000
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-group-having",
+    "query": "SELECT customer_id, COUNT(*) AS paid_orders, SUM(total_cents) AS paid_cents\nFROM Orders\nWHERE status = 'paid'\nGROUP BY customer_id\nHAVING SUM(total_cents) >= 2500\nORDER BY customer_id;",
+    "columns": [
+      "customer_id",
+      "paid_orders",
+      "paid_cents"
+    ],
+    "expected": [
+      [
+        2,
+        2,
+        3200
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-inner-join",
+    "query": "SELECT o.order_id, c.name, o.total_cents\nFROM Orders AS o\nINNER JOIN Customers AS c ON c.customer_id = o.customer_id\nWHERE o.order_id <= 103\nORDER BY o.order_id;",
+    "columns": [
+      "order_id",
+      "name",
+      "total_cents"
+    ],
+    "expected": [
+      [
+        101,
+        "Ada",
+        1200
+      ],
+      [
+        102,
+        "Ada",
+        800
+      ],
+      [
+        103,
+        "Ben",
+        2000
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-left-join",
+    "query": "SELECT c.customer_id, c.name, COUNT(o.order_id) AS paid_orders\nFROM Customers AS c\nLEFT JOIN Orders AS o\n  ON o.customer_id = c.customer_id AND o.status = 'paid'\nGROUP BY c.customer_id, c.name\nORDER BY c.customer_id;",
+    "columns": [
+      "customer_id",
+      "name",
+      "paid_orders"
+    ],
+    "expected": [
+      [
+        1,
+        "Ada",
+        2
+      ],
+      [
+        2,
+        "Ben",
+        2
+      ],
+      [
+        3,
+        "Cy",
+        0
+      ],
+      [
+        4,
+        "Dee",
+        0
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-join-grain",
+    "query": "SELECT o.order_id, o.total_cents,\n       SUM(i.quantity * i.unit_cents) AS line_total_cents\nFROM Orders AS o\nJOIN OrderItems AS i ON i.order_id = o.order_id\nGROUP BY o.order_id, o.total_cents\nORDER BY o.order_id;",
+    "columns": [
+      "order_id",
+      "total_cents",
+      "line_total_cents"
+    ],
+    "expected": [
+      [
+        101,
+        1200,
+        1200
+      ],
+      [
+        102,
+        800,
+        800
+      ],
+      [
+        103,
+        2000,
+        2000
+      ],
+      [
+        104,
+        800,
+        800
+      ],
+      [
+        105,
+        1200,
+        1200
+      ],
+      [
+        106,
+        1200,
+        1200
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-subquery-exists",
+    "query": "SELECT c.customer_id, c.name\nFROM Customers AS c\nWHERE EXISTS (\n  SELECT 1 FROM Orders AS o\n  WHERE o.customer_id = c.customer_id AND o.status = 'paid'\n)\nORDER BY c.customer_id;",
+    "columns": [
+      "customer_id",
+      "name"
+    ],
+    "expected": [
+      [
+        1,
+        "Ada"
+      ],
+      [
+        2,
+        "Ben"
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-cte",
+    "query": "WITH Totals AS (\n  SELECT customer_id, SUM(total_cents) AS cents\n  FROM Orders\n  GROUP BY customer_id\n)\nSELECT c.name, t.cents\nFROM Totals AS t\nJOIN Customers AS c ON c.customer_id = t.customer_id\nWHERE t.cents >= 3000\nORDER BY c.customer_id;",
+    "columns": [
+      "name",
+      "cents"
+    ],
+    "expected": [
+      [
+        "Ada",
+        3200
+      ],
+      [
+        "Ben",
+        3200
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-case",
+    "query": "SELECT customer_id,\n  SUM(CASE WHEN status = 'paid' THEN 1 ELSE 0 END) AS paid_count,\n  SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) AS pending_count\nFROM Orders\nGROUP BY customer_id\nORDER BY customer_id;",
+    "columns": [
+      "customer_id",
+      "paid_count",
+      "pending_count"
+    ],
+    "expected": [
+      [
+        1,
+        2,
+        1
+      ],
+      [
+        2,
+        2,
+        0
+      ],
+      [
+        3,
+        0,
+        0
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-row-number",
+    "query": "WITH Ranked AS (\n  SELECT order_id, customer_id, ordered_on,\n    ROW_NUMBER() OVER (\n      PARTITION BY customer_id ORDER BY ordered_on DESC, order_id DESC\n    ) AS rn\n  FROM Orders\n)\nSELECT customer_id, order_id, ordered_on\nFROM Ranked WHERE rn = 1\nORDER BY customer_id;",
+    "columns": [
+      "customer_id",
+      "order_id",
+      "ordered_on"
+    ],
+    "expected": [
+      [
+        1,
+        106,
+        "2026-02-02"
+      ],
+      [
+        2,
+        105,
+        "2026-02-02"
+      ],
+      [
+        3,
+        104,
+        "2026-02-01"
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-running-total",
+    "query": "SELECT order_id, total_cents,\n  SUM(total_cents) OVER (\n    PARTITION BY customer_id\n    ORDER BY ordered_on, order_id\n    ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW\n  ) AS running_cents\nFROM Orders\nWHERE customer_id = 1\nORDER BY ordered_on, order_id;",
+    "columns": [
+      "order_id",
+      "total_cents",
+      "running_cents"
+    ],
+    "expected": [
+      [
+        101,
+        1200,
+        1200
+      ],
+      [
+        102,
+        800,
+        2000
+      ],
+      [
+        106,
+        1200,
+        3200
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-keys-schema",
+    "query": "SELECT c.customer_id, c.name, COUNT(o.order_id) AS orders\nFROM Customers AS c\nLEFT JOIN Orders AS o ON o.customer_id = c.customer_id\nGROUP BY c.customer_id, c.name\nORDER BY c.customer_id;",
+    "columns": [
+      "customer_id",
+      "name",
+      "orders"
+    ],
+    "expected": [
+      [
+        1,
+        "Ada",
+        3
+      ],
+      [
+        2,
+        "Ben",
+        2
+      ],
+      [
+        3,
+        "Cy",
+        1
+      ],
+      [
+        4,
+        "Dee",
+        0
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-safe-dml",
+    "query": "SELECT customer_id, name, city\nFROM Customers WHERE customer_id = 4;",
+    "columns": [
+      "customer_id",
+      "name",
+      "city"
+    ],
+    "expected": [
+      [
+        4,
+        "Dee",
+        "Oslo"
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-transactions",
+    "query": "SELECT order_id, status FROM Orders WHERE order_id = 102;",
+    "columns": [
+      "order_id",
+      "status"
+    ],
+    "expected": [
+      [
+        102,
+        "pending"
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-parameters",
+    "query": "SELECT customer_id, name\nFROM Customers\nWHERE city = ?\nORDER BY customer_id;",
+    "columns": [
+      "customer_id",
+      "name"
+    ],
+    "expected": [
+      [
+        1,
+        "Ada"
+      ],
+      [
+        4,
+        "Dee"
+      ]
+    ],
+    "params": [
+      "Oslo"
+    ]
+  },
+  {
+    "id": "sql-indexes",
+    "query": "SELECT order_id, ordered_on\nFROM Orders\nWHERE customer_id = 1\n  AND ordered_on >= '2026-01-01' AND ordered_on < '2026-02-01'\nORDER BY ordered_on, order_id;",
+    "columns": [
+      "order_id",
+      "ordered_on"
+    ],
+    "expected": [
+      [
+        101,
+        "2026-01-05"
+      ],
+      [
+        102,
+        "2026-01-07"
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-plans-sargability",
+    "query": "SELECT order_id\nFROM Orders\nWHERE ordered_on >= '2026-01-01' AND ordered_on < '2026-02-01'\nORDER BY order_id;",
+    "columns": [
+      "order_id"
+    ],
+    "expected": [
+      [
+        101
+      ],
+      [
+        102
+      ],
+      [
+        103
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-isolation",
+    "query": "SELECT order_id, status FROM Orders WHERE order_id = 102;",
+    "columns": [
+      "order_id",
+      "status"
+    ],
+    "expected": [
+      [
+        102,
+        "pending"
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-deadlocks",
+    "query": "SELECT order_id, status\nFROM Orders WHERE order_id IN (101, 102)\nORDER BY order_id;",
+    "columns": [
+      "order_id",
+      "status"
+    ],
+    "expected": [
+      [
+        101,
+        "paid"
+      ],
+      [
+        102,
+        "pending"
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-pagination",
+    "query": "SELECT order_id, ordered_on\nFROM Orders\nWHERE ordered_on < '2026-02-02'\n   OR (ordered_on = '2026-02-02' AND order_id < 105)\nORDER BY ordered_on DESC, order_id DESC\nLIMIT 2;",
+    "columns": [
+      "order_id",
+      "ordered_on"
+    ],
+    "expected": [
+      [
+        104,
+        "2026-02-01"
+      ],
+      [
+        103,
+        "2026-01-07"
+      ]
+    ],
+    "params": []
+  },
+  {
+    "id": "sql-set-operations",
+    "query": "SELECT city FROM Customers WHERE customer_id IN (1, 2)\nUNION\nSELECT city FROM Customers WHERE customer_id = 4\nORDER BY city;",
+    "columns": [
+      "city"
+    ],
+    "expected": [
+      [
+        "Oslo"
+      ],
+      [
+        "Paris"
+      ]
+    ],
+    "params": []
+  }
+]

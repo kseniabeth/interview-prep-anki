@@ -1,0 +1,255 @@
+{
+  "schemaVersion": 1,
+  "id": "first-practice-session-v1",
+  "title": "Your first practice session",
+  "totalMinutes": 120,
+  "description": "Three focused actions. Attempt before opening a reference answer. Partial work is useful evidence.",
+  "actions": [
+    {
+      "id": "coding-diagnostic-v1",
+      "track": "coding",
+      "title": "Try two C# problems",
+      "minutes": 75,
+      "instructions": "Use your existing C# editor. For each prompt, note whether you have seen it before, restate the required behavior, explain an approach, and attempt the code and tests. Do not open solutions, topic labels, or coaching hints during the attempt. If you get stuck, leave your reasoning and partial code. Compile if your editor supports it; otherwise say the code was not run. You may ask a clarification about the specification; record it separately from an algorithm hint. If a problem is familiar, mark it as seen before so it is not counted as an unseen diagnostic.",
+      "steps": [
+        {
+          "id": "first-repeated-value-v1",
+          "title": "First repeated value",
+          "minutes": 30,
+          "signature": "int? FirstRepeat(int[] values)",
+          "prompt": "Read the values from left to right. Return the first value that you encounter for the second time. If no value repeats, return null. Return the value itself, not its position. The input array is not null and must remain unchanged.",
+          "constraints": [
+            "0 <= values.Length <= 100000",
+            "Each value can be any valid C# int."
+          ],
+          "examples": [
+            {
+              "input": [
+                8,
+                3,
+                8,
+                3
+              ],
+              "output": 8
+            },
+            {
+              "input": [
+                6,
+                4,
+                4,
+                6
+              ],
+              "output": 4
+            },
+            {
+              "input": [
+                2,
+                7,
+                9
+              ],
+              "output": null
+            },
+            {
+              "input": [],
+              "output": null
+            }
+          ],
+          "completionEvidence": "Your code or partial approach, tests you tried, whether it ran, prior exposure, and any help used."
+        },
+        {
+          "id": "waiting-for-larger-value-v1",
+          "title": "Waiting for a larger value",
+          "minutes": 35,
+          "revealAfter": "first-repeated-value-v1",
+          "signature": "int[] WaitForHigher(int[] values)",
+          "prompt": "For each position in the array, find the first later position containing a strictly larger value. Return the distance between those positions. If no later value is strictly larger, return 0 for that position. An equal value does not count. Return an array of the same length as the input. The input array is not null and must remain unchanged.",
+          "constraints": [
+            "0 <= values.Length <= 100000",
+            "-1000000000 <= values[i] <= 1000000000"
+          ],
+          "examples": [
+            {
+              "input": [
+                4,
+                4,
+                6,
+                2,
+                5
+              ],
+              "output": [
+                2,
+                1,
+                0,
+                1,
+                0
+              ]
+            },
+            {
+              "input": [
+                5,
+                4,
+                3
+              ],
+              "output": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "input": [
+                -2,
+                0,
+                -1,
+                1
+              ],
+              "output": [
+                1,
+                2,
+                1,
+                0
+              ]
+            },
+            {
+              "input": [],
+              "output": []
+            }
+          ],
+          "completionEvidence": "Your code or partial approach, tests you tried, whether it ran, prior exposure, and any help used."
+        },
+        {
+          "id": "diagnostic-review-v1",
+          "title": "Test and identify the main blocker",
+          "minutes": 10,
+          "prompt": "Spend five minutes reviewing each attempt. Explain one test, the time and extra-space cost of your approach, and the point that cost you the most time. Keep any incomplete code. Do not rewrite the session as a success or read a full solution yet."
+        }
+      ]
+    },
+    {
+      "id": "small-url-shortener-v1",
+      "track": "system-design",
+      "title": "Design a small URL shortener",
+      "minutes": 30,
+      "prompt": "Design a single-region service that creates a short URL from a valid HTTP or HTTPS URL and redirects visitors to the original URL. Assume 100000 active links, up to 10 creates per second, and up to 1000 redirects per second. Links do not expire. Authentication, custom aliases, analytics, and multiple regions are outside this exercise. Explain a working design before adding optional components.",
+      "steps": [
+        {
+          "title": "Clarify the contract",
+          "minutes": 5,
+          "prompt": "State the two operations, key inputs and outputs, and how invalid or unknown links behave. State any additional assumption you need."
+        },
+        {
+          "title": "Explain the baseline",
+          "minutes": 15,
+          "prompt": "Draw the main components and data. Trace one create and one redirect. Explain how short identifiers remain unambiguous and why the design is enough for the stated load."
+        },
+        {
+          "title": "Handle a failure",
+          "minutes": 7,
+          "prompt": "The primary data store is unavailable for 30 seconds. What happens to creates and redirects? Choose the behavior users observe, explain the tradeoff, and describe recovery. Do not assume an added component eliminates every failure."
+        },
+        {
+          "title": "Review",
+          "minutes": 3,
+          "prompt": "Name the most consequential gap in your design. Keep the sketch or a short voice explanation for feedback."
+        }
+      ]
+    },
+    {
+      "id": "cross-team-story-v1",
+      "track": "behavioral",
+      "title": "Tell one cross-team story",
+      "minutes": 15,
+      "prompt": "Tell me about a project you drove across teams. What decision was yours, how did you handle differing expectations, and what happened? Choose a real example you are allowed to discuss.",
+      "steps": [
+        {
+          "title": "Make a small outline",
+          "minutes": 4,
+          "prompt": "Write five short bullets: context, your responsibility, a decision and alternative, your actions, and outcome or learning. Keep unknown facts explicit."
+        },
+        {
+          "title": "Answer aloud",
+          "minutes": 3,
+          "prompt": "Give your initial answer without reading a script."
+        },
+        {
+          "title": "Answer follow-ups",
+          "minutes": 4,
+          "prompt": "What did you personally change? Why did you choose that approach? What evidence supports the outcome?"
+        },
+        {
+          "title": "Close the session",
+          "minutes": 4,
+          "prompt": "Choose one way to make the answer clearer. Record or report only three fields: minutes, completed or partial work plus help used, and the main blocker."
+        }
+      ]
+    }
+  ],
+  "reviewRubrics": {
+    "displayRule": "Show after an attempt or when explicitly requested. A rubric is for feedback, not a solution or a hiring decision. Never prefill scores or infer completion from opening an exercise or starting a timer.",
+    "scale": {
+      "0": "Not yet demonstrated",
+      "1": "Partly demonstrated or needed help",
+      "2": "Clearly demonstrated independently"
+    },
+    "missingEvidence": "Use unassessed, not zero, when no attempt or sufficient evidence is available.",
+    "coding": [
+      {
+        "dimension": "Understanding",
+        "criterion": "Accurately restates input, output, and boundary rules and can explain a fresh example."
+      },
+      {
+        "dimension": "Reasoning",
+        "criterion": "Presents a valid approach and explains why it gives the required result."
+      },
+      {
+        "dimension": "C# implementation",
+        "criterion": "Code follows the explanation. Distinguish verified execution from code that was not run; describe specific issues rather than guessing ability."
+      },
+      {
+        "dimension": "Testing",
+        "criterion": "Uses representative and boundary cases and diagnoses a failing case when present."
+      },
+      {
+        "dimension": "Efficiency",
+        "criterion": "Explains the actual time and extra-space costs and recognizes any mismatch with the constraints."
+      }
+    ],
+    "systemDesign": [
+      {
+        "dimension": "Contract",
+        "criterion": "Defines both required operations and visible behavior for invalid or unknown links."
+      },
+      {
+        "dimension": "Working baseline",
+        "criterion": "Can trace data through both operations and explain unambiguous identifier handling."
+      },
+      {
+        "dimension": "Justification",
+        "criterion": "Connects data and component choices to the stated workload without unnecessary complexity."
+      },
+      {
+        "dimension": "Failure reasoning",
+        "criterion": "Explains observable behavior during the outage, recovery, and a real tradeoff."
+      }
+    ],
+    "behavioral": [
+      {
+        "dimension": "Relevance",
+        "criterion": "Uses a concrete cross-team example and answers the question directly."
+      },
+      {
+        "dimension": "Individual contribution",
+        "criterion": "Separates personal decisions and actions from the team's work."
+      },
+      {
+        "dimension": "Judgment",
+        "criterion": "Explains an alternative and the reason for the chosen action."
+      },
+      {
+        "dimension": "Evidence and learning",
+        "criterion": "Uses truthful, appropriately shareable results, identifies unknowns, and gives a specific lesson."
+      }
+    ],
+    "nextStepRule": "Choose one main gap from the observed attempt. Do not treat a low score as a fixed ability judgment. A familiar problem can show implementation fluency but does not establish performance on an unseen problem."
+  }
+}

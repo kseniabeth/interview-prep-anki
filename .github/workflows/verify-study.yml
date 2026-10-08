@@ -1,0 +1,47 @@
+name: Verify study content and app
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Verify embedded sources and every card link
+        run: |
+          node scripts/update-design-deck.cjs
+          node scripts/build-study-content.cjs
+          git diff --exit-code -- index.html content/study-content.json
+          node --test tests/*.test.cjs
+      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5
+        with:
+          dotnet-version: '8.0.x'
+      - name: Compile and execute exact C# guide examples
+        run: dotnet run --project examples/csharp/ReferenceExamples.csproj --configuration Release
+      - name: Compile and check CS fundamentals examples
+        run: python examples/cs-fundamentals/run_examples.py
+      - name: Execute SQL examples
+        run: python -m unittest discover -s examples/sql -p 'test*.py'
+      - name: Check public reference URLs
+        run: python scripts/check-source-links.py --output qa/browser/source-links.json
+      - name: Install browser test dependencies
+        run: |
+          python -m pip install playwright==1.62.0
+          python -m playwright install --with-deps chromium
+      - name: Desktop and mobile browser smoke tests
+        env:
+          RECALL_QA_OUTPUT: qa/browser
+        run: python tests/browser_smoke.py
+      - name: Keep browser screenshots and report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: study-browser-checks
+          path: qa/browser
+          if-no-files-found: ignore
+          retention-days: 7

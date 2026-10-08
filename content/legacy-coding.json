@@ -1,0 +1,607 @@
+[
+  {
+    "tags": "complexity",
+    "front": "Constraint: n &le; 10-12",
+    "back": "O(n!) — full permutation generation, brute-force backtracking."
+  },
+  {
+    "tags": "complexity",
+    "front": "Constraint: n &le; 20-25",
+    "back": "O(2^n) — subsets, bitmask DP."
+  },
+  {
+    "tags": "complexity",
+    "front": "Constraint: n &le; 100",
+    "back": "O(n^3)-O(n^4) — 2-D / interval DP, Floyd-Warshall."
+  },
+  {
+    "tags": "complexity",
+    "front": "Constraint: n &le; 500",
+    "back": "O(n^3) — interval DP."
+  },
+  {
+    "tags": "complexity",
+    "front": "Constraint: n &le; 5,000",
+    "back": "O(n^2) — nested loops, 2-D DP."
+  },
+  {
+    "tags": "complexity",
+    "front": "Constraint: n &le; 10^5",
+    "back": "O(n log n) — sort, heap, binary search, balanced tree."
+  },
+  {
+    "tags": "complexity",
+    "front": "Constraint: n &le; 10^6 - 10^7",
+    "back": "O(n) — hash map, sliding window, two pointers, prefix sum."
+  },
+  {
+    "tags": "complexity",
+    "front": "Constraint: n &le; 10^9 or 10^18",
+    "back": "O(log n) or O(1) — binary search ON THE ANSWER, or pure math."
+  },
+  {
+    "tags": "complexity",
+    "front": "Answer space is huge but MONOTONIC (if X works, X+1 works)",
+    "back": "Binary search on the answer. Write a Feasible(x) predicate, then binary search the smallest feasible x."
+  },
+  {
+    "tags": "trigger",
+    "front": "Find two numbers summing to target, array UNSORTED",
+    "back": "Hash map value -> index, single pass. Check for the complement BEFORE inserting the current element."
+  },
+  {
+    "tags": "trigger",
+    "front": "Find a pair summing to target, array IS SORTED",
+    "back": "Two pointers from opposite ends. Sum too small -> lo++. Too big -> hi--."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Longest / shortest substring such that <condition>'",
+    "back": "Variable-size sliding window + frequency map. Expand right every iteration; while-shrink from left until valid."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Subarray of size exactly k'",
+    "back": "Fixed-size sliding window. Add nums[right], remove nums[right-k]."
+  },
+  {
+    "tags": "trigger",
+    "front": "'At most k distinct characters / elements'",
+    "back": "Variable sliding window + Dictionary count. Shrink while count.Count > k."
+  },
+  {
+    "tags": "trigger",
+    "front": "'How many subarrays sum to k'",
+    "back": "Prefix sum + hash map of prefix-sum counts. Answer += map[running - k]. Seed map[0] = 1."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Anagram' or 'permutation of a string'",
+    "back": "Character frequency map, or an int[26] array. Compare counts, don't sort (sorting is O(n log n))."
+  },
+  {
+    "tags": "trigger",
+    "front": "Detect a cycle in a linked list",
+    "back": "Fast/slow pointers (Floyd). fast moves 2, slow moves 1; they meet iff there's a cycle."
+  },
+  {
+    "tags": "trigger",
+    "front": "Find the middle of a linked list in ONE pass",
+    "back": "Fast/slow pointers. When fast hits the end, slow is at the middle."
+  },
+  {
+    "tags": "trigger",
+    "front": "Reverse a linked list or a sublist",
+    "back": "Three-pointer dance: prev / cur / next. Use a dummy node if the head can change."
+  },
+  {
+    "tags": "trigger",
+    "front": "Merge two sorted linked lists",
+    "back": "Dummy node + tail pointer + two pointers. Finish with tail.next = a ?? b."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Next greater element' / 'daily temperatures' / 'stock span'",
+    "back": "Monotonic DECREASING stack holding indices. Pop while the new value is greater."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Largest rectangle in histogram' / 'trapping rain water'",
+    "back": "Monotonic stack (histogram), or two pointers tracking running max from each side (rain water)."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Valid parentheses' / balanced brackets",
+    "back": "Stack. Push openers, pop and match on closers, require empty at the end."
+  },
+  {
+    "tags": "trigger",
+    "front": "'K largest' / 'k smallest' / 'k most frequent'",
+    "back": "Heap of size k (or quickselect for O(n) average). Watch the heap direction — see the 'which heap' card."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Median of a data stream'",
+    "back": "Two heaps: max-heap for the lower half, min-heap for the upper half. Rebalance so sizes differ by at most 1."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Merge k sorted lists / arrays'",
+    "back": "Min-heap holding the current head of each of the k lists. O(N log k)."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Rotated sorted array, find X'",
+    "back": "Modified binary search: one half is always sorted — determine which, then decide if the target lies inside it."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Minimum X such that <condition>' / 'minimize the maximum'",
+    "back": "Binary search on the answer space + a greedy Feasible(x) check."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Ship packages in D days' / 'Koko eating bananas' / 'split array'",
+    "back": "Binary search on the answer + a greedy feasibility simulation. Classic disguise for binary search."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Merge overlapping intervals'",
+    "back": "Sort by START, then sweep merging while cur.start <= last.end."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Minimum number of meeting rooms'",
+    "back": "Min-heap of end times; OR sweep line with +1 on start / -1 on end and track the running max."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Maximum number of non-overlapping intervals'",
+    "back": "Sort by END, greedily take each interval that starts after the last taken one ends."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Number of islands' / connected regions in a grid",
+    "back": "BFS or DFS flood fill. Mark visited IN PLACE to avoid a separate visited set."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Shortest path' in an UNWEIGHTED graph or grid",
+    "back": "BFS. Never DFS — DFS does not yield shortest paths."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Rotting oranges' / something spreading over time",
+    "back": "Multi-source BFS: enqueue ALL sources at level 0, then count levels."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Course schedule' / 'prerequisites' / 'build order'",
+    "back": "Topological sort via Kahn's algorithm (in-degree + queue). Leftover nodes means a cycle."
+  },
+  {
+    "tags": "trigger",
+    "front": "Detect a cycle in a DIRECTED graph",
+    "back": "DFS with 3 colours (unvisited / in-stack / done), or Kahn's — if the topo order is shorter than n, there's a cycle."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Connected components' / 'redundant connection' / 'accounts merge'",
+    "back": "Union-Find (disjoint set) with path compression."
+  },
+  {
+    "tags": "trigger",
+    "front": "Shortest path with WEIGHTED edges",
+    "back": "Dijkstra: min-heap keyed by distance. (Negative weights -> Bellman-Ford.)"
+  },
+  {
+    "tags": "trigger",
+    "front": "'All possible combinations / permutations / subsets'",
+    "back": "Backtracking: choose -> recurse -> UN-choose. Add a COPY of the path to results."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Word search' in a grid",
+    "back": "Backtracking DFS from every cell, marking the cell in place and restoring it on the way out."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Generate all valid parentheses'",
+    "back": "Backtracking tracking open and close counts. Add '(' if open < n; add ')' if close < open."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Prefix' / autocomplete / startsWith / word dictionary",
+    "back": "Trie. Node with Node[26] children + a bool end-of-word flag."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Number of ways to reach step n'",
+    "back": "1-D DP with a Fibonacci-shaped recurrence: dp[i] = dp[i-1] + dp[i-2]."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Minimum cost / maximum profit to reach the end'",
+    "back": "1-D DP. Define dp[i] = best value considering the first i items, then find the recurrence."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Cannot pick two adjacent elements'",
+    "back": "House-robber 1-D DP: dp[i] = max(dp[i-1], dp[i-2] + nums[i])."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Coin change' / unlimited reuse of items",
+    "back": "Unbounded knapsack DP. Inner loop runs FORWARD so an item can be reused."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Longest increasing subsequence'",
+    "back": "O(n^2) DP, or O(n log n) patience sorting with binary search over tail values."
+  },
+  {
+    "tags": "trigger",
+    "front": "Two strings compared (edit distance, LCS, interleaving)",
+    "back": "2-D DP table of size (m+1) x (n+1). Row 0 / column 0 are the base cases."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Unique paths' / 'minimum path sum' in a grid",
+    "back": "2-D DP over the grid; often compressible to a 1-D rolling row."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Implement an LRU cache'",
+    "back": "Dictionary (key -> node) + doubly linked list for recency. Both operations O(1)."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Min stack' / getMin in O(1)",
+    "back": "Auxiliary stack storing the running minimum, pushed in lockstep with the main stack."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Validate a BST'",
+    "back": "DFS carrying (min, max) bounds downward. Comparing only parent to child is WRONG."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Kth smallest element in a BST'",
+    "back": "In-order traversal yields sorted order; count nodes as you go and stop at k."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Lowest common ancestor'",
+    "back": "General tree: DFS returning the node when left and right both return non-null. BST: walk down while both values are on the same side."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Level by level' / 'right side view' / 'zigzag'",
+    "back": "BFS with a level-size loop: capture q.Count before the inner for-loop."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Serialize / deserialize a binary tree'",
+    "back": "Pre-order DFS with explicit null markers; deserialize by consuming the same stream in the same order."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Spiral matrix' / 'rotate image 90 degrees'",
+    "back": "Spiral: four boundary pointers shrinking inward. Rotate: transpose, then reverse each row."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Set matrix zeroes' in O(1) space",
+    "back": "Use the first row and first column as marker storage; handle those two separately with flags."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Find the duplicate without modifying the array, O(1) space'",
+    "back": "Floyd cycle detection treating values as next-indices."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Majority element appearing more than n/2 times'",
+    "back": "Boyer-Moore voting: keep a candidate and a count."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Product of array except self' (no division)",
+    "back": "Prefix products pass, then suffix products pass, multiplied together."
+  },
+  {
+    "tags": "trigger",
+    "front": "Problem demands 'O(1) extra space' on an array",
+    "back": "In-place marking (negate values / swap to index), index-as-hash, or two pointers."
+  },
+  {
+    "tags": "trigger",
+    "front": "'Palindrome' check, or reverse in place",
+    "back": "Two pointers from both ends moving inward."
+  },
+  {
+    "tags": "template csharp",
+    "front": "C# TEMPLATE: BFS on a grid, counting levels",
+    "back": "int[][] dirs = {new[]{1,0},new[]{-1,0},new[]{0,1},new[]{0,-1}};\nvar q = new Queue<(int r,int c)>();\nq.Enqueue((sr,sc)); seen[sr][sc] = true;\nint steps = 0;\nwhile (q.Count > 0) {\n    int sz = q.Count;\n    for (int i = 0; i < sz; i++) {\n        var (r,c) = q.Dequeue();\n        foreach (var d in dirs) {\n            int nr = r+d[0], nc = c+d[1];\n            if (nr<0||nr>=m||nc<0||nc>=n||seen[nr][nc]) continue;\n            seen[nr][nc] = true;\n            q.Enqueue((nr,nc));\n        }\n    }\n    steps++;\n}"
+  },
+  {
+    "tags": "template csharp",
+    "front": "C# TEMPLATE: recursive DFS flood fill on a grid",
+    "back": "void Dfs(int r, int c) {\n    if (r<0||r>=m||c<0||c>=n||grid[r][c] != '1') return;\n    grid[r][c] = '0';            // mark BEFORE recursing\n    Dfs(r+1,c); Dfs(r-1,c);\n    Dfs(r,c+1); Dfs(r,c-1);\n}"
+  },
+  {
+    "tags": "template csharp",
+    "front": "C# TEMPLATE: binary search, exact match",
+    "back": "int lo = 0, hi = a.Length - 1;\nwhile (lo <= hi) {\n    int mid = lo + (hi - lo) / 2;\n    if (a[mid] == target) return mid;\n    if (a[mid] < target) lo = mid + 1;\n    else hi = mid - 1;\n}\nreturn -1;"
+  },
+  {
+    "tags": "template csharp",
+    "front": "C# TEMPLATE: binary search, LEFTMOST index where Pred is true (lower_bound)",
+    "back": "int lo = 0, hi = n;            // hi is EXCLUSIVE\nwhile (lo < hi) {\n    int mid = lo + (hi - lo) / 2;\n    if (Pred(mid)) hi = mid;\n    else lo = mid + 1;\n}\nreturn lo;                     // == n if none satisfy Pred"
+  },
+  {
+    "tags": "template csharp",
+    "front": "C# TEMPLATE: binary search ON THE ANSWER",
+    "back": "int lo = minPossible, hi = maxPossible;\nwhile (lo < hi) {\n    int mid = lo + (hi - lo) / 2;\n    if (Feasible(mid)) hi = mid;   // mid works, try smaller\n    else lo = mid + 1;             // mid fails, need bigger\n}\nreturn lo;"
+  },
+  {
+    "tags": "template csharp",
+    "front": "C# TEMPLATE: recursive DFS on a binary tree",
+    "back": "int Dfs(TreeNode node) {\n    if (node == null) return 0;        // base case FIRST\n    int l = Dfs(node.left);\n    int r = Dfs(node.right);\n    // combine l, r and node.val here\n    return 1 + Math.Max(l, r);\n}"
+  },
+  {
+    "tags": "template csharp",
+    "front": "C# TEMPLATE: BFS level-order on a binary tree",
+    "back": "var res = new List<IList<int>>();\nif (root == null) return res;\nvar q = new Queue<TreeNode>();\nq.Enqueue(root);\nwhile (q.Count > 0) {\n    int sz = q.Count;              // capture BEFORE the loop\n    var level = new List<int>();\n    for (int i = 0; i < sz; i++) {\n        var node = q.Dequeue();\n        level.Add(node.val);\n        if (node.left != null)  q.Enqueue(node.left);\n        if (node.right != null) q.Enqueue(node.right);\n    }\n    res.Add(level);\n}\nreturn res;"
+  },
+  {
+    "tags": "template csharp",
+    "front": "C# TEMPLATE: reverse a linked list",
+    "back": "ListNode prev = null, cur = head;\nwhile (cur != null) {\n    var next = cur.next;\n    cur.next = prev;\n    prev = cur;\n    cur = next;\n}\nreturn prev;"
+  },
+  {
+    "tags": "template csharp",
+    "front": "C# TEMPLATE: merge two sorted linked lists (dummy node)",
+    "back": "var dummy = new ListNode(0);\nvar tail = dummy;\nwhile (a != null && b != null) {\n    if (a.val <= b.val) { tail.next = a; a = a.next; }\n    else                { tail.next = b; b = b.next; }\n    tail = tail.next;\n}\ntail.next = a ?? b;\nreturn dummy.next;"
+  },
+  {
+    "tags": "template csharp",
+    "front": "C# TEMPLATE: fast / slow pointers",
+    "back": "var slow = head; var fast = head;\nwhile (fast != null && fast.next != null) {\n    slow = slow.next;\n    fast = fast.next.next;\n    if (slow == fast) return true;   // cycle found\n}\nreturn false;    // if no cycle, slow is now the MIDDLE"
+  },
+  {
+    "tags": "template csharp",
+    "front": "C# TEMPLATE: variable-size sliding window",
+    "back": "var count = new Dictionary<char,int>();\nint left = 0, best = 0;\nfor (int right = 0; right < s.Length; right++) {\n    count[s[right]] = count.GetValueOrDefault(s[right]) + 1;\n    while (/* window is INVALID */) {\n        count[s[left]]--;\n        if (count[s[left]] == 0) count.Remove(s[left]);\n        left++;\n    }\n    best = Math.Max(best, right - left + 1);\n}\nreturn best;"
+  },
+  {
+    "tags": "template csharp",
+    "front": "C# TEMPLATE: monotonic stack (next greater element)",
+    "back": "var res = new int[n];\nArray.Fill(res, -1);\nvar st = new Stack<int>();           // holds INDICES\nfor (int i = 0; i < n; i++) {\n    while (st.Count > 0 && nums[st.Peek()] < nums[i])\n        res[st.Pop()] = nums[i];\n    st.Push(i);\n}\nreturn res;"
+  },
+  {
+    "tags": "template csharp",
+    "front": "C# TEMPLATE: kth largest via a size-k min-heap",
+    "back": "var pq = new PriorityQueue<int,int>();   // min-heap by default\nforeach (var x in nums) {\n    pq.Enqueue(x, x);\n    if (pq.Count > k) pq.Dequeue();      // evict the smallest\n}\nreturn pq.Peek();                        // the kth largest"
+  },
+  {
+    "tags": "template csharp",
+    "front": "C# TEMPLATE: backtracking (all subsets)",
+    "back": "void Backtrack(int start, List<int> path) {\n    res.Add(new List<int>(path));        // COPY, not the reference\n    for (int i = start; i < nums.Length; i++) {\n        path.Add(nums[i]);               // choose\n        Backtrack(i + 1, path);          // recurse\n        path.RemoveAt(path.Count - 1);   // UN-choose\n    }\n}"
+  },
+  {
+    "tags": "template csharp",
+    "front": "C# TEMPLATE: Trie node + insert",
+    "back": "class Node {\n    public Node[] Kids = new Node[26];\n    public bool End;\n}\n\nvoid Insert(string w) {\n    var cur = root;\n    foreach (var c in w) {\n        int i = c - 'a';\n        cur.Kids[i] ??= new Node();\n        cur = cur.Kids[i];\n    }\n    cur.End = true;\n}"
+  },
+  {
+    "tags": "template csharp",
+    "front": "C# TEMPLATE: Union-Find with path compression",
+    "back": "int[] p;\nvoid Init(int n) {\n    p = new int[n];\n    for (int i = 0; i < n; i++) p[i] = i;\n}\nint Find(int x) => p[x] == x ? x : (p[x] = Find(p[x]));\nbool Union(int a, int b) {\n    int ra = Find(a), rb = Find(b);\n    if (ra == rb) return false;      // already joined -> cycle\n    p[ra] = rb;\n    return true;\n}"
+  },
+  {
+    "tags": "template csharp",
+    "front": "C# TEMPLATE: topological sort (Kahn's algorithm)",
+    "back": "var adj = new List<int>[n];\nfor (int i = 0; i < n; i++) adj[i] = new List<int>();\nvar indeg = new int[n];\nforeach (var e in edges) { adj[e[0]].Add(e[1]); indeg[e[1]]++; }\n\nvar q = new Queue<int>();\nfor (int i = 0; i < n; i++) if (indeg[i] == 0) q.Enqueue(i);\n\nvar order = new List<int>();\nwhile (q.Count > 0) {\n    int u = q.Dequeue();\n    order.Add(u);\n    foreach (var v in adj[u])\n        if (--indeg[v] == 0) q.Enqueue(v);\n}\nreturn order.Count == n;    // false => there is a cycle"
+  },
+  {
+    "tags": "template csharp",
+    "front": "C# TEMPLATE: 1-D DP",
+    "back": "var dp = new int[n + 1];\ndp[0] = base0;\ndp[1] = base1;\nfor (int i = 2; i <= n; i++)\n    dp[i] = Combine(dp[i-1], dp[i-2]);\nreturn dp[n];\n\n// Space optimisation: keep only the last two values."
+  },
+  {
+    "tags": "template csharp",
+    "front": "C# TEMPLATE: 2-D DP (edit distance shape)",
+    "back": "var dp = new int[m+1, n+1];\nfor (int i = 0; i <= m; i++) dp[i,0] = i;   // base row/col\nfor (int j = 0; j <= n; j++) dp[0,j] = j;\nfor (int i = 1; i <= m; i++)\n    for (int j = 1; j <= n; j++)\n        dp[i,j] = a[i-1] == b[j-1]\n            ? dp[i-1, j-1]\n            : 1 + Math.Min(dp[i-1,j-1], Math.Min(dp[i-1,j], dp[i,j-1]));\nreturn dp[m,n];"
+  },
+  {
+    "tags": "template csharp",
+    "front": "C# TEMPLATE: Dijkstra (weighted shortest path)",
+    "back": "var dist = new int[n];\nArray.Fill(dist, int.MaxValue);\ndist[src] = 0;\nvar pq = new PriorityQueue<int,int>();\npq.Enqueue(src, 0);\nwhile (pq.TryDequeue(out int u, out int d)) {\n    if (d > dist[u]) continue;           // stale entry\n    foreach (var (v, w) in adj[u])\n        if (d + w < dist[v]) {\n            dist[v] = d + w;\n            pq.Enqueue(v, dist[v]);\n        }\n}"
+  },
+  {
+    "tags": "api csharp",
+    "front": "C#: min-heap",
+    "back": "var pq = new PriorityQueue<TItem, TPriority>();\npq.Enqueue(item, priority);\nvar top = pq.Dequeue();\npq.TryDequeue(out var it, out var pr);\n// PriorityQueue is a MIN-heap by default."
+  },
+  {
+    "tags": "api csharp",
+    "front": "C#: max-heap",
+    "back": "Negate the priority: pq.Enqueue(x, -x);\nOr supply a comparer:\nnew PriorityQueue<T,int>(Comparer<int>.Create((a,b) => b.CompareTo(a)));"
+  },
+  {
+    "tags": "api csharp",
+    "front": "C#: dictionary lookup without hashing twice",
+    "back": "if (d.TryGetValue(k, out var v)) { ... }\nvar v2 = d.GetValueOrDefault(k, 0);\n// Never do: if (d.ContainsKey(k)) x = d[k];"
+  },
+  {
+    "tags": "api csharp",
+    "front": "C#: increment a frequency map",
+    "back": "d[k] = d.GetValueOrDefault(k) + 1;"
+  },
+  {
+    "tags": "api csharp",
+    "front": "C#: queue operations",
+    "back": "var q = new Queue<T>();\nq.Enqueue(x); q.Dequeue(); q.Peek(); q.Count;\nq.TryDequeue(out var x2);"
+  },
+  {
+    "tags": "api csharp",
+    "front": "C#: stack operations",
+    "back": "var st = new Stack<T>();\nst.Push(x); st.Pop(); st.Peek(); st.Count;"
+  },
+  {
+    "tags": "api csharp",
+    "front": "C#: double-ended queue (deque)",
+    "back": "There is NO built-in Deque in C#.\nUse LinkedList<T>: AddFirst / AddLast / RemoveFirst / RemoveLast,\nand .First.Value / .Last.Value to read."
+  },
+  {
+    "tags": "api csharp",
+    "front": "C#: sort intervals by start value",
+    "back": "Array.Sort(intervals, (a, b) => a[0].CompareTo(b[0]));\n// For a List: list.Sort((a, b) => a[0].CompareTo(b[0]));"
+  },
+  {
+    "tags": "api csharp",
+    "front": "C#: sort descending",
+    "back": "Array.Sort(a); Array.Reverse(a);\n// or: a.OrderByDescending(x => x).ToArray();"
+  },
+  {
+    "tags": "api csharp",
+    "front": "C#: build a string in a loop",
+    "back": "var sb = new StringBuilder();\nsb.Append(c);\nreturn sb.ToString();\n// NEVER use += in a loop: that is O(n^2)."
+  },
+  {
+    "tags": "api csharp",
+    "front": "C#: map a lowercase char to index 0-25",
+    "back": "int i = c - 'a';\n// And back again: char c = (char)('a' + i);"
+  },
+  {
+    "tags": "api csharp",
+    "front": "C#: sentinel / extreme values",
+    "back": "int.MaxValue, int.MinValue, long.MaxValue\ndouble.PositiveInfinity\n// Use long for accumulating sums that might overflow."
+  },
+  {
+    "tags": "api csharp",
+    "front": "C#: built-in binary search",
+    "back": "int i = Array.BinarySearch(a, target);\n// If not found, returns ~insertionPoint (a negative number).\n// Recover the insertion point with ~i."
+  },
+  {
+    "tags": "api csharp",
+    "front": "C#: 2-D arrays as given by LeetCode",
+    "back": "LeetCode gives JAGGED arrays: int[][] grid\nint m = grid.Length, n = grid[0].Length;\n// Rectangular int[m,n] exists but is NOT what you are handed."
+  },
+  {
+    "tags": "api csharp",
+    "front": "C#: allocate and pre-fill an array",
+    "back": "var a = new int[n];\nArray.Fill(a, -1);\nvar grid = new bool[m][];\nfor (int i = 0; i < m; i++) grid[i] = new bool[n];"
+  },
+  {
+    "tags": "api csharp",
+    "front": "C#: tuples inside collections",
+    "back": "var q = new Queue<(int r, int c)>();\nq.Enqueue((0, 0));\nvar (r, c) = q.Dequeue();\n// Value tuples compare lexicographically, so they sort naturally."
+  },
+  {
+    "tags": "api csharp",
+    "front": "C#: HashSet",
+    "back": "var seen = new HashSet<int>();\nseen.Add(x);        // returns FALSE if already present — useful\nseen.Contains(x);\nseen.Remove(x);"
+  },
+  {
+    "tags": "api csharp",
+    "front": "C#: ordered set / ordered map",
+    "back": "SortedSet<T>        — ordered unique values, O(log n)\nSortedDictionary<K,V> — ordered keys, O(log n)\n// SortedSet has .Min and .Max in O(log n)."
+  },
+  {
+    "tags": "api csharp",
+    "front": "C#: join a collection into a string",
+    "back": "string.Join(\",\", list);\nnew string(charArray);\ns.ToCharArray();"
+  },
+  {
+    "tags": "api csharp",
+    "front": "C#: null-coalescing assignment",
+    "back": "cur.Kids[i] ??= new Node();\n// Equivalent to: if (cur.Kids[i] == null) cur.Kids[i] = new Node();"
+  },
+  {
+    "tags": "api csharp",
+    "front": "C#: overflow-safe midpoint",
+    "back": "int mid = lo + (hi - lo) / 2;\n// NOT (lo + hi) / 2 — that can overflow int."
+  },
+  {
+    "tags": "api csharp",
+    "front": "C#: memoize a recursion",
+    "back": "var memo = new Dictionary<(int,int), int>();\nif (memo.TryGetValue((i,j), out var cached)) return cached;\n...\nreturn memo[(i,j)] = result;"
+  },
+  {
+    "tags": "gotcha",
+    "front": "Backtracking: adding the current path to the results",
+    "back": "Add a COPY: res.Add(new List<int>(path));\nAdding the reference means every result aliases the same list, which ends up empty."
+  },
+  {
+    "tags": "gotcha",
+    "front": "Validating a BST",
+    "back": "Carry (min, max) bounds DOWN the recursion.\nComparing only parent to child is wrong — a deep descendant can still violate the BST property."
+  },
+  {
+    "tags": "gotcha",
+    "front": "BFS or DFS for shortest path?",
+    "back": "BFS. DFS does NOT produce shortest paths in an unweighted graph.\nWeighted edges -> Dijkstra instead."
+  },
+  {
+    "tags": "gotcha",
+    "front": "When do I need a dummy node on a linked list?",
+    "back": "Whenever the HEAD might change: deleting the head, inserting before it, or merging lists.\nIt removes the special case entirely."
+  },
+  {
+    "tags": "gotcha",
+    "front": "Binary search infinite loop",
+    "back": "while (lo < hi) with hi = mid / lo = mid + 1 is SAFE.\nwhile (lo <= hi) combined with hi = mid loops forever. Pick one template and never improvise."
+  },
+  {
+    "tags": "gotcha",
+    "front": "Grid DFS/BFS: when to mark a cell visited",
+    "back": "Mark it BEFORE recursing or when enqueueing — never after.\nMarking late lets the same cell enter the queue many times."
+  },
+  {
+    "tags": "gotcha",
+    "front": "Sliding window: what shrinks and what advances",
+    "back": "right advances exactly once per outer iteration.\nThe inner WHILE shrinks from the left until the window is valid again. Never shrink with an if."
+  },
+  {
+    "tags": "gotcha",
+    "front": "Two-sum hash map: check or insert first?",
+    "back": "CHECK for the complement BEFORE inserting the current element.\nOtherwise an element matches itself when target == 2 * nums[i]."
+  },
+  {
+    "tags": "gotcha",
+    "front": "Integer overflow",
+    "back": "10^5 elements of magnitude 10^9 overflow int when summed. Use long.\nAlso watch mid-point arithmetic and products."
+  },
+  {
+    "tags": "gotcha",
+    "front": "Recursion depth",
+    "back": "A skewed tree or 10^5-node linked list will stack overflow.\nIf constraints say n is around 10^5 and recursion is linear-depth, convert to iterative."
+  },
+  {
+    "tags": "gotcha",
+    "front": "Which heap for top-k? (counter-intuitive)",
+    "back": "k LARGEST -> MIN-heap of size k (evict the smallest).\nk SMALLEST -> MAX-heap of size k (evict the largest).\nMemorise this; it is backwards from intuition."
+  },
+  {
+    "tags": "gotcha",
+    "front": "DP: direction of the inner loop",
+    "back": "0/1 knapsack (each item once) -> iterate capacity BACKWARD.\nUnbounded knapsack (reuse items) -> iterate capacity FORWARD.\nGenerally: dp[i] may only read already-finalised cells."
+  },
+  {
+    "tags": "gotcha",
+    "front": "Modifying a collection while iterating it",
+    "back": "Throws InvalidOperationException in C#.\nCollect the keys first (d.Keys.ToList()) and iterate that copy."
+  },
+  {
+    "tags": "gotcha",
+    "front": "Interview behaviour: going silent",
+    "back": "Never stay silent for more than ~20 seconds.\nInterviewers are instructed to hint, but can only hint on an idea you have stated out loud.\nA wrong idea spoken beats silence every time."
+  },
+  {
+    "tags": "gotcha",
+    "front": "Interview behaviour: before writing any code",
+    "back": "State the pattern, the insight and the target complexity, then ask:\n'Does this approach sound reasonable before I code it?'\nThis buy-in step is a senior-level signal and prevents 20 wasted lines."
+  }
+]

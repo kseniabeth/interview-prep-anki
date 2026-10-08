@@ -1,0 +1,1428 @@
+{
+  "scope": "Bounded senior-backend general coding interview preparation, not every algorithm or competitive-programming topic. Complete the unaided diagnostic before using guides as remediation.",
+  "originalCards": 121,
+  "newCards": 7,
+  "guides": 42,
+  "mappedCards": 128,
+  "studyWeightPercent": [
+    {
+      "area": "Arrays, hashing, strings",
+      "weight": 15,
+      "guides": [
+        "coding-hashing",
+        "coding-two-pointers",
+        "coding-prefix-sums",
+        "coding-array-invariants"
+      ]
+    },
+    {
+      "area": "Two pointers and sliding windows",
+      "weight": 12,
+      "guides": [
+        "coding-two-pointers",
+        "coding-windows"
+      ]
+    },
+    {
+      "area": "Binary search and sorting",
+      "weight": 10,
+      "guides": [
+        "coding-binary-search",
+        "coding-answer-search",
+        "coding-csharp-sort-search"
+      ]
+    },
+    {
+      "area": "Stacks, queues, linked lists",
+      "weight": 10,
+      "guides": [
+        "coding-stacks",
+        "coding-linked-lists",
+        "coding-csharp-heaps-queues"
+      ]
+    },
+    {
+      "area": "Trees and BSTs",
+      "weight": 12,
+      "guides": [
+        "coding-trees",
+        "coding-bst",
+        "coding-tree-serialization"
+      ]
+    },
+    {
+      "area": "Graph modeling, BFS/DFS, dependency order",
+      "weight": 14,
+      "guides": [
+        "coding-graph-modeling",
+        "coding-grid-bfs",
+        "coding-flood-fill",
+        "coding-topological-sort"
+      ]
+    },
+    {
+      "area": "Heaps, intervals, greedy",
+      "weight": 12,
+      "guides": [
+        "coding-heaps",
+        "coding-intervals",
+        "coding-greedy-basics"
+      ]
+    },
+    {
+      "area": "Backtracking and basic DP",
+      "weight": 10,
+      "guides": [
+        "coding-backtracking",
+        "coding-backtracking-constraints",
+        "coding-dp-one-dimensional",
+        "coding-dp-coins",
+        "coding-dp-sequences",
+        "coding-dp-grids"
+      ]
+    },
+    {
+      "area": "Selective breadth: DSU, weighted paths, tries, bits",
+      "weight": 5,
+      "guides": [
+        "coding-union-find",
+        "coding-dijkstra",
+        "coding-trie",
+        "coding-bit-basics"
+      ]
+    }
+  ],
+  "crossCutting": [
+    "C# API fluency, exact input/output contracts, overflow, complexity, mutation, invariants, tests, explanation"
+  ],
+  "gapClosure": [
+    {
+      "cardId": "coding-range-sum-contract",
+      "topic": "Prefix sums: what does prefix[right] - prefix[left] return?",
+      "reason": "Adds an explicit high-yield concept previously implicit or absent."
+    },
+    {
+      "cardId": "coding-binary-search-boundaries",
+      "topic": "Binary search: lower bound versus upper bound?",
+      "reason": "Adds an explicit high-yield concept previously implicit or absent."
+    },
+    {
+      "cardId": "coding-greedy-proof",
+      "topic": "How do you justify a greedy choice instead of guessing?",
+      "reason": "Adds an explicit high-yield concept previously implicit or absent."
+    },
+    {
+      "cardId": "coding-maximum-subarray",
+      "topic": "Maximum sum of a NONEMPTY contiguous subarray?",
+      "reason": "Adds an explicit high-yield concept previously implicit or absent."
+    },
+    {
+      "cardId": "coding-jump-game",
+      "topic": "Reach the last index when each value is a maximum forward jump?",
+      "reason": "Adds an explicit high-yield concept previously implicit or absent."
+    },
+    {
+      "cardId": "coding-bit-xor",
+      "topic": "One value appears once; every other value appears exactly twice. O(1) extra space?",
+      "reason": "Adds an explicit high-yield concept previously implicit or absent."
+    },
+    {
+      "cardId": "coding-graph-modeling",
+      "topic": "Before traversing a graph, what must you model explicitly?",
+      "reason": "Adds an explicit high-yield concept previously implicit or absent."
+    }
+  ],
+  "deferred": [
+    "Advanced bitmask/interval DP optimization",
+    "Segment/Fenwick trees and heavy range-query machinery",
+    "Advanced string matching and suffix structures",
+    "Network flow and advanced graph theory",
+    "Competitive-programming number theory",
+    "Lock-free/concurrent algorithm implementation (separate backend foundations)",
+    "Full Bellman-Ford/0-1 BFS implementations: recognize applicability first"
+  ],
+  "practicePolicy": "Core first. Use reinforcement after a concrete gap, and optional/stretch after core is reliable. Reading or card recall does not establish ability to implement unaided. Time weights are a study recommendation, not employer frequency statistics.",
+  "formatPolicy": "Verify current role-specific format and AI/tool rules separately. Historical interview reports do not establish future requirements.",
+  "coverageMatrix": [
+    {
+      "cardId": "card-0",
+      "question": "Constraint: n &le; 10-12",
+      "guideId": "coding-complexity",
+      "anchor": "factorial",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-1",
+      "question": "Constraint: n &le; 20-25",
+      "guideId": "coding-complexity",
+      "anchor": "exponential",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-2",
+      "question": "Constraint: n &le; 100",
+      "guideId": "coding-complexity",
+      "anchor": "hundred",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-3",
+      "question": "Constraint: n &le; 500",
+      "guideId": "coding-complexity",
+      "anchor": "five-hundred",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-4",
+      "question": "Constraint: n &le; 5,000",
+      "guideId": "coding-complexity",
+      "anchor": "quadratic",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-5",
+      "question": "Constraint: n &le; 10^5",
+      "guideId": "coding-complexity",
+      "anchor": "nlogn",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-6",
+      "question": "Constraint: n &le; 10^6 - 10^7",
+      "guideId": "coding-complexity",
+      "anchor": "linear",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-7",
+      "question": "Constraint: n &le; 10^9 or 10^18",
+      "guideId": "coding-complexity",
+      "anchor": "huge-range",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-8",
+      "question": "Answer space is huge but MONOTONIC (if X works, X+1 works)",
+      "guideId": "coding-answer-search",
+      "anchor": "monotone",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-9",
+      "question": "Find two numbers summing to target, array UNSORTED",
+      "guideId": "coding-hashing",
+      "anchor": "two-sum",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-10",
+      "question": "Find a pair summing to target, array IS SORTED",
+      "guideId": "coding-two-pointers",
+      "anchor": "sorted-pair",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-11",
+      "question": "'Longest / shortest substring such that <condition>'",
+      "guideId": "coding-windows",
+      "anchor": "longest",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-12",
+      "question": "'Subarray of size exactly k'",
+      "guideId": "coding-windows",
+      "anchor": "fixed",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-13",
+      "question": "'At most k distinct characters / elements'",
+      "guideId": "coding-windows",
+      "anchor": "longest",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-14",
+      "question": "'How many subarrays sum to k'",
+      "guideId": "coding-prefix-sums",
+      "anchor": "count",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-15",
+      "question": "'Anagram' or 'permutation of a string'",
+      "guideId": "coding-hashing",
+      "anchor": "anagrams",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-16",
+      "question": "Detect a cycle in a linked list",
+      "guideId": "coding-linked-lists",
+      "anchor": "fast-slow",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-17",
+      "question": "Find the middle of a linked list in ONE pass",
+      "guideId": "coding-linked-lists",
+      "anchor": "fast-slow",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-18",
+      "question": "Reverse a linked list or a sublist",
+      "guideId": "coding-linked-lists",
+      "anchor": "reverse",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-19",
+      "question": "Merge two sorted linked lists",
+      "guideId": "coding-linked-lists",
+      "anchor": "merge",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-20",
+      "question": "'Next greater element' / 'daily temperatures' / 'stock span'",
+      "guideId": "coding-stacks",
+      "anchor": "next-greater",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-21",
+      "question": "'Largest rectangle in histogram' / 'trapping rain water'",
+      "guideId": "coding-histogram-water",
+      "anchor": "rectangle",
+      "priority": "stretch",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-22",
+      "question": "'Valid parentheses' / balanced brackets",
+      "guideId": "coding-stacks",
+      "anchor": "brackets",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-23",
+      "question": "'K largest' / 'k smallest' / 'k most frequent'",
+      "guideId": "coding-heaps",
+      "anchor": "top-k",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-24",
+      "question": "'Median of a data stream'",
+      "guideId": "coding-running-median",
+      "anchor": "invariants",
+      "priority": "reinforcement",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-25",
+      "question": "'Merge k sorted lists / arrays'",
+      "guideId": "coding-heaps",
+      "anchor": "merge-streams",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-26",
+      "question": "'Rotated sorted array, find X'",
+      "guideId": "coding-binary-search",
+      "anchor": "rotated",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-27",
+      "question": "'Minimum X such that <condition>' / 'minimize the maximum'",
+      "guideId": "coding-answer-search",
+      "anchor": "monotone",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-28",
+      "question": "'Ship packages in D days' / 'Koko eating bananas' / 'split array'",
+      "guideId": "coding-answer-search",
+      "anchor": "shipping",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-29",
+      "question": "'Merge overlapping intervals'",
+      "guideId": "coding-intervals",
+      "anchor": "merge",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-30",
+      "question": "'Minimum number of meeting rooms'",
+      "guideId": "coding-intervals",
+      "anchor": "rooms",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-31",
+      "question": "'Maximum number of non-overlapping intervals'",
+      "guideId": "coding-intervals",
+      "anchor": "selection",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-32",
+      "question": "'Number of islands' / connected regions in a grid",
+      "guideId": "coding-flood-fill",
+      "anchor": "islands",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-33",
+      "question": "'Shortest path' in an UNWEIGHTED graph or grid",
+      "guideId": "coding-grid-bfs",
+      "anchor": "shortest",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-34",
+      "question": "'Rotting oranges' / something spreading over time",
+      "guideId": "coding-grid-bfs",
+      "anchor": "multi-source",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-35",
+      "question": "'Course schedule' / 'prerequisites' / 'build order'",
+      "guideId": "coding-topological-sort",
+      "anchor": "kahn",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-36",
+      "question": "Detect a cycle in a DIRECTED graph",
+      "guideId": "coding-topological-sort",
+      "anchor": "cycles",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-37",
+      "question": "'Connected components' / 'redundant connection' / 'accounts merge'",
+      "guideId": "coding-union-find",
+      "anchor": "components",
+      "priority": "reinforcement",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-38",
+      "question": "Shortest path with WEIGHTED edges",
+      "guideId": "coding-dijkstra",
+      "anchor": "relaxation",
+      "priority": "reinforcement",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-39",
+      "question": "'All possible combinations / permutations / subsets'",
+      "guideId": "coding-backtracking",
+      "anchor": "choices",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-40",
+      "question": "'Word search' in a grid",
+      "guideId": "coding-backtracking-constraints",
+      "anchor": "word-search",
+      "priority": "reinforcement",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-41",
+      "question": "'Generate all valid parentheses'",
+      "guideId": "coding-backtracking-constraints",
+      "anchor": "parentheses",
+      "priority": "reinforcement",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-42",
+      "question": "'Prefix' / autocomplete / startsWith / word dictionary",
+      "guideId": "coding-trie",
+      "anchor": "model",
+      "priority": "reinforcement",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-43",
+      "question": "'Number of ways to reach step n'",
+      "guideId": "coding-dp-one-dimensional",
+      "anchor": "stairs",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-44",
+      "question": "'Minimum cost / maximum profit to reach the end'",
+      "guideId": "coding-dp-one-dimensional",
+      "anchor": "cost",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-45",
+      "question": "'Cannot pick two adjacent elements'",
+      "guideId": "coding-dp-one-dimensional",
+      "anchor": "robber",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-46",
+      "question": "'Coin change' / unlimited reuse of items",
+      "guideId": "coding-dp-coins",
+      "anchor": "minimum",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-47",
+      "question": "'Longest increasing subsequence'",
+      "guideId": "coding-dp-sequences",
+      "anchor": "lis",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-48",
+      "question": "Two strings compared (edit distance, LCS, interleaving)",
+      "guideId": "coding-dp-sequences",
+      "anchor": "two-strings",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-49",
+      "question": "'Unique paths' / 'minimum path sum' in a grid",
+      "guideId": "coding-dp-grids",
+      "anchor": "paths",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-50",
+      "question": "'Implement an LRU cache'",
+      "guideId": "coding-cache-stack",
+      "anchor": "csharp",
+      "priority": "core",
+      "hasCodeAtAnchor": true,
+      "codeFile": "examples/Caches.cs",
+      "original": true
+    },
+    {
+      "cardId": "card-51",
+      "question": "'Min stack' / getMin in O(1)",
+      "guideId": "coding-cache-stack",
+      "anchor": "csharp",
+      "priority": "core",
+      "hasCodeAtAnchor": true,
+      "codeFile": "examples/Caches.cs",
+      "original": true
+    },
+    {
+      "cardId": "card-52",
+      "question": "'Validate a BST'",
+      "guideId": "coding-bst",
+      "anchor": "bounds",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-53",
+      "question": "'Kth smallest element in a BST'",
+      "guideId": "coding-bst",
+      "anchor": "kth",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-54",
+      "question": "'Lowest common ancestor'",
+      "guideId": "coding-trees",
+      "anchor": "lca",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-55",
+      "question": "'Level by level' / 'right side view' / 'zigzag'",
+      "guideId": "coding-trees",
+      "anchor": "levels",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-56",
+      "question": "'Serialize / deserialize a binary tree'",
+      "guideId": "coding-tree-serialization",
+      "anchor": "preorder",
+      "priority": "reinforcement",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-57",
+      "question": "'Spiral matrix' / 'rotate image 90 degrees'",
+      "guideId": "coding-matrices",
+      "anchor": "spiral-rotate",
+      "priority": "reinforcement",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-58",
+      "question": "'Set matrix zeroes' in O(1) space",
+      "guideId": "coding-matrices",
+      "anchor": "zeroes",
+      "priority": "reinforcement",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-59",
+      "question": "'Find the duplicate without modifying the array, O(1) space'",
+      "guideId": "coding-array-invariants",
+      "anchor": "duplicate",
+      "priority": "reinforcement",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-60",
+      "question": "'Majority element appearing more than n/2 times'",
+      "guideId": "coding-array-invariants",
+      "anchor": "majority",
+      "priority": "reinforcement",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-61",
+      "question": "'Product of array except self' (no division)",
+      "guideId": "coding-array-invariants",
+      "anchor": "products",
+      "priority": "reinforcement",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-62",
+      "question": "Problem demands 'O(1) extra space' on an array",
+      "guideId": "coding-two-pointers",
+      "anchor": "in-place",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-63",
+      "question": "'Palindrome' check, or reverse in place",
+      "guideId": "coding-two-pointers",
+      "anchor": "palindrome",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-64",
+      "question": "C# TEMPLATE: BFS on a grid, counting levels",
+      "guideId": "coding-grid-bfs",
+      "anchor": "csharp",
+      "priority": "core",
+      "hasCodeAtAnchor": true,
+      "codeFile": "examples/GridTraversal.cs",
+      "original": true
+    },
+    {
+      "cardId": "card-65",
+      "question": "C# TEMPLATE: recursive DFS flood fill on a grid",
+      "guideId": "coding-flood-fill",
+      "anchor": "csharp",
+      "priority": "core",
+      "hasCodeAtAnchor": true,
+      "codeFile": "examples/GridTraversal.cs",
+      "original": true
+    },
+    {
+      "cardId": "card-66",
+      "question": "C# TEMPLATE: binary search, exact match",
+      "guideId": "coding-binary-search",
+      "anchor": "csharp",
+      "priority": "core",
+      "hasCodeAtAnchor": true,
+      "codeFile": "examples/BinarySearch.cs",
+      "original": true
+    },
+    {
+      "cardId": "card-67",
+      "question": "C# TEMPLATE: binary search, LEFTMOST index where Pred is true (lower_bound)",
+      "guideId": "coding-binary-search",
+      "anchor": "csharp",
+      "priority": "core",
+      "hasCodeAtAnchor": true,
+      "codeFile": "examples/BinarySearch.cs",
+      "original": true
+    },
+    {
+      "cardId": "card-68",
+      "question": "C# TEMPLATE: binary search ON THE ANSWER",
+      "guideId": "coding-answer-search",
+      "anchor": "csharp",
+      "priority": "core",
+      "hasCodeAtAnchor": true,
+      "codeFile": "examples/BinarySearch.cs",
+      "original": true
+    },
+    {
+      "cardId": "card-69",
+      "question": "C# TEMPLATE: recursive DFS on a binary tree",
+      "guideId": "coding-trees",
+      "anchor": "csharp",
+      "priority": "core",
+      "hasCodeAtAnchor": true,
+      "codeFile": "examples/Trees.cs",
+      "original": true
+    },
+    {
+      "cardId": "card-70",
+      "question": "C# TEMPLATE: BFS level-order on a binary tree",
+      "guideId": "coding-trees",
+      "anchor": "csharp",
+      "priority": "core",
+      "hasCodeAtAnchor": true,
+      "codeFile": "examples/Trees.cs",
+      "original": true
+    },
+    {
+      "cardId": "card-71",
+      "question": "C# TEMPLATE: reverse a linked list",
+      "guideId": "coding-linked-lists",
+      "anchor": "csharp",
+      "priority": "core",
+      "hasCodeAtAnchor": true,
+      "codeFile": "examples/LinkedLists.cs",
+      "original": true
+    },
+    {
+      "cardId": "card-72",
+      "question": "C# TEMPLATE: merge two sorted linked lists (dummy node)",
+      "guideId": "coding-linked-lists",
+      "anchor": "csharp",
+      "priority": "core",
+      "hasCodeAtAnchor": true,
+      "codeFile": "examples/LinkedLists.cs",
+      "original": true
+    },
+    {
+      "cardId": "card-73",
+      "question": "C# TEMPLATE: fast / slow pointers",
+      "guideId": "coding-linked-lists",
+      "anchor": "csharp",
+      "priority": "core",
+      "hasCodeAtAnchor": true,
+      "codeFile": "examples/LinkedLists.cs",
+      "original": true
+    },
+    {
+      "cardId": "card-74",
+      "question": "C# TEMPLATE: variable-size sliding window",
+      "guideId": "coding-windows",
+      "anchor": "csharp",
+      "priority": "core",
+      "hasCodeAtAnchor": true,
+      "codeFile": "examples/Windows.cs",
+      "original": true
+    },
+    {
+      "cardId": "card-75",
+      "question": "C# TEMPLATE: monotonic stack (next greater element)",
+      "guideId": "coding-stacks",
+      "anchor": "csharp",
+      "priority": "core",
+      "hasCodeAtAnchor": true,
+      "codeFile": "examples/Stacks.cs",
+      "original": true
+    },
+    {
+      "cardId": "card-76",
+      "question": "C# TEMPLATE: kth largest via a size-k min-heap",
+      "guideId": "coding-heaps",
+      "anchor": "csharp",
+      "priority": "core",
+      "hasCodeAtAnchor": true,
+      "codeFile": "examples/Heaps.cs",
+      "original": true
+    },
+    {
+      "cardId": "card-77",
+      "question": "C# TEMPLATE: backtracking (all subsets)",
+      "guideId": "coding-backtracking",
+      "anchor": "csharp",
+      "priority": "core",
+      "hasCodeAtAnchor": true,
+      "codeFile": "examples/Backtracking.cs",
+      "original": true
+    },
+    {
+      "cardId": "card-78",
+      "question": "C# TEMPLATE: Trie node + insert",
+      "guideId": "coding-trie",
+      "anchor": "csharp",
+      "priority": "reinforcement",
+      "hasCodeAtAnchor": true,
+      "codeFile": "examples/Trie.cs",
+      "original": true
+    },
+    {
+      "cardId": "card-79",
+      "question": "C# TEMPLATE: Union-Find with path compression",
+      "guideId": "coding-union-find",
+      "anchor": "csharp",
+      "priority": "reinforcement",
+      "hasCodeAtAnchor": true,
+      "codeFile": "examples/UnionFind.cs",
+      "original": true
+    },
+    {
+      "cardId": "card-80",
+      "question": "C# TEMPLATE: topological sort (Kahn's algorithm)",
+      "guideId": "coding-topological-sort",
+      "anchor": "csharp",
+      "priority": "core",
+      "hasCodeAtAnchor": true,
+      "codeFile": "examples/Graphs.cs",
+      "original": true
+    },
+    {
+      "cardId": "card-81",
+      "question": "C# TEMPLATE: 1-D DP",
+      "guideId": "coding-dp-one-dimensional",
+      "anchor": "csharp",
+      "priority": "core",
+      "hasCodeAtAnchor": true,
+      "codeFile": "examples/DynamicProgramming.cs",
+      "original": true
+    },
+    {
+      "cardId": "card-82",
+      "question": "C# TEMPLATE: 2-D DP (edit distance shape)",
+      "guideId": "coding-dp-sequences",
+      "anchor": "csharp",
+      "priority": "core",
+      "hasCodeAtAnchor": true,
+      "codeFile": "examples/DynamicProgramming.cs",
+      "original": true
+    },
+    {
+      "cardId": "card-83",
+      "question": "C# TEMPLATE: Dijkstra (weighted shortest path)",
+      "guideId": "coding-dijkstra",
+      "anchor": "csharp",
+      "priority": "reinforcement",
+      "hasCodeAtAnchor": true,
+      "codeFile": "examples/Graphs.cs",
+      "original": true
+    },
+    {
+      "cardId": "card-84",
+      "question": "C#: min-heap",
+      "guideId": "coding-csharp-heaps-queues",
+      "anchor": "min-heap",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-85",
+      "question": "C#: max-heap",
+      "guideId": "coding-csharp-heaps-queues",
+      "anchor": "max-heap",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-86",
+      "question": "C#: dictionary lookup without hashing twice",
+      "guideId": "coding-csharp-maps-sets",
+      "anchor": "lookup",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-87",
+      "question": "C#: increment a frequency map",
+      "guideId": "coding-csharp-maps-sets",
+      "anchor": "frequency",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-88",
+      "question": "C#: queue operations",
+      "guideId": "coding-csharp-heaps-queues",
+      "anchor": "queue",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-89",
+      "question": "C#: stack operations",
+      "guideId": "coding-csharp-heaps-queues",
+      "anchor": "stack",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-90",
+      "question": "C#: double-ended queue (deque)",
+      "guideId": "coding-csharp-heaps-queues",
+      "anchor": "deque",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-91",
+      "question": "C#: sort intervals by start value",
+      "guideId": "coding-csharp-sort-search",
+      "anchor": "interval-sort",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-92",
+      "question": "C#: sort descending",
+      "guideId": "coding-csharp-sort-search",
+      "anchor": "descending",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-93",
+      "question": "C#: build a string in a loop",
+      "guideId": "coding-csharp-text",
+      "anchor": "builder",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-94",
+      "question": "C#: map a lowercase char to index 0-25",
+      "guideId": "coding-csharp-text",
+      "anchor": "alphabet",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-95",
+      "question": "C#: sentinel / extreme values",
+      "guideId": "coding-csharp-numerics",
+      "anchor": "sentinels",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-96",
+      "question": "C#: built-in binary search",
+      "guideId": "coding-csharp-sort-search",
+      "anchor": "built-in-search",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-97",
+      "question": "C#: 2-D arrays as given by LeetCode",
+      "guideId": "coding-csharp-arrays-tuples",
+      "anchor": "shape",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-98",
+      "question": "C#: allocate and pre-fill an array",
+      "guideId": "coding-csharp-arrays-tuples",
+      "anchor": "allocation",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-99",
+      "question": "C#: tuples inside collections",
+      "guideId": "coding-csharp-arrays-tuples",
+      "anchor": "tuples",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-100",
+      "question": "C#: HashSet",
+      "guideId": "coding-csharp-maps-sets",
+      "anchor": "set",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-101",
+      "question": "C#: ordered set / ordered map",
+      "guideId": "coding-csharp-maps-sets",
+      "anchor": "ordered",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-102",
+      "question": "C#: join a collection into a string",
+      "guideId": "coding-csharp-text",
+      "anchor": "join",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-103",
+      "question": "C#: null-coalescing assignment",
+      "guideId": "coding-csharp-arrays-tuples",
+      "anchor": "null-assignment",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-104",
+      "question": "C#: overflow-safe midpoint",
+      "guideId": "coding-csharp-numerics",
+      "anchor": "midpoint",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-105",
+      "question": "C#: memoize a recursion",
+      "guideId": "coding-memo-recursion",
+      "anchor": "memo",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-106",
+      "question": "Backtracking: adding the current path to the results",
+      "guideId": "coding-backtracking",
+      "anchor": "copy",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-107",
+      "question": "Validating a BST",
+      "guideId": "coding-bst",
+      "anchor": "bounds",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-108",
+      "question": "BFS or DFS for shortest path?",
+      "guideId": "coding-grid-bfs",
+      "anchor": "shortest",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-109",
+      "question": "When do I need a dummy node on a linked list?",
+      "guideId": "coding-linked-lists",
+      "anchor": "merge",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-110",
+      "question": "Binary search infinite loop",
+      "guideId": "coding-binary-search",
+      "anchor": "termination",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-111",
+      "question": "Grid DFS/BFS: when to mark a cell visited",
+      "guideId": "coding-grid-bfs",
+      "anchor": "seen",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-112",
+      "question": "Sliding window: what shrinks and what advances",
+      "guideId": "coding-windows",
+      "anchor": "longest",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-113",
+      "question": "Two-sum hash map: check or insert first?",
+      "guideId": "coding-hashing",
+      "anchor": "two-sum",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-114",
+      "question": "Integer overflow",
+      "guideId": "coding-csharp-numerics",
+      "anchor": "overflow",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-115",
+      "question": "Recursion depth",
+      "guideId": "coding-memo-recursion",
+      "anchor": "depth",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-116",
+      "question": "Which heap for top-k? (counter-intuitive)",
+      "guideId": "coding-heaps",
+      "anchor": "top-k",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-117",
+      "question": "DP: direction of the inner loop",
+      "guideId": "coding-dp-coins",
+      "anchor": "direction",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-118",
+      "question": "Modifying a collection while iterating it",
+      "guideId": "coding-csharp-maps-sets",
+      "anchor": "mutation",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-119",
+      "question": "Interview behaviour: going silent",
+      "guideId": "coding-interview-workflow",
+      "anchor": "talk",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "card-120",
+      "question": "Interview behaviour: before writing any code",
+      "guideId": "coding-interview-workflow",
+      "anchor": "before-code",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": true
+    },
+    {
+      "cardId": "coding-range-sum-contract",
+      "question": "Prefix sums: what does prefix[right] - prefix[left] return?",
+      "guideId": "coding-prefix-sums",
+      "anchor": "range",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": false
+    },
+    {
+      "cardId": "coding-binary-search-boundaries",
+      "question": "Binary search: lower bound versus upper bound?",
+      "guideId": "coding-binary-search",
+      "anchor": "boundary",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": false
+    },
+    {
+      "cardId": "coding-greedy-proof",
+      "question": "How do you justify a greedy choice instead of guessing?",
+      "guideId": "coding-greedy-basics",
+      "anchor": "profit",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": false
+    },
+    {
+      "cardId": "coding-maximum-subarray",
+      "question": "Maximum sum of a NONEMPTY contiguous subarray?",
+      "guideId": "coding-greedy-basics",
+      "anchor": "maximum-subarray",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": false
+    },
+    {
+      "cardId": "coding-jump-game",
+      "question": "Reach the last index when each value is a maximum forward jump?",
+      "guideId": "coding-greedy-basics",
+      "anchor": "reachability",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": false
+    },
+    {
+      "cardId": "coding-bit-xor",
+      "question": "One value appears once; every other value appears exactly twice. O(1) extra space?",
+      "guideId": "coding-bit-basics",
+      "anchor": "xor",
+      "priority": "optional",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": false
+    },
+    {
+      "cardId": "coding-graph-modeling",
+      "question": "Before traversing a graph, what must you model explicitly?",
+      "guideId": "coding-graph-modeling",
+      "anchor": "representation",
+      "priority": "core",
+      "hasCodeAtAnchor": false,
+      "codeFile": null,
+      "original": false
+    }
+  ]
+}

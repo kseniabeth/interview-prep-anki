@@ -1,0 +1,866 @@
+[
+  {
+    "section": "design",
+    "topic": "Asynchronous replication: two different promises",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-async-replication-tradeoff",
+    "cardIds": [
+      "sd-async-replication-tradeoff"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Synchronous replication: define the acknowledgement",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-sync-replication-acknowledgement",
+    "cardIds": [
+      "sd-sync-replication-acknowledgement"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Partition keys: distribution versus hot traffic",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-partition-key-skew",
+    "cardIds": [
+      "sd-partition-key-skew"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Indexes: pay on writes to save selected reads",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-index-write-tradeoff",
+    "cardIds": [
+      "sd-index-write-tradeoff"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Transactions do not automatically protect every invariant",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-transaction-isolation-boundary",
+    "cardIds": [
+      "sd-transaction-isolation-boundary"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Cache-aside and its stale-fill race",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-cache-aside-freshness",
+    "cardIds": [
+      "sd-cache-aside-freshness"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Idempotency keys represent an intention",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-idempotency-intent-key",
+    "cardIds": [
+      "sd-idempotency-intent-key"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Retries need a deadline and a spread",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-retry-backoff-jitter",
+    "cardIds": [
+      "sd-retry-backoff-jitter"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "A queue buys time, not processing capacity",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-queue-capacity-limit",
+    "cardIds": [
+      "sd-queue-capacity-limit"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Consumer acknowledgement creates a crash window",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-acknowledgement-boundary",
+    "cardIds": [
+      "sd-acknowledgement-boundary"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Tail latency: measure the slow experience",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-tail-latency-distribution",
+    "cardIds": [
+      "sd-tail-latency-distribution"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Capacity belongs to a workload and an SLO",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-capacity-workload-mix",
+    "cardIds": [
+      "sd-capacity-workload-mix"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "SLOs turn reliability into a measurable decision",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-slo-error-budget",
+    "cardIds": [
+      "sd-slo-error-budget"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "RPO and RTO: loss and downtime are different",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-recovery-objectives",
+    "cardIds": [
+      "sd-recovery-objectives"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "One database transaction, one atomic boundary",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-postgres-atomic-business-update",
+    "cardIds": [
+      "sd-postgres-atomic-business-update"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Composite indexes follow the access path",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-postgres-composite-index",
+    "cardIds": [
+      "sd-postgres-composite-index"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Redis cache policy under memory pressure",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-redis-memory-eviction",
+    "cardIds": [
+      "sd-redis-memory-eviction"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Redis success is not one universal durability guarantee",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-redis-persistence-loss-window",
+    "cardIds": [
+      "sd-redis-persistence-loss-window"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Kafka ordering is a partition-level tool",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-kafka-customer-ordering",
+    "cardIds": [
+      "sd-kafka-customer-ordering"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Kafka groups: partitions bound traditional ownership",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-kafka-consumer-parallelism",
+    "cardIds": [
+      "sd-kafka-consumer-parallelism"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Exactly-once: always state the boundary",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-kafka-exactly-once-scope",
+    "cardIds": [
+      "sd-kafka-exactly-once-scope"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "RabbitMQ confirms and acknowledgements cover different legs",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-rabbit-publisher-confirm-scope",
+    "cardIds": [
+      "sd-rabbit-publisher-confirm-scope"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Object consistency does not create multi-object transactions",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-s3-object-consistency",
+    "cardIds": [
+      "sd-s3-object-consistency"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Direct uploads with narrowly scoped capabilities",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-s3-presigned-upload",
+    "cardIds": [
+      "sd-s3-presigned-upload"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "A cache key is a response-sharing contract",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-cdn-cache-key",
+    "cardIds": [
+      "sd-cdn-cache-key"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Elasticsearch write acknowledgement versus search visibility",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-elasticsearch-refresh-visibility",
+    "cardIds": [
+      "sd-elasticsearch-refresh-visibility"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "A timeout means an unknown outcome",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-timeout-after-write",
+    "cardIds": [
+      "sd-timeout-after-write"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Transactional deduplication for redelivered messages",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-consumer-crash-after-commit",
+    "cardIds": [
+      "sd-consumer-crash-after-commit"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Single-flight refresh and stale responses",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-cache-hot-entry-stampede",
+    "cardIds": [
+      "sd-cache-hot-entry-stampede"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Write sharding exchanges simple reads for distributed writes",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-write-hot-tenant-sharding",
+    "cardIds": [
+      "sd-write-hot-tenant-sharding"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Stop retries from multiplying through a call chain",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-retry-storm-budget",
+    "cardIds": [
+      "sd-retry-storm-budget"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Transactional outbox: durable intent to publish",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-database-publish-outbox",
+    "cardIds": [
+      "sd-database-publish-outbox"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Read-your-writes requires routing or progress evidence",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-replica-read-own-write",
+    "cardIds": [
+      "sd-replica-read-own-write"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Compensation is a new business action",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-workflow-partial-success",
+    "cardIds": [
+      "sd-workflow-partial-success"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "A fallback path also needs a capacity budget",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-cache-outage-origin-protection",
+    "cardIds": [
+      "sd-cache-outage-origin-protection"
+    ]
+  },
+  {
+    "section": "design",
+    "topic": "Choose recovery architecture from tested objectives",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sd-regional-recovery-strategy",
+    "cardIds": [
+      "sd-regional-recovery-strategy"
+    ]
+  },
+  {
+    "section": "cs",
+    "topic": "01 · Value types, references, and parameter passing",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-value-reference",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "02 · Immutability, records, equality, and hash keys",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-immutability-equality",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "03 · Managed memory, allocation, and garbage collection",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-memory-gc",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "04 · IDisposable and resource ownership",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-dispose-resources",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "05 · Collections, Big O, and amortized cost",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-collections-complexity",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "06 · Strings, Unicode, and comparison",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-unicode-strings",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "07 · Numeric precision, overflow, and time",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-numbers-time",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "08 · Processes, threads, and tasks",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-process-thread-task",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "09 · Async/await and I/O",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-async-await",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "10 · Cancellation, deadlines, and bounded concurrency",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-cancellation-limits",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "11 · Races, locks, and atomic operations",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-races-locks",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "12 · Deadlocks and starvation",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-deadlocks",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "13 · DNS, TCP, TLS, and connection reuse",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-network-path",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "14 · HTTP methods, status, and caching",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-http-semantics",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "15 · Serialization and schema evolution",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-serialization",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "16 · API contracts, compatibility, and pagination",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-api-contracts",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "17 · Unit, integration, contract, and property tests",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-testing",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "18 · Debugging, observability, and profiling",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-debug-profile",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "19 · Authentication, authorization, and tenant isolation",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-authn-authz",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "20 · Input validation, injection, and resource limits",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-input-validation",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "21 · Secrets, password storage, and cryptographic choices",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-secrets-crypto",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "22 · Object design, interfaces, and dependency lifetimes",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-design-di",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "23 · Exceptions, failure boundaries, and cleanup",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-exceptions",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "24 · LINQ, deferred execution, and materialization",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-linq-deferred",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "cs",
+    "topic": "25 · Database invariants, ACID, and data modeling",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-cs-database-foundations",
+    "scope": "Explain the mechanism, trace the worked example, and answer the practice check."
+  },
+  {
+    "section": "sql",
+    "topic": "01 · Tables, rows, types, and the practice database",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-tables-seed",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "02 · SELECT, expressions, and aliases",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-select",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "03 · WHERE, AND/OR, IN, ranges, and LIKE",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-where",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "04 · ORDER BY, ties, and limiting rows",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-ordering-top",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "05 · NULL and three-valued logic",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-null",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "06 · COUNT, SUM, AVG, MIN, and MAX",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-aggregate",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "07 · GROUP BY and HAVING",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-group-having",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "08 · INNER JOIN and matching rows",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-inner-join",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "09 · LEFT JOIN, missing matches, and filter placement",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-left-join",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "10 · Join multiplicity and avoiding double counting",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-join-grain",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "11 · Subqueries, EXISTS, and NOT EXISTS",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-subquery-exists",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "12 · CTEs: name an intermediate result",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-cte",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "13 · CASE and conditional aggregation",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-case",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "14 · ROW_NUMBER and latest row per group",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-row-number",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "15 · Running totals and explicit window frames",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-running-total",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "16 · Keys, constraints, relationships, and normalization",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-keys-schema",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "17 · Safe INSERT, UPDATE, and DELETE in a toy database",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-safe-dml",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "18 · Transactions, COMMIT, ROLLBACK, and error handling",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-transactions",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "19 · Parameters and SQL injection prevention",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-parameters",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "20 · Indexes and composite key order",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-indexes",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "21 · Execution plans, sargability, and date ranges",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-plans-sargability",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "22 · Isolation, lost updates, and optimistic concurrency",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-isolation",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "23 · Database deadlocks and safe retries",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-deadlocks",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "24 · Offset versus keyset pagination",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-pagination",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "sql",
+    "topic": "25 · UNION, UNION ALL, and combining result sets",
+    "priority": "must-know",
+    "status": "covered",
+    "guideId": "guide-sql-set-operations",
+    "scope": "Beginner lesson with query, expected rows, and practice. SQLite-executed portable core; SQL Server differences labeled."
+  },
+  {
+    "section": "design",
+    "topic": "Interview delivery: from requirements to failure analysis",
+    "priority": "must-know",
+    "status": "guide + practice",
+    "guideId": "guide-sd-interview-framework",
+    "scope": "Core primer; complete an aloud scenario rather than treating reading as readiness."
+  },
+  {
+    "section": "design",
+    "topic": "Consistency models and CAP without slogans",
+    "priority": "must-know",
+    "status": "guide + practice",
+    "guideId": "guide-sd-consistency-cap",
+    "scope": "Core primer; complete an aloud scenario rather than treating reading as readiness."
+  },
+  {
+    "section": "design",
+    "topic": "Rate limiting, token buckets, and admission control",
+    "priority": "must-know",
+    "status": "guide + practice",
+    "guideId": "guide-sd-rate-limiting",
+    "scope": "Core primer; complete an aloud scenario rather than treating reading as readiness."
+  },
+  {
+    "section": "design",
+    "topic": "Load balancing, health checks, and stateless services",
+    "priority": "must-know",
+    "status": "guide + practice",
+    "guideId": "guide-sd-load-balancing",
+    "scope": "Core primer; complete an aloud scenario rather than treating reading as readiness."
+  },
+  {
+    "section": "design",
+    "topic": "Data modeling from access patterns and invariants",
+    "priority": "must-know",
+    "status": "guide + practice",
+    "guideId": "guide-sd-model-access-patterns",
+    "scope": "Core primer; complete an aloud scenario rather than treating reading as readiness."
+  },
+  {
+    "section": "design",
+    "topic": "Polling, SSE, WebSockets, and reconnecting clients",
+    "priority": "must-know",
+    "status": "guide + practice",
+    "guideId": "guide-sd-realtime-delivery",
+    "scope": "Core primer; complete an aloud scenario rather than treating reading as readiness."
+  },
+  {
+    "section": "interview",
+    "topic": "Behavioral and senior ownership stories",
+    "priority": "must-know",
+    "status": "practice-only",
+    "scope": "Today offers short spoken practice. Prepare real examples of ownership, failure/recovery, disagreement, ambiguity, mentoring, and measurable impact.",
+    "gaps": "No fabricated stories or private career details are embedded. A dedicated behavioral recall deck is intentionally absent. Follow-up questions and truthful evidence need live practice."
+  },
+  {
+    "section": "interview",
+    "topic": "Mock interviews and communication under time pressure",
+    "priority": "must-know",
+    "status": "practice-required",
+    "scope": "Explain assumptions, draw a full flow, trace code, test edge cases, and respond to changing requirements.",
+    "gaps": "Content coverage and flashcard scores do not establish interview readiness. Use timed unseen coding, SQL, and design mocks with feedback."
+  },
+  {
+    "section": "sql",
+    "topic": "SQL Server runtime and concurrency verification",
+    "priority": "must-know",
+    "status": "partially-verified",
+    "scope": "Portable queries and expected results executed with SQLite; primary sources describe SQL Server differences.",
+    "gaps": "No SQL Server engine was available. TOP/OFFSET, TRY/CATCH/XACT_ABORT, rowversion, locking, deadlock detection, execution-plan behavior, and native driver examples are source-reviewed only. Reproduce in a dedicated SQL Server sandbox."
+  },
+  {
+    "section": "sql",
+    "topic": "Advanced SQL and database operations",
+    "priority": "later",
+    "status": "deferred",
+    "scope": "After the 25-lesson foundation: recursive CTEs, INTERSECT/EXCEPT, advanced window frames, stored procedures, temp-table tuning, query parameter sensitivity, migrations, backup restore, and large-data plans.",
+    "gaps": "Not a DBA certification or exhaustive T-SQL reference. Stored procedure/trigger authoring and engine administration are not fully taught."
+  },
+  {
+    "section": "cs",
+    "topic": "Advanced runtime and OS internals",
+    "priority": "later",
+    "status": "deferred",
+    "scope": "CPU caches and false sharing, memory-model proofs, lock-free algorithms, unsafe code, Span/Memory ownership, JIT/assembly, native interop, and deep GC tuning.",
+    "gaps": "Fundamentals explain practical mechanisms; they do not replace role-specific performance engineering drills."
+  },
+  {
+    "section": "design",
+    "topic": "Advanced distributed systems and specialist designs",
+    "priority": "later",
+    "status": "deferred",
+    "scope": "Consensus implementation, CRDT/OT correctness, multi-region write conflict algorithms, vector/search internals, stream processing watermarks, and storage-engine internals.",
+    "gaps": "Common backend reasoning is covered first. Specialized role loops need targeted practice after company interview format is known."
+  },
+  {
+    "section": "interview",
+    "topic": "Company-specific loop preparation",
+    "priority": "must-know",
+    "status": "targeted-practice",
+    "scope": "Confirm interview format and language, then prioritize its actual coding, SQL, design, debugging, and behavioral rounds.",
+    "gaps": "No finite card deck covers every employer. Preserve short daily sessions and deepen weak areas based on evidence from mocks."
+  }
+]

@@ -1,0 +1,1 @@
+window.RECALL_CONFIG = {"anonKey":"sb_publishable_E7XsMXYidaVqnQbHdQy6HA_3rsLJH3N","redirectUrl":"https://kseniabeth.github.io/interview-prep-anki/","url":"https://wzonjrzactvhtsnujwqk.supabase.co"};

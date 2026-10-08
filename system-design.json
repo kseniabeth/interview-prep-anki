@@ -1,0 +1,362 @@
+[
+  {
+    "id": "sd-async-replication-tradeoff",
+    "tags": "sd-concept replication consistency",
+    "front": "What do you trade away when a primary acknowledges a write before an asynchronous replica receives it?",
+    "back": "The write avoids waiting for that replica, but replica reads can lag. Promoting an out-of-date replica after primary failure can lose acknowledged writes. Define acceptable staleness and data loss separately; replication alone does not imply read-after-write consistency.",
+    "source": {
+      "title": "PostgreSQL: Log-Shipping Standby Servers",
+      "url": "https://www.postgresql.org/docs/current/warm-standby.html"
+    }
+  },
+  {
+    "id": "sd-sync-replication-acknowledgement",
+    "tags": "sd-concept replication durability latency",
+    "front": "What must you specify before claiming synchronous replication makes a write safe?",
+    "back": "Specify which replicas acknowledge and whether acknowledgement means receipt, durable storage, or application. Waiting adds latency and can block commits when required replicas are unavailable. Durable acknowledgement does not mean every replica can already serve the new value.",
+    "source": {
+      "title": "PostgreSQL: Log-Shipping Standby Servers",
+      "url": "https://www.postgresql.org/docs/current/warm-standby.html"
+    }
+  },
+  {
+    "id": "sd-partition-key-skew",
+    "tags": "sd-concept partitioning hot-keys",
+    "front": "Why can a well-distributed hash partition key still produce a hotspot?",
+    "back": "Hashing spreads distinct keys, not the requests for one key. A heavily accessed key can dominate one partition even when key counts are balanced. Evaluate traffic and item sizes per key, plus secondary-index access patterns, rather than relying on aggregate table capacity.",
+    "source": {
+      "title": "Amazon DynamoDB: Designing and using partition keys effectively",
+      "url": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html"
+    }
+  },
+  {
+    "id": "sd-index-write-tradeoff",
+    "tags": "sd-concept indexes storage",
+    "front": "Why not add an index for every possible query?",
+    "back": "Indexes accelerate suitable lookups but require storage and maintenance when data changes. Choose them from important access patterns and verify the query plan. A planner may prefer a sequential scan when the index would not save enough work; an unused index still imposes costs.",
+    "source": {
+      "title": "PostgreSQL: Introduction to Indexes",
+      "url": "https://www.postgresql.org/docs/current/indexes-intro.html"
+    }
+  },
+  {
+    "id": "sd-transaction-isolation-boundary",
+    "tags": "sd-concept transactions isolation",
+    "front": "Does wrapping a read-then-write operation in a PostgreSQL transaction make it serializable?",
+    "back": "No. PostgreSQL’s default Read Committed isolation gives each statement a snapshot, so concurrent transactions can still violate a multi-statement business invariant. Use suitable constraints, locking, or Serializable isolation for the invariant. Serializable transactions can abort on conflicts; retry the entire transaction, including its reads.",
+    "source": {
+      "title": "PostgreSQL: Transaction Isolation",
+      "url": "https://www.postgresql.org/docs/current/transaction-iso.html"
+    }
+  },
+  {
+    "id": "sd-cache-aside-freshness",
+    "tags": "sd-concept caching consistency",
+    "front": "Does cache-aside guarantee that a read sees the latest database write?",
+    "back": "No. A miss loads the database value into the cache, but invalidation races or writes outside the cache path can leave stale entries. Update the database before invalidating its cached value, while recognizing that this order alone does not eliminate every race. Choose TTLs and stronger coordination according to the freshness requirement.",
+    "source": {
+      "title": "Microsoft Azure Architecture Center: Cache-Aside Pattern",
+      "url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/cache-aside"
+    }
+  },
+  {
+    "id": "sd-idempotency-intent-key",
+    "tags": "sd-concept idempotency api-design",
+    "front": "Why use a caller-supplied operation ID instead of hashing request parameters for deduplication?",
+    "back": "Two intentional operations can have identical parameters. A stable operation ID distinguishes one operation’s retries from a new operation. Scope the ID to the caller and operation, reject conflicting reuse, and retain the outcome for the supported retry window. Recording the ID and applying the effect must be atomic or recoverable.",
+    "source": {
+      "title": "Amazon Builders’ Library: Making retries safe with idempotent APIs",
+      "url": "https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/"
+    }
+  },
+  {
+    "id": "sd-retry-backoff-jitter",
+    "tags": "sd-concept retries reliability",
+    "front": "What does jitter add to exponential backoff?",
+    "back": "Backoff spaces out one client’s retries; jitter spreads retries from many clients so they do not return together. Also cap attempts or elapsed time and retry only appropriate failures. Backoff with jitter reduces synchronization, but unlimited retries can still overload a dependency.",
+    "source": {
+      "title": "Amazon Builders’ Library: Timeouts, retries, and backoff with jitter",
+      "url": "https://d1.awsstatic.com/builderslibrary/pdfs/timeouts-retries-and-backoff-with-jitter.pdf"
+    }
+  },
+  {
+    "id": "sd-queue-capacity-limit",
+    "tags": "sd-concept queues capacity",
+    "front": "Does adding a queue solve a sustained processing-capacity shortage?",
+    "back": "No. A queue buffers bursts and separates intake from processing, but backlog grows if average arrival rate exceeds completion rate. Monitor backlog age and depth. Increase safe processing capacity, limit intake, or shed work; unrestricted worker scaling can simply overload the downstream database.",
+    "source": {
+      "title": "Microsoft Azure Architecture Center: Queue-Based Load Leveling Pattern",
+      "url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/queue-based-load-leveling"
+    }
+  },
+  {
+    "id": "sd-acknowledgement-boundary",
+    "tags": "sd-concept messaging delivery-guarantees",
+    "front": "Why acknowledge a message after processing rather than before it?",
+    "back": "Acknowledging first risks losing the work if the consumer crashes before completing it. Acknowledging afterward permits redelivery if the work commits but the acknowledgement is lost. The latter supports at-least-once processing when delivery is retried, so consumers must tolerate duplicates.",
+    "source": {
+      "title": "RabbitMQ: Consumer Acknowledgements and Publisher Confirms",
+      "url": "https://www.rabbitmq.com/docs/confirms"
+    }
+  },
+  {
+    "id": "sd-tail-latency-distribution",
+    "tags": "sd-concept latency observability",
+    "front": "Why is average latency insufficient for a user-facing service?",
+    "back": "A fast majority can hide a slow tail. Inspect a latency distribution and relevant percentiles, and distinguish successful from failed requests. A page that depends on several services can expose users to slow outliers frequently. Define the measurement window and measure the end-to-end user operation as well as dependencies.",
+    "source": {
+      "title": "Google SRE: Monitoring Distributed Systems",
+      "url": "https://sre.google/sre-book/monitoring-distributed-systems/"
+    }
+  },
+  {
+    "id": "sd-capacity-workload-mix",
+    "tags": "sd-concept capacity performance",
+    "front": "Why is “this server handles 10,000 requests per second” an incomplete capacity estimate?",
+    "back": "Request costs differ. Tie the rate to a workload mix, payload sizes, and latency target, then measure the limiting resources such as CPU, memory, network, or storage I/O. A change in query mix can invalidate a request-rate estimate even if total traffic is unchanged.",
+    "source": {
+      "title": "Google SRE: Handling Overload",
+      "url": "https://sre.google/sre-book/handling-overload/"
+    }
+  },
+  {
+    "id": "sd-slo-error-budget",
+    "tags": "sd-concept reliability availability",
+    "front": "How does an availability SLO guide engineering decisions?",
+    "back": "Define what counts as a good event and the measurement window. The allowed fraction of bad events is the error budget: a 99.9% request-success target allows 0.1% failures among eligible requests. Agree on actions when the budget is consumed, such as prioritizing reliability work or limiting risky releases.",
+    "source": {
+      "title": "Google SRE Workbook: Implementing SLOs",
+      "url": "https://sre.google/workbook/implementing-slos/"
+    }
+  },
+  {
+    "id": "sd-recovery-objectives",
+    "tags": "sd-concept reliability recovery",
+    "front": "How do RPO and RTO change a recovery design?",
+    "back": "RPO limits acceptable data loss, expressed as a time window. RTO limits acceptable time to restore service. A low RPO drives backup or replication frequency; a low RTO drives recovery readiness and automation. Set them from business impact and dependencies, then validate the design with recovery tests.",
+    "source": {
+      "title": "AWS Reliability Pillar: Define recovery objectives for downtime and data loss",
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_planning_for_recovery_objective_defined_recovery.html"
+    }
+  },
+  {
+    "id": "sd-postgres-atomic-business-update",
+    "tags": "sd-tool postgresql transactions",
+    "front": "Why use one PostgreSQL transaction for several related business updates?",
+    "back": "It makes the database changes commit together or roll back together, preventing an observer from seeing a partly committed operation. This is useful when the related state fits one database transaction. An HTTP call or message publication outside that transaction does not become atomic merely because the database work is transactional.",
+    "source": {
+      "title": "PostgreSQL: Transactions",
+      "url": "https://www.postgresql.org/docs/current/tutorial-transactions.html"
+    }
+  },
+  {
+    "id": "sd-postgres-composite-index",
+    "tags": "sd-tool postgresql indexes",
+    "front": "For queries filtering tenant_id by equality and created_at by range, what B-tree index is a natural starting point?",
+    "back": "A composite index on (tenant_id, created_at): the leading equality narrows the tenant, then the range narrows its records. Verify with the actual query plan and data distribution. Queries filtering only created_at may need a different index; do not assume either that this index is ideal or that it is never usable.",
+    "source": {
+      "title": "PostgreSQL: Multicolumn Indexes",
+      "url": "https://www.postgresql.org/docs/current/indexes-multicolumn.html"
+    }
+  },
+  {
+    "id": "sd-redis-memory-eviction",
+    "tags": "sd-tool redis caching",
+    "front": "What must you decide before using Redis as a bounded cache?",
+    "back": "Set a memory limit and an eviction policy that fits the access pattern, then monitor hits, misses, and evictions. LRU or LFU policies can evict reusable entries; noeviction instead rejects writes that need more memory. TTL expiration and memory-pressure eviction are separate mechanisms. Leave room for process overhead and replication or persistence buffers.",
+    "source": {
+      "title": "Redis: Key eviction",
+      "url": "https://redis.io/docs/latest/develop/reference/eviction/"
+    }
+  },
+  {
+    "id": "sd-redis-persistence-loss-window",
+    "tags": "sd-tool redis durability",
+    "front": "Does a successful Redis write imply it survives a restart?",
+    "back": "It depends on persistence and failure mode. With persistence disabled, memory loss loses the dataset. RDB snapshots can lose changes since the last snapshot; AOF durability depends on its fsync policy. Choose and test a loss window appropriate to the data rather than treating a cache acknowledgement as durable database commit.",
+    "source": {
+      "title": "Redis: Persistence",
+      "url": "https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/"
+    }
+  },
+  {
+    "id": "sd-kafka-customer-ordering",
+    "tags": "sd-tool kafka partitioning ordering",
+    "front": "What Kafka key supports ordered events per customer, and what tradeoff follows?",
+    "back": "Use customer ID so that customer’s records share a partition under a stable partitioning scheme. Ordering is partition-scoped, and application processing must preserve the order it needs. A busy customer can create a hot partition. Changing partition count or spreading one customer across partitions requires an explicit ordering strategy.",
+    "source": {
+      "title": "Apache Kafka 4.1: Introduction",
+      "url": "https://kafka.apache.org/41/getting-started/introduction/"
+    }
+  },
+  {
+    "id": "sd-kafka-consumer-parallelism",
+    "tags": "sd-tool kafka consumers capacity",
+    "front": "A Kafka topic has six partitions. Will twelve consumers in one traditional consumer group all receive partition assignments?",
+    "back": "No, assuming they subscribe only to that topic: at most six can hold assignments because one partition has one consumer owner within a traditional group at a time. More consumers can provide standby capacity. Adding partitions changes the scaling and key-placement tradeoffs; this rule does not describe Kafka share groups.",
+    "source": {
+      "title": "Apache Kafka 4.1: Design",
+      "url": "https://kafka.apache.org/41/design/design/"
+    }
+  },
+  {
+    "id": "sd-kafka-exactly-once-scope",
+    "tags": "sd-tool kafka transactions idempotency",
+    "front": "Do Kafka transactions make an external payment or email happen exactly once?",
+    "back": "No. Kafka transactions can atomically commit output records and consumed offsets for a Kafka-to-Kafka flow, with consumers using read_committed to hide aborted writes. External effects require cooperation from the destination, such as idempotency or atomic storage of the effect with its processing position. State the guarantee’s boundary.",
+    "source": {
+      "title": "Apache Kafka 4.1: Design",
+      "url": "https://kafka.apache.org/41/design/design/"
+    }
+  },
+  {
+    "id": "sd-rabbit-publisher-confirm-scope",
+    "tags": "sd-tool rabbitmq queues reliability",
+    "front": "Does a RabbitMQ publisher confirm prove a consumer completed the business action?",
+    "back": "No. A publisher confirm covers the publisher-to-broker leg. A consumer acknowledgement covers the broker-to-consumer leg; these are independent. If the producer needs the business result, add an application-level response or status mechanism. Select queue durability and replication separately from acknowledgement handling.",
+    "source": {
+      "title": "RabbitMQ: Consumer Acknowledgements and Publisher Confirms",
+      "url": "https://www.rabbitmq.com/docs/confirms"
+    }
+  },
+  {
+    "id": "sd-s3-object-consistency",
+    "tags": "sd-tool object-storage s3 consistency",
+    "front": "What consistency can an application rely on after a successful S3 object PUT?",
+    "back": "Absent a later write, subsequent GET and LIST requests reflect the completed write. Updating one object key is atomic: readers see an old or new object, never a partial object. This does not provide atomic transactions across multiple keys. Cached responses outside S3 have their own freshness rules.",
+    "source": {
+      "title": "Amazon S3: Data consistency model",
+      "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html#ConsistencyModel"
+    }
+  },
+  {
+    "id": "sd-s3-presigned-upload",
+    "tags": "sd-tool object-storage s3 uploads",
+    "front": "How can a client upload a large file directly to S3 without receiving the server’s AWS credentials?",
+    "back": "Authorize the upload in the application and issue a short-lived presigned URL for the intended object and method. The client sends bytes directly to S3. Treat the URL as a bearer capability: protect it, limit its scope and lifetime, and choose keys carefully because an upload can replace an existing object at that key.",
+    "source": {
+      "title": "Amazon S3: Download and upload objects with presigned URLs",
+      "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html"
+    }
+  },
+  {
+    "id": "sd-cdn-cache-key",
+    "tags": "sd-tool cdn caching cloudfront",
+    "front": "What belongs in a CDN cache key?",
+    "back": "Values that determine which response is safe to reuse, such as the path and relevant query, language, or tenant variants. Omitting a meaningful variant can return the wrong content; including irrelevant high-cardinality values fragments the cache. Forward analytics-only values separately. Sensitive personalized responses may need caching disabled rather than a shared cache entry.",
+    "source": {
+      "title": "Amazon CloudFront: Understand the cache key",
+      "url": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/understanding-the-cache-key.html"
+    }
+  },
+  {
+    "id": "sd-elasticsearch-refresh-visibility",
+    "tags": "sd-tool elasticsearch search consistency",
+    "front": "An Elasticsearch index request succeeded. Why might search not find the document yet?",
+    "back": "Search visibility depends on refresh. The default write path does not wait for the change to become searchable. If that write must be visible before replying, refresh=wait_for usually waits for a refresh; refresh=true forces one and adds indexing, search, and merge costs. Refresh visibility is a separate concern from transactional correctness across systems.",
+    "source": {
+      "title": "Elasticsearch: The refresh parameter",
+      "url": "https://www.elastic.co/docs/reference/elasticsearch/rest-apis/refresh-parameter"
+    }
+  },
+  {
+    "id": "sd-timeout-after-write",
+    "tags": "sd-scenario retries idempotency",
+    "front": "A create-order request times out. Should the client assume the order was not created?",
+    "back": "No. The server may have committed before the response was lost. Query by a stable operation ID or retry using the same ID if the API provides an idempotency contract. Generating a new ID can create a second order. Without such a contract, reconcile the uncertain outcome before repeating a non-idempotent action.",
+    "source": {
+      "title": "Amazon Builders’ Library: Making retries safe with idempotent APIs",
+      "url": "https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/"
+    }
+  },
+  {
+    "id": "sd-consumer-crash-after-commit",
+    "tags": "sd-scenario messaging transactions idempotency",
+    "front": "A consumer commits a database update, then crashes before acknowledging. How do you avoid applying the update twice?",
+    "back": "Expect redelivery. Insert a unique processed-message marker and apply the business update in the same database transaction, then acknowledge. The uniqueness constraint handles concurrent duplicates. External effects that cannot join the transaction need their own idempotency or reconciliation; a separate check-then-write marker leaves a crash window.",
+    "source": {
+      "title": "Microsoft Azure Architecture Center: Idempotent Consumer Pattern",
+      "url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/idempotent-consumer"
+    }
+  },
+  {
+    "id": "sd-cache-hot-entry-stampede",
+    "tags": "sd-scenario caching stampede",
+    "front": "One popular cache entry expires and thousands of callers miss together. What protects the origin?",
+    "back": "Coalesce refreshes for that key so concurrent callers share one fetch. If freshness permits, serve stale content while it refreshes. Coordinate across the relevant processes and handle refresher failure so a stuck refresh does not block progress. Merely starting every refresh earlier shifts the burst rather than removing it.",
+    "source": {
+      "title": "Cloudflare: Sometimes I cache: implementing lock-free probabilistic caching",
+      "url": "https://blog.cloudflare.com/sometimes-i-cache/"
+    }
+  },
+  {
+    "id": "sd-write-hot-tenant-sharding",
+    "tags": "sd-scenario partitioning hot-keys",
+    "front": "One tenant generates most writes under one DynamoDB partition key. What does adding a shard suffix buy and cost?",
+    "back": "It expands that tenant’s key space so writes can spread across partitions. A random suffix requires fan-out and merging to retrieve the tenant’s full data; a calculated suffix can preserve direct lookup when its input is known. It cannot split updates to one indivisible item without redesigning that item’s semantics.",
+    "source": {
+      "title": "Amazon DynamoDB: Using write sharding to distribute workloads evenly",
+      "url": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-sharding.html"
+    }
+  },
+  {
+    "id": "sd-retry-storm-budget",
+    "tags": "sd-scenario reliability retries overload",
+    "front": "A dependency slows down and every service layer retries. What should you change first?",
+    "back": "Stop multiplicative retry amplification: choose a deliberate retry layer, bound attempts and elapsed time, and add backoff with jitter. Retry only operations and errors for which retrying is safe and useful. Limit retry load so recovery remains possible; simply raising timeouts or retry counts can keep resources occupied and worsen overload.",
+    "source": {
+      "title": "Amazon Builders’ Library: Timeouts, retries, and backoff with jitter",
+      "url": "https://d1.awsstatic.com/builderslibrary/pdfs/timeouts-retries-and-backoff-with-jitter.pdf"
+    }
+  },
+  {
+    "id": "sd-database-publish-outbox",
+    "tags": "sd-scenario messaging outbox transactions",
+    "front": "The database commit succeeds but publishing its event fails. How does a transactional outbox close this gap?",
+    "back": "Write the business state and an outbox record in one database transaction. A separate relay publishes committed records and retries failures. The relay can publish twice if it crashes around recording delivery, so consumers still need deduplication or idempotency. The pattern removes the unrecorded-event gap; it does not make broker delivery instantaneous.",
+    "source": {
+      "title": "AWS Prescriptive Guidance: Transactional outbox pattern",
+      "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/transactional-outbox.html"
+    }
+  },
+  {
+    "id": "sd-replica-read-own-write",
+    "tags": "sd-scenario replication consistency postgresql",
+    "front": "A user saves a profile, then an asynchronous PostgreSQL replica shows the old value. What read path can provide read-your-writes?",
+    "back": "Read the committed value from the current primary, or wait until the selected replica has replayed that write. PostgreSQL remote_apply can wait for application on the required synchronous standbys, but arbitrary asynchronous replicas may still lag. Route reads to a replica whose required progress is known rather than assuming all replicas are fresh.",
+    "source": {
+      "title": "PostgreSQL: Log-Shipping Standby Servers",
+      "url": "https://www.postgresql.org/docs/current/warm-standby.html"
+    }
+  },
+  {
+    "id": "sd-workflow-partial-success",
+    "tags": "sd-scenario workflows compensation",
+    "front": "A multi-service workflow reserves inventory, then the next step fails. Is a database rollback enough?",
+    "back": "Not if the reservation committed in another service. Persist workflow progress and define a business compensation, such as releasing that reservation, or retry the remaining step when appropriate. Compensation can also fail, so make it resumable and idempotent. It may not restore the exact original state when concurrent work or irreversible effects exist.",
+    "source": {
+      "title": "Microsoft Azure Architecture Center: Compensating Transaction Pattern",
+      "url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/compensating-transaction"
+    }
+  },
+  {
+    "id": "sd-cache-outage-origin-protection",
+    "tags": "sd-scenario caching reliability overload",
+    "front": "The shared cache is unavailable and the database cannot handle all misses. Is falling back on every request safe?",
+    "back": "No. Unbounded fallback can turn a cache outage into a database outage. Cap origin traffic and shed lower-priority work; use a local fallback or stale values only where their semantics are acceptable. Test with caching disabled and during cold starts so the recovery path has a measured capacity limit.",
+    "source": {
+      "title": "Amazon Builders’ Library: Caching challenges and strategies",
+      "url": "https://aws.amazon.com/builders-library/caching-challenges-and-strategies/"
+    }
+  },
+  {
+    "id": "sd-regional-recovery-strategy",
+    "tags": "sd-scenario reliability recovery regions",
+    "front": "A region fails. What determines whether backup-and-restore or warm standby is sufficient?",
+    "back": "Compare tested restoration time and recoverable data age against RTO and RPO. Backup-and-restore generally needs more recovery work; warm standby keeps a reduced but functional environment ready to scale. Include dependencies and traffic cutover in the test. Replication can copy corruption or deletion, so retain an appropriate point-in-time recovery path.",
+    "source": {
+      "title": "AWS Reliability Pillar: Use defined recovery strategies to meet the recovery objectives",
+      "url": "https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/rel_planning_for_recovery_disaster_recovery.html"
+    }
+  }
+]

@@ -1,0 +1,266 @@
+[
+  {
+    "title": "Princeton: Analysis of algorithms",
+    "url": "https://algs4.cs.princeton.edu/14analysis/",
+    "checkedDate": "2026-10-06",
+    "verification": "Search-index verified; direct fetch returned HTTP 403. Public access should be rechecked before publication."
+  },
+  {
+    "title": "Princeton: Union-Find case study",
+    "url": "https://algs4.cs.princeton.edu/15uf/",
+    "checkedDate": "2026-10-06",
+    "verification": "Search-index verified; direct fetch returned HTTP 403. Public access should be rechecked before publication."
+  },
+  {
+    "title": "Princeton: Union-Find with path halving",
+    "url": "https://algs4.cs.princeton.edu/code/edu/princeton/cs/algs4/UF.java.html",
+    "checkedDate": "2026-10-06",
+    "verification": "Search-index verified; direct fetch returned HTTP 403. Public access should be rechecked before publication."
+  },
+  {
+    "title": "Microsoft: Array.BinarySearch",
+    "url": "https://learn.microsoft.com/en-us/dotnet/api/system.array.binarysearch",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Microsoft: Array.Sort",
+    "url": "https://learn.microsoft.com/en-us/dotnet/api/system.array.sort",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Microsoft: Dictionary<TKey,TValue>",
+    "url": "https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2?view=net-8.0",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Microsoft: HashSet<T>",
+    "url": "https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.hashset-1",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Microsoft: LinkedList<T>",
+    "url": "https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.linkedlist-1",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Microsoft: PriorityQueue",
+    "url": "https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.priorityqueue-2",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Microsoft: Queue<T>",
+    "url": "https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.queue-1",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Microsoft: SortedSet<T>",
+    "url": "https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.sortedset-1",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Microsoft: Stack<T>",
+    "url": "https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.stack-1",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Microsoft: Int32.Parse",
+    "url": "https://learn.microsoft.com/en-us/dotnet/api/system.int32.parse",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Microsoft: String.Join",
+    "url": "https://learn.microsoft.com/en-us/dotnet/api/system.string.join",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Microsoft: Arrays",
+    "url": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/arrays",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Microsoft: char",
+    "url": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/char",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Microsoft: Tuples",
+    "url": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-tuples",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Microsoft: Bitwise and shift operators",
+    "url": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/bitwise-and-shift-operators",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Microsoft: Null-coalescing operators",
+    "url": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-coalescing-operator",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Microsoft: checked and unchecked",
+    "url": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/checked-and-unchecked",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Microsoft: StringBuilder",
+    "url": "https://learn.microsoft.com/en-us/dotnet/fundamentals/runtime-libraries/system-text-stringbuilder",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: DSA curriculum",
+    "url": "https://www.hellointerview.com/learn/code",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: Backtracking overview",
+    "url": "https://www.hellointerview.com/learn/code/backtracking/overview",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: Binary-search overview",
+    "url": "https://www.hellointerview.com/learn/code/binary-search/overview",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: BFS fundamentals",
+    "url": "https://www.hellointerview.com/learn/code/breadth-first-search/fundamentals",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: DFS fundamentals",
+    "url": "https://www.hellointerview.com/learn/code/depth-first-search/fundamentals",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: Validate binary search tree",
+    "url": "https://www.hellointerview.com/learn/code/depth-first-search/validate-binary-search-tree",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: Dynamic-programming fundamentals",
+    "url": "https://www.hellointerview.com/learn/code/dynamic-programming/fundamentals",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: Shortest-path algorithms",
+    "url": "https://www.hellointerview.com/learn/code/graphs/shortest-path-algorithms",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: Topological sort",
+    "url": "https://www.hellointerview.com/learn/code/graphs/topological-sort",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: Greedy overview",
+    "url": "https://www.hellointerview.com/learn/code/greedy/overview",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: Heap overview",
+    "url": "https://www.hellointerview.com/learn/code/heap/overview",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: Intervals overview",
+    "url": "https://www.hellointerview.com/learn/code/intervals/overview",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: Linked-list overview",
+    "url": "https://www.hellointerview.com/learn/code/linked-list/overview",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: Rotate image",
+    "url": "https://www.hellointerview.com/learn/code/matrices/rotate-image",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: Set matrix zeroes",
+    "url": "https://www.hellointerview.com/learn/code/matrices/set-matrix-zeroes",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: Spiral matrix",
+    "url": "https://www.hellointerview.com/learn/code/matrices/spiral-matrix",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: Prefix sums",
+    "url": "https://www.hellointerview.com/learn/code/prefix-sum/overview",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: Fixed-length windows",
+    "url": "https://www.hellointerview.com/learn/code/sliding-window/fixed-length",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: Variable-length windows",
+    "url": "https://www.hellointerview.com/learn/code/sliding-window/variable-length",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: Monotonic stack",
+    "url": "https://www.hellointerview.com/learn/code/stack/monotonic-stack",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: Stack overview",
+    "url": "https://www.hellointerview.com/learn/code/stack/overview",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: Trie overview",
+    "url": "https://www.hellointerview.com/learn/code/trie/overview",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  },
+  {
+    "title": "Hello Interview: Two pointers",
+    "url": "https://www.hellointerview.com/learn/code/two-pointers/overview",
+    "checkedDate": "2026-10-06",
+    "verification": "Official page opened or verified in first-party search results on this date. Rerun public-link checker before publication."
+  }
+]

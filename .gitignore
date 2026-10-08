@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+**/bin/
+**/obj/
+qa/
+.env
+.env.*
+!*.example
+
+# Job-search tooling is maintained only in its separate private repository.
+/tools/job_watch/
+/tools/application_pipeline/
