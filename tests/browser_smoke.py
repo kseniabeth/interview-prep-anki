@@ -26,6 +26,13 @@ def snap_state(page):
     return page.evaluate('JSON.parse(JSON.stringify(state))')
 def no_overflow(page):
     assert not page.evaluate('document.documentElement.scrollWidth > innerWidth'), 'Horizontal page overflow'
+def wait_for_guide_position(page, anchor=None):
+    # Rendering scrolls on requestAnimationFrame. Wait for that scroll before
+    # checking the viewport or capturing a mobile screenshot.
+    page.wait_for_function('''anchor => anchor
+        ? Math.abs(document.getElementById('guide-part-'+anchor).getBoundingClientRect().top - 20) < 2
+        : window.scrollY === 0''', arg=anchor)
+    page.evaluate('new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))')
 
 def exercise(page,label):
     errors=[]
@@ -69,9 +76,11 @@ def exercise(page,label):
     assert 'Push(10)' in page.locator('#guide-part-operations code').inner_text()
     assert page.locator('#guide-part-next-greater h2').inner_text().startswith('Optional')
     assert snap_state(page)==before
+    wait_for_guide_position(page)
     no_overflow(page);page.screenshot(path=str(OUT/f'{label}-stack-start.png'))
     page.locator('.guide-toc a[href="#guide/coding-stacks/brackets"]').click()
     page.wait_for_function("selectedGuideAnchor==='brackets'")
+    wait_for_guide_position(page,'brackets')
     assert 'most recent opener' in page.locator('#guide-part-brackets h2').inner_text()
     page.go_back();page.wait_for_function("selectedGuideAnchor===''")
     page.go_forward();page.wait_for_function("selectedGuideAnchor==='brackets'")
@@ -80,13 +89,15 @@ def exercise(page,label):
         page.reload();page.wait_for_function("view==='guides' && selectedGuide?.id==='coding-stacks'")
         assert page.evaluate('selectedGuideAnchor')==anchor
         assert page.locator('#guide-part-'+anchor).is_visible()
+        wait_for_guide_position(page,anchor)
         no_overflow(page)
+        if anchor=='csharp':page.screenshot(path=str(OUT/f'{label}-stack-next-greater-code.png'))
         page.keyboard.press('1');page.keyboard.press('Space');assert snap_state(page)==before
     assert 'class StackNextGreater' in page.locator('#guide-part-csharp code').inner_text()
-    page.screenshot(path=str(OUT/f'{label}-stack-next-greater-code.png'))
     page.goto(BASE+'#guide/coding-csharp-heaps-queues/stack')
     page.wait_for_function("selectedGuide?.id==='coding-csharp-heaps-queues' && selectedGuideAnchor==='stack'")
     assert 'class StackBasics' in page.locator('#guide-part-stack code').inner_text()
+    wait_for_guide_position(page,'stack')
     no_overflow(page);assert snap_state(page)==before
     page.get_by_role('button',name='Sign in',exact=True).click();page.locator('#loginEmail').fill('study-test@example.invalid');page.locator('#sendMagicLink').click();page.wait_for_function("document.querySelector('#authMessage').textContent.includes('Check your email')");assert page.evaluate('__testRemote.requests')==1
     page.locator('#closeAccount').click()
