@@ -82,23 +82,27 @@ def exercise(page,label):
     page.wait_for_function("selectedGuideAnchor==='brackets'")
     wait_for_guide_position(page,'brackets')
     assert 'most recent opener' in page.locator('#guide-part-brackets h2').inner_text()
-    page.go_back();page.wait_for_function("selectedGuideAnchor===''")
-    page.go_forward();page.wait_for_function("selectedGuideAnchor==='brackets'")
+    page.go_back();page.wait_for_function("selectedGuideAnchor===''");wait_for_guide_position(page)
+    page.go_forward();page.wait_for_function("selectedGuideAnchor==='brackets'");wait_for_guide_position(page,'brackets')
     for anchor in ['brackets','next-greater','csharp']:
         page.goto(BASE+'#guide/coding-stacks/'+anchor)
+        page.wait_for_function('anchor => selectedGuideAnchor===anchor',arg=anchor)
+        wait_for_guide_position(page,anchor)
         page.reload();page.wait_for_function("view==='guides' && selectedGuide?.id==='coding-stacks'")
         assert page.evaluate('selectedGuideAnchor')==anchor
         assert page.locator('#guide-part-'+anchor).is_visible()
         wait_for_guide_position(page,anchor)
         no_overflow(page)
         if anchor=='csharp':page.screenshot(path=str(OUT/f'{label}-stack-next-greater-code.png'))
-        page.keyboard.press('1');page.keyboard.press('Space');assert snap_state(page)==before
+        assert snap_state(page)==before
     assert 'class StackNextGreater' in page.locator('#guide-part-csharp code').inner_text()
     page.goto(BASE+'#guide/coding-csharp-heaps-queues/stack')
     page.wait_for_function("selectedGuide?.id==='coding-csharp-heaps-queues' && selectedGuideAnchor==='stack'")
     assert 'class StackBasics' in page.locator('#guide-part-stack code').inner_text()
     wait_for_guide_position(page,'stack')
     no_overflow(page);assert snap_state(page)==before
+    # Space may scroll the page; test rating isolation after layout checks.
+    page.keyboard.press('1');page.keyboard.press('Space');assert snap_state(page)==before
     page.get_by_role('button',name='Sign in',exact=True).click();page.locator('#loginEmail').fill('study-test@example.invalid');page.locator('#sendMagicLink').click();page.wait_for_function("document.querySelector('#authMessage').textContent.includes('Check your email')");assert page.evaluate('__testRemote.requests')==1
     page.locator('#closeAccount').click()
     page.evaluate("__testRemote.listener('SIGNED_IN',{user:{id:'test-account',email:'study-test@example.invalid'}})")
