@@ -28,3 +28,18 @@ test('generated study payload matches the editable source and compiled C# files'
  let checked=0;for(const g of content.guides)for(const s of g.sections)if(s.codeFile){assert(!s.codeFile.includes('..'));assert.equal(s.code,fs.readFileSync(path.join(root,s.codeFile),'utf8'),`${g.id}/${s.id} must exactly match executable source`);checked++;}
  assert(checked>=20,'The reference implementations must be linked to actual compiled source files');
 });
+test('stack lessons begin with foundations and retain existing card/deep-link targets',()=>{
+ const guide=content.guides.find(g=>g.id==='coding-stacks');
+ assert.equal(guide.sections[0].id,'start');
+ const sectionIds=guide.sections.map(s=>s.id);
+ for(const id of ['operations','choose','brackets','brackets-code','check-basics','next-greater','next-greater-walkthrough','csharp','next-greater-reasoning','next-greater-check'])assert(sectionIds.includes(id));
+ assert(sectionIds.indexOf('check-basics')<sectionIds.indexOf('next-greater'));
+ assert.match(guide.sections.find(s=>s.id==='next-greater').title,/Optional/);
+ assert.equal(guide.sections.find(s=>s.id==='operations').codeFile,'examples/csharp/StackBasics.cs');
+ assert.equal(guide.sections.find(s=>s.id==='brackets-code').codeFile,'examples/csharp/StackBrackets.cs');
+ assert.equal(guide.sections.find(s=>s.id==='csharp').codeFile,'examples/csharp/StackNextGreater.cs');
+ const api=content.guides.find(g=>g.id==='coding-csharp-heaps-queues').sections.find(s=>s.id==='stack');
+ assert.equal(api.codeFile,'examples/csharp/StackBasics.cs');
+ for(const [id,anchor] of [['card-22','brackets'],['card-20','next-greater'],['card-75','csharp']])assert.deepEqual(content.cardGuides[id],{guideId:'coding-stacks',anchor});
+ assert.deepEqual(content.cardGuides['card-89'],{guideId:'coding-csharp-heaps-queues',anchor:'stack'});
+});

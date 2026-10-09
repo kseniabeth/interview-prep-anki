@@ -259,48 +259,171 @@
     },
     {
       "id": "coding-stacks",
-      "title": "Stacks and monotonic waiting lists",
+      "title": "Stacks, from the beginning",
       "section": "coding",
-      "summary": "A stack stores unfinished obligations in last-in-first-out order.",
+      "summary": "Learn what a stack remembers, how to use it in C#, and why it fits nested brackets. Next-greater problems are an optional second lesson.",
       "priority": "core",
       "sections": [
         {
-          "id": "brackets",
-          "title": "Balanced brackets",
+          "id": "start",
+          "title": "Start here: what is a stack?",
           "paragraphs": [
-            "Each opener creates an obligation that must close before earlier openers can close. Push openers; for a closer, pop and require its matching opener. Reject an unexpected closer or a mismatched type. At the end the stack must be empty. Counting open and close brackets alone cannot distinguish “([)]” from properly nested input.",
-            "The sample rejects non-bracket characters rather than silently skipping them. State that contract if the input may contain prose or code. Empty input is valid. Time O(n), worst-case space O(n) for all openers; Peek and Pop require a nonempty stack unless you use the Try variants."
-          ],
-          "example": "For “([])”, the closing ] matches the most recent [, and then ) matches the earlier (."
-        },
-        {
-          "id": "next-greater",
-          "title": "Next greater: value, index, or distance?",
-          "paragraphs": [
-            "Keep indices of values still waiting for a strictly greater value. Their values are nonincreasing from stack bottom to top. A new value resolves every smaller value at the top; after popping those indices, push the new index. Equal values stay pending for a strict-greater question.",
-            "Each index is pushed and popped at most once, so total work is O(n), even though there is a loop inside a loop. Use indices to distinguish duplicates and compute distances. The sample returns next-greater values with -1 for absent. If -1 is also a legitimate greater value, this sentinel is ambiguous; change the API to nullable values or next indices.",
-            "Daily temperatures instead stores answer[popped]=i-popped and uses zero for “no warmer day.” Stock span asks how far left the current value dominates; pop previous values <= current and use i-previousGreaterIndex (or i+1 when none). Those comparator and output changes are part of the algorithm, not cosmetic substitutions."
+            "A stack is a collection of items with one rule about how you use it: add an item at one end, and remove the most recently added item from that same end. Think of a pile of plates. You put a new plate on top, and the next plate you take is the one on top. The plate underneath becomes available after you remove it.",
+            "That accessible end is called the top. It is not the largest value, and it is not a special kind of item. It is simply the position of the most recent item that has not yet been removed. If you add 10 and then 20, the top holds 20. Removing 20 exposes 10.",
+            "This order is called last in, first out, usually shortened to LIFO. A stack does not sort its contents. If you add 20 and then 10, you remove 10 first because it arrived last, even though it is smaller.",
+            "This guide assumes you can read a C# loop, but it does not assume you have used a stack. Read through “Check the basics” first. The later next-greater sections introduce a separate, more advanced use of the same collection; you can leave them for another session."
           ]
         },
         {
-          "id": "csharp",
-          "title": "Complete C# implementation",
+          "id": "operations",
+          "title": "Using Push, Pop, Peek, and Count in C#",
           "paragraphs": [
-            "Target: .NET 8 or later, C# 12. This is a complete source file with imports and declared types. Compile it with the reference harness, or call its public methods from your own console project. Read each method’s contract before adapting it; index, value, distance, mutation, and empty-input behavior are explicit.",
-            "Relevant template method: Stacks.NextGreaterValues. Other methods in this same complete file demonstrate closely related variants."
+            "C# provides Stack<T> in System.Collections.Generic. The T is the type of item you want to store, so Stack<int> stores integers and Stack<char> stores characters. Creating a stack gives you an empty collection.",
+            "Push(x) adds x at the top. Pop() removes the top item and returns it, so you can use the value you removed. Peek() returns the top item without removing it. Count is a property that tells you how many items remain; it has no parentheses.",
+            "Follow the state before reading the code. After Push(10), the stack contains [10]. After Push(20), it contains [10, 20], with 20 at the top. Peek() returns 20 and leaves both items in place. Pop() then returns 20 and leaves [10]. Another Pop() returns 10 and leaves an empty stack. Throughout this guide, items in square brackets are written from bottom to top, so the rightmost item is the top.",
+            "Pop() and Peek() throw InvalidOperationException on an empty stack: there is no item to return. Check Count > 0 before calling them when emptiness is possible. TryPop(out item) is another option: it removes an item and returns true on success, or returns false on an empty stack. Only use item when it succeeds. TryPeek works the same way without removing anything. The complete example below can be called as StackBasics.Demonstrate() from a console program."
           ],
-          "code": "using System;\nusing System.Collections.Generic;\npublic static class Stacks\n{\n    // Returns next STRICTLY greater VALUES, not indices or distances; -1 means absent.\n    public static int[] NextGreaterValues(int[] values)\n    {\n        ArgumentNullException.ThrowIfNull(values);\n        var answer = new int[values.Length];\n        Array.Fill(answer, -1);\n        var pending = new Stack<int>();\n        for (int i = 0; i < values.Length; i++)\n        {\n            while (pending.Count > 0 && values[pending.Peek()] < values[i])\n                answer[pending.Pop()] = values[i];\n            pending.Push(i);\n        }\n        return answer;\n    }\n    // Any non-bracket character is invalid under this contract.\n    public static bool ValidBrackets(string text)\n    {\n        ArgumentNullException.ThrowIfNull(text);\n        var pending = new Stack<char>();\n        foreach (char c in text)\n        {\n            if (c is '(' or '[' or '{') { pending.Push(c); continue; }\n            char expected = c switch { ')' => '(', ']' => '[', '}' => '{', _ => '\\0' };\n            if (expected == '\\0' || !pending.TryPop(out char open) || open != expected) return false;\n        }\n        return pending.Count == 0;\n    }\n    // Nonnegative heights. Returned area is long; virtual final zero flushes the stack.\n    public static long LargestRectangle(int[] heights)\n    {\n        ArgumentNullException.ThrowIfNull(heights);\n        foreach (int h in heights) if (h < 0) throw new ArgumentException(\"Nonnegative heights required.\");\n        var pending = new Stack<int>();\n        long best = 0;\n        for (int i = 0; i <= heights.Length; i++)\n        {\n            int height = i == heights.Length ? 0 : heights[i];\n            while (pending.Count > 0 && heights[pending.Peek()] > height)\n            {\n                int h = heights[pending.Pop()];\n                int left = pending.Count == 0 ? -1 : pending.Peek();\n                best = Math.Max(best, (long)h * (i - left - 1));\n            }\n            if (i < heights.Length) pending.Push(i);\n        }\n        return best;\n    }\n    public static long TrappedWater(int[] heights)\n    {\n        ArgumentNullException.ThrowIfNull(heights);\n        foreach (int h in heights) if (h < 0) throw new ArgumentException(\"Nonnegative heights required.\");\n        int left = 0, right = heights.Length - 1, leftMax = 0, rightMax = 0;\n        long water = 0;\n        while (left <= right)\n        {\n            if (leftMax <= rightMax)\n            {\n                leftMax = Math.Max(leftMax, heights[left]);\n                water += leftMax - heights[left++];\n            }\n            else\n            {\n                rightMax = Math.Max(rightMax, heights[right]);\n                water += rightMax - heights[right--];\n            }\n        }\n        return water;\n    }\n\n    // Distance to next strictly warmer day; 0 means no warmer future day.\n    public static int[] DaysUntilWarmer(int[] temperatures)\n    {\n        ArgumentNullException.ThrowIfNull(temperatures);\n        var answer = new int[temperatures.Length]; var pending = new Stack<int>();\n        for (int i = 0; i < temperatures.Length; i++)\n        {\n            while (pending.Count > 0 && temperatures[pending.Peek()] < temperatures[i])\n            { int previous = pending.Pop(); answer[previous] = i - previous; }\n            pending.Push(i);\n        }\n        return answer;\n    }\n    // Consecutive days ending today whose price is <= today's, including today.\n    public static int[] StockSpans(int[] prices)\n    {\n        ArgumentNullException.ThrowIfNull(prices);\n        var answer = new int[prices.Length]; var greater = new Stack<int>();\n        for (int i = 0; i < prices.Length; i++)\n        {\n            while (greater.Count > 0 && prices[greater.Peek()] <= prices[i]) greater.Pop();\n            answer[i] = greater.Count == 0 ? i + 1 : i - greater.Peek();\n            greater.Push(i);\n        }\n        return answer;\n    }\n\n}\n",
+          "code": "using System;\nusing System.Collections.Generic;\n\npublic static class StackBasics\n{\n    public static void Demonstrate()\n    {\n        var stack = new Stack<int>();\n        stack.Push(10); // Bottom [10] top.\n        stack.Push(20); // Bottom [10, 20] top.\n\n        Console.WriteLine($\"Top: {stack.Peek()}\");       // 20; nothing is removed.\n        Console.WriteLine($\"Count: {stack.Count}\");      // Still 2.\n        Console.WriteLine($\"Removed: {stack.Pop()}\");    // 20; only 10 remains.\n        Console.WriteLine($\"Now top: {stack.Peek()}\");   // 10.\n\n        if (stack.Count > 0)\n        {\n            Console.WriteLine($\"Removed: {stack.Pop()}\"); // 10; now empty.\n        }\n\n        // TryPop returns false instead of throwing when the stack is empty.\n        if (!stack.TryPop(out int item))\n        {\n            Console.WriteLine(\"The stack is empty.\");\n        }\n    }\n}\n",
           "language": "csharp",
-          "codeFile": "examples/csharp/Stacks.cs"
+          "codeFile": "examples/csharp/StackBasics.cs"
+        },
+        {
+          "id": "choose",
+          "title": "Why use a stack instead of an array or a list?",
+          "paragraphs": [
+            "An array or List<T> lets you access an item by its position, such as items[3]. You could use the end of a list as a stack by adding and removing only there. Stack<T> gives that rule a name and an API: your code asks for the latest item rather than choosing an arbitrary position. Its normal operations do not let you reach into the middle by index.",
+            "The restriction is useful when the newest unfinished thing must be handled first. For example, imagine an editor recording “type A” and then “type B.” Undo should reverse “type B” before “type A.” A stack could hold the information needed to reverse each action. The stack only supplies the order; your program must still implement what undoing an action means.",
+            "Nested brackets have the same order: an inner pair must close before the outer pair. That is the example we will work through next. By contrast, a waiting line serves the earliest arrival first, so it usually needs a queue. If you need frequent access to arbitrary positions, an array or list is usually clearer.",
+            "A useful question is “What does one stored item mean, and why is the most recent one the next one I need?” Being able to answer that is more useful than matching a problem title to a data structure."
+          ]
+        },
+        {
+          "id": "brackets",
+          "title": "Worked example: why brackets need the most recent opener",
+          "paragraphs": [
+            "We want to write a method that returns true when a string of brackets is properly paired and nested. It accepts the characters (, ), [, ], {, and }. Every opening bracket must have a later closing bracket of the same type, and an inner pair must finish before the pair around it. Under this contract, empty input is valid, while any non-bracket character is invalid.",
+            "For example, “([])” is valid: the square-bracket pair is inside the parentheses. “([)]” is invalid even though it has one of each opener and closer. When ) arrives, the [ is still open. We cannot close the outer parentheses through an unfinished inner pair, so merely counting brackets is not enough.",
+            "We will use a stack to remember opening brackets that have not yet been matched. The top is the most recently seen unmatched opener. When a closing bracket arrives, that top item is the only opener it is allowed to match. Here is the complete walk through “([])”. The square brackets around each state describe the collection; the quoted characters are the items inside it."
+          ],
+          "bullets": [
+            "Before reading anything, the stack is empty: []. There are no unmatched opening brackets yet.",
+            "Read “(”. It starts a new pair, so push it. The stack is now [\"(\"], and “(” is the top.",
+            "Read “[”. It starts an inner pair, so push it above “(”. The stack is now [\"(\", \"[\"], and “[” is the top.",
+            "Read “]”. It must match “[”. Pop the top opener, check that it is “[”, and continue. The stack is now [\"(\"].",
+            "Read “)”. It must match “(”. Pop and check the top again. The stack becomes [].",
+            "The string has ended and no opener remains, so return true."
+          ],
+          "example": "If the input were “([)]”, the third character would be “)”, but the top would still be “[”. That mismatch is enough to return false immediately. We must not search deeper for a “(” and skip the “[”."
+        },
+        {
+          "id": "brackets-code",
+          "title": "Turn the bracket walkthrough into code",
+          "paragraphs": [
+            "The loop below makes the same decision for each character. An opener is pushed and left waiting. For a closer, the switch chooses the opener we expect. We then check for an empty stack before calling Pop(), and compare the removed opener with that expected character.",
+            "An empty stack at a closer means there is nothing to match, as in “]”. A mismatch means the nesting is wrong, as in “([)]”. Finally, a nonempty stack after the loop means an opener never closed, as in “(()”. This last check is essential even if every closer we encountered matched.",
+            "Call StackBrackets.IsBalanced(\"([])\") to get true, or StackBrackets.IsBalanced(\"([)]\") to get false. This is a complete C# source file; the class groups the method so it can be called from the example test program."
+          ],
+          "code": "using System;\nusing System.Collections.Generic;\n\npublic static class StackBrackets\n{\n    // Accepts only (), [], and {}. Empty input is balanced; null is rejected.\n    public static bool IsBalanced(string text)\n    {\n        ArgumentNullException.ThrowIfNull(text);\n        var openers = new Stack<char>();\n\n        foreach (char current in text)\n        {\n            if (current == '(' || current == '[' || current == '{')\n            {\n                openers.Push(current);\n                continue; // This opener will wait for a later closer.\n            }\n\n            char expectedOpener;\n            switch (current)\n            {\n                case ')': expectedOpener = '('; break;\n                case ']': expectedOpener = '['; break;\n                case '}': expectedOpener = '{'; break;\n                default: return false; // A non-bracket character is invalid here.\n            }\n\n            if (openers.Count == 0)\n            {\n                return false; // There is no opener for this closer.\n            }\n\n            char mostRecentOpener = openers.Pop();\n            if (mostRecentOpener != expectedOpener)\n            {\n                return false; // The bracket types do not match.\n            }\n        }\n\n        return openers.Count == 0; // No opener may be left waiting.\n    }\n}\n",
+          "language": "csharp",
+          "codeFile": "examples/csharp/StackBrackets.cs"
+        },
+        {
+          "id": "check-basics",
+          "title": "Check the basics before moving on",
+          "paragraphs": [
+            "The bracket method works because the stack always contains exactly the openers we have seen but have not matched, in the order we saw them. That is the fact we keep true throughout the loop. You may hear this kind of always-true fact called an invariant. Here, it explains why looking only at the top is sufficient.",
+            "For n input characters, we visit each character once and each opener is pushed and popped at most once. The total work therefore grows in proportion to the input length: O(n) time. If the input is all openers, we store n of them at once, so the worst-case extra space is O(n).",
+            "For the collection itself, Peek, Pop, and Count take constant time, O(1): they do not scan the stack. A Push is usually O(1), but C# occasionally needs to grow its internal storage and copy existing items. Across a long sequence of pushes, the average work per push is still O(1). That is what “amortized O(1)” means here.",
+            "Before going further, close the guide and explain these aloud. If one feels unclear, revisit that part; you do not need the advanced section to understand or practice ordinary stacks."
+          ],
+          "bullets": [
+            "If you push 4, then 9, then call Peek twice, what does each call return, and how many items remain? What changes if the second call is Pop?",
+            "Why does “([)]” fail even though the counts of opening and closing brackets agree?",
+            "What must be true before calling Pop(), and why must the bracket method also check the stack after the loop?"
+          ]
+        },
+        {
+          "id": "next-greater",
+          "title": "Optional next lesson: values waiting for a larger value",
+          "paragraphs": [
+            "This is a new problem, not another rule you must memorize about every stack. Continue when Push, Pop, and Peek feel familiar. We will still store unfinished work, but now a stored item means “this position has not found its answer yet.”",
+            "For each number in an array, find the first strictly larger number to its right. “First” means closest in position, not largest in value. For [4, 2, 3, 5], the answer is [5, 3, 5, -1]. The 4 waits until 5; the 2 finds 3; the 3 finds 5; and the final 5 has nothing to its right. In this example, -1 is the chosen marker for no answer.",
+            "A straightforward solution starts at each position and scans right until it finds a larger number. That is a useful starting point. But in a decreasing array such as [5, 4, 3, 2], it keeps rereading the same later positions, for about n squared work overall: O(n²) time.",
+            "Instead, read the array once from left to right and remember earlier positions that are still waiting. When a new value arrives, it may be the answer for several of them. Store their indices, meaning their positions in the array, rather than only their values. An index lets us both look up the waiting value and write an answer into the correct output position. Two equal values at different positions still need separate answers."
+          ]
+        },
+        {
+          "id": "next-greater-walkthrough",
+          "title": "Walk through the waiting stack",
+          "paragraphs": [
+            "For [4, 2, 3, 5], the indices are 0, 1, 2, and 3. Begin with answer = [-1, -1, -1, -1] and an empty stack. In the walkthrough, “index 0 (value 4)” explains an item; the actual stack stores only the integer index 0.",
+            "For each new value, compare it with the value at the index on top. If the new value is strictly greater, that waiting position has found its answer: pop its index and fill its answer slot. Keep doing this while the top can be answered. Then push the current index, because the current position still needs a later, greater value of its own."
+          ],
+          "bullets": [
+            "At index 0, the current value is 4. Nobody is waiting, so push index 0. The waiting stack is [0], representing values [4]. The answers are still [-1, -1, -1, -1].",
+            "At index 1, the current value is 2. It cannot answer the 4 on top, because 2 is not greater than 4. Push index 1. The stack is [0, 1], representing values [4, 2].",
+            "At index 2, the current value is 3. It answers the 2 at index 1, so pop index 1 and set answer[1] = 3. The new top is index 0, whose value is 4; 3 cannot answer that one. Push index 2. The stack is now [0, 2], representing values [4, 3], and the answers are [-1, 3, -1, -1].",
+            "At index 3, the current value is 5. It first answers the 3 at index 2, then the 4 at index 0. Pop both indices and fill both answer slots. Now push index 3. The stack is [3], and the answers are [5, 3, 5, -1].",
+            "The input has ended. Index 3 is still waiting because no greater value appeared after it, so its answer stays -1."
+          ],
+          "example": "Notice why the inner operation is a while loop, rather than an if: the single value 5 resolved two earlier positions. Notice also that a position leaves the stack as soon as its answer is found; we never need to answer it again."
+        },
+        {
+          "id": "csharp",
+          "title": "C# for next-greater values",
+          "paragraphs": [
+            "This method implements the walkthrough and returns values, not indices or distances. For example, StackNextGreater.Values(new[] { 4, 2, 3, 5 }) returns [5, 3, 5, -1]. It does not change the input array. Empty input returns an empty array; null input throws ArgumentNullException.",
+            "There are two different uses of an index in the while condition. waitingIndices.Peek() reads the most recent waiting index without removing it. values[thatIndex] then reads the number at that position. The Count check comes first, and C# short-circuits &&, so Peek is not called when the stack is empty. Only after the comparison succeeds do we Pop the index and write its answer.",
+            "The linked recall card uses a compact version of this same loop. Here, separate names for currentValue and waitingIndex make each step visible. The -1 marker follows that card’s convention; if negative inputs can make -1 a real answer, use a nullable result such as int?[] with null for absence, or return next indices instead. For example, [-2, -1] has a genuine answer of -1 at its first position."
+          ],
+          "code": "using System;\nusing System.Collections.Generic;\n\npublic static class StackNextGreater\n{\n    // Returns the first strictly greater VALUE to the right of each input.\n    // -1 means absent. Use nullable results if -1 must be distinguishable\n    // from a genuine answer (for example, in input [-2, -1]).\n    public static int[] Values(int[] values)\n    {\n        ArgumentNullException.ThrowIfNull(values);\n        var answer = new int[values.Length];\n        Array.Fill(answer, -1);\n        var waitingIndices = new Stack<int>();\n\n        for (int i = 0; i < values.Length; i++)\n        {\n            int currentValue = values[i];\n\n            while (waitingIndices.Count > 0 &&\n                   values[waitingIndices.Peek()] < currentValue)\n            {\n                int waitingIndex = waitingIndices.Pop();\n                answer[waitingIndex] = currentValue;\n            }\n\n            // The current position now waits for a greater value of its own.\n            waitingIndices.Push(i);\n        }\n\n        return answer;\n    }\n}\n",
+          "language": "csharp",
+          "codeFile": "examples/csharp/StackNextGreater.cs"
+        },
+        {
+          "id": "next-greater-reasoning",
+          "title": "Why the top is enough, and why the loop is linear",
+          "paragraphs": [
+            "Look at the waiting values after each step: [4], then [4, 2], then [4, 3], then [5]. From bottom to top, they never increase. This happens because we remove every smaller value from the top before adding the new value. Equal values remain: a 3 is not strictly greater than another 3.",
+            "That order explains why we can stop at the first top value that is at least as large as the current value. Every waiting value below it is at least that large too, so the current value cannot answer any of them. Conversely, every position we pop gets its first greater value: we scan left to right, and an earlier greater value would already have removed it.",
+            "A stack deliberately kept in one numeric order is called a monotonic stack. In this particular algorithm, the values at the stored indices are nonincreasing from bottom to top, meaning each next value is less than or equal to the one before it. The input array itself does not have to be sorted. The useful clue is that a new item can settle earlier unanswered questions and remove them from consideration; “the input increases” by itself is not a reason to use a stack.",
+            "The nested loops do not repeat a full scan for every position. Each index is pushed once and can be popped only once, so there are at most n pushes and n pops across the entire method. Together with at most one final unsuccessful comparison per outer step, that is O(n) total time. Up to n indices may wait at once, so extra space is O(n).",
+            "If a related problem asks how many days until a warmer temperature, the output changes: you would write i - waitingIndex, the distance between the two positions, rather than the temperature itself. First make sure you can explain this value-returning version; a related problem still needs its own definition of what is waiting and what answer to record."
+          ]
+        },
+        {
+          "id": "next-greater-check",
+          "title": "Check your understanding of the optional lesson",
+          "paragraphs": [
+            "Try these with a pencil before writing another implementation. Say what every stored integer means, and show both the waiting stack and the output array after each input value. The aim is to explain the decisions, rather than recall the word “monotonic.”"
+          ],
+          "bullets": [
+            "For [2, 2, 3], when does each 2 receive its answer? Why does the second 2 not remove the first one?",
+            "If the stack stores index 1 and values[1] is 8, what does Peek return: 1 or 8? How would you get the other number?",
+            "Why can one current value pop several indices without making the whole algorithm O(n²)?",
+            "Before adapting the loop, state whether the required answer is a value, an index, or a distance, and what should represent no answer."
+          ]
         }
       ],
       "sources": [
+        {
+          "title": "Microsoft: Stack<T> and its last-in-first-out behavior",
+          "url": "https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.stack-1?view=net-8.0"
+        },
+        {
+          "title": "Microsoft: Push and its time complexity",
+          "url": "https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.stack-1.push?view=net-8.0"
+        },
+        {
+          "title": "Microsoft: TryPop on an empty stack",
+          "url": "https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.stack-1.trypop?view=net-8.0"
+        },
         {
           "title": "Hello Interview: Stack overview",
           "url": "https://www.hellointerview.com/learn/code/stack/overview"
         },
         {
-          "title": "Hello Interview: Monotonic stack",
+          "title": "Hello Interview: Monotonic stack (optional further reading)",
           "url": "https://www.hellointerview.com/learn/code/stack/monotonic-stack"
         }
       ]
@@ -1575,11 +1698,17 @@
         },
         {
           "id": "stack",
-          "title": "LIFO stack",
+          "title": "Stack<T>: use the most recently added item first",
           "paragraphs": [
-            "Push adds at the top, Pop removes the most recent item, and Peek reads it. TryPop handles expected emptiness. Push is amortized O(1); Pop and Peek are O(1). Use a stack for explicit DFS or nested obligations such as brackets.",
-            "A stack does not magically reverse arbitrary shared mutable data: it reverses the order in which stored items are removed. If stored items are references, mutating the referenced objects still affects those same objects."
-          ]
+            "A stack is a collection that gives you the most recently added item first, like taking the top plate from a pile. This is called last in, first out, or LIFO. The “top” is the latest item still in the stack, not the largest value. Stack<int> stores integers; Stack<char> stores characters.",
+            "Push(x) adds x at the top. Pop() removes the top item and returns it. Peek() returns the top item without removing it. Count tells you how many items remain. If you push 10 and then 20, Peek returns 20 and Count is still 2. Pop then returns 20, leaving 10 as the top and Count equal to 1.",
+            "Pop and Peek throw InvalidOperationException if the stack is empty, so check Count > 0 first when emptiness is possible. Alternatively, TryPop(out item) returns false on an empty stack; when it returns true, item contains the value it removed. TryPeek does the same without removing the item. The complete example below can be called as StackBasics.Demonstrate().",
+            "Use a stack when the most recent unfinished item is the next one you must handle, such as undoing the latest action or closing an inner bracket pair before the outer pair. An array or List<T> is more suitable when you need arbitrary positions. The “Stacks, from the beginning” guide in the coding guide library walks through the bracket example before introducing next-greater problems.",
+            "Pop, Peek, and Count take O(1), or constant time. Push is usually constant time, but occasionally C# grows the internal storage and copies existing items. Over many pushes, the average work per push is O(1); this is called amortized O(1). A stack changes removal order, not the objects it holds: if it contains references, those references still point to the same objects."
+          ],
+          "code": "using System;\nusing System.Collections.Generic;\n\npublic static class StackBasics\n{\n    public static void Demonstrate()\n    {\n        var stack = new Stack<int>();\n        stack.Push(10); // Bottom [10] top.\n        stack.Push(20); // Bottom [10, 20] top.\n\n        Console.WriteLine($\"Top: {stack.Peek()}\");       // 20; nothing is removed.\n        Console.WriteLine($\"Count: {stack.Count}\");      // Still 2.\n        Console.WriteLine($\"Removed: {stack.Pop()}\");    // 20; only 10 remains.\n        Console.WriteLine($\"Now top: {stack.Peek()}\");   // 10.\n\n        if (stack.Count > 0)\n        {\n            Console.WriteLine($\"Removed: {stack.Pop()}\"); // 10; now empty.\n        }\n\n        // TryPop returns false instead of throwing when the stack is empty.\n        if (!stack.TryPop(out int item))\n        {\n            Console.WriteLine(\"The stack is empty.\");\n        }\n    }\n}\n",
+          "language": "csharp",
+          "codeFile": "examples/csharp/StackBasics.cs"
         },
         {
           "id": "deque",

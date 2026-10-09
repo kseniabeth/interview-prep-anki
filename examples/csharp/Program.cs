@@ -136,8 +136,45 @@ public static class Program
         Check(ReferenceEquals(Trees.BstLowestCommonAncestor(tree,2,8),tree),"BST LCA");
         Seq(Trees.RightSideView(tree),new[]{5,8},"right view"); Seq(Trees.ZigzagLevels(tree)[1],new[]{8,2},"zigzag");
         Seq(ListValues(LinkedLists.MergeMany(new[]{List(1,4),List(2,3),null})),new[]{1,2,3,4},"merge many linked lists");
+        StackLessonChecks();
         RandomizedChecks();
         Console.WriteLine($"PASS: {assertions} assertions; all reference source files compiled.");
+    }
+    private static void StackLessonChecks()
+    {
+        var originalOutput = Console.Out;
+        using var captured = new System.IO.StringWriter();
+        try
+        {
+            Console.SetOut(captured);
+            StackBasics.Demonstrate();
+        }
+        finally
+        {
+            Console.SetOut(originalOutput);
+        }
+        string expected = string.Join(Environment.NewLine, new[] {
+            "Top: 20", "Count: 2", "Removed: 20", "Now top: 10",
+            "Removed: 10", "The stack is empty."
+        }) + Environment.NewLine;
+        Eq(captured.ToString(), expected, "stack lesson exact operations trace");
+
+        foreach (string text in new[] { "", "()", "([])", "{[()]}", "()[]{}" })
+            Check(StackBrackets.IsBalanced(text), "stack lesson valid brackets: " + text);
+        foreach (string text in new[] { "]", "(", "(()", "([)]", "(]", "())", "a", "(a)", " " })
+            Check(!StackBrackets.IsBalanced(text), "stack lesson invalid brackets: " + text);
+        Throws<ArgumentNullException>(() => StackBrackets.IsBalanced(null!), "stack lesson null brackets");
+
+        int[] example = { 4, 2, 3, 5 };
+        Seq(StackNextGreater.Values(example), new[] { 5, 3, 5, -1 }, "stack lesson worked next-greater trace");
+        Seq(example, new[] { 4, 2, 3, 5 }, "stack lesson does not mutate input");
+        Seq(StackNextGreater.Values(Array.Empty<int>()), Array.Empty<int>(), "stack lesson empty next greater");
+        Seq(StackNextGreater.Values(new[] { 2, 2, 3 }), new[] { 3, 3, -1 }, "stack lesson strict duplicate handling");
+        Seq(StackNextGreater.Values(new[] { 3, 3 }), new[] { -1, -1 }, "stack lesson equal is not greater");
+        Seq(StackNextGreater.Values(new[] { 5, 4, 3, 2 }), new[] { -1, -1, -1, -1 }, "stack lesson all positions wait");
+        Seq(StackNextGreater.Values(new[] { -2, -1 }), new[] { -1, -1 }, "stack lesson documented sentinel ambiguity");
+        Seq(StackNextGreater.Values(new[] { int.MinValue, int.MaxValue }), new[] { int.MaxValue, -1 }, "stack lesson extreme values");
+        Throws<ArgumentNullException>(() => StackNextGreater.Values(null!), "stack lesson null next greater");
     }
     private static void RandomizedChecks()
     {
@@ -158,6 +195,7 @@ public static class Program
             int[] next=new int[values.Length]; Array.Fill(next,-1);
             for(int i=0;i<values.Length;i++) for(int j=i+1;j<values.Length;j++) if(values[j]>values[i]) {next[i]=values[j];break;}
             Seq(Stacks.NextGreaterValues(values),next,"random next greater");
+            Seq(StackNextGreater.Values(values),next,"random stack lesson next greater");
             if(values.Length>0)
             {
                 long best=long.MinValue;
