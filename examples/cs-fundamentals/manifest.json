@@ -57,7 +57,7 @@
     "guideId": "guide-cs-serialization",
     "project": "serialization/Example.csproj",
     "codeFile": "examples/cs-fundamentals/serialization/Program.cs",
-    "expectedOutput": "{\"OrderId\":501,\"Total\":25.50}"
+    "expectedOutput": "{\"orderId\":501,\"total\":25.50}\nPASS: DTO boundary, round trip, old/new readers, missing field"
   },
   {
     "guideId": "guide-cs-exceptions",
@@ -70,5 +70,11 @@
     "project": "linq-deferred/Example.csproj",
     "codeFile": "examples/cs-fundamentals/linq-deferred/Program.cs",
     "expectedOutput": "2,4"
+  },
+  {
+    "guideId": "guide-cs-api-contracts",
+    "project": "api-contracts/Example.csproj",
+    "codeFile": "examples/cs-fundamentals/api-contracts/Program.cs",
+    "expectedOutput": "Page 1: 105, 104\nPage 2: 103, 102\nPASS: insertion, timestamp tie, end of results"
   }
 ]

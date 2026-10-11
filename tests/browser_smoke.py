@@ -34,6 +34,50 @@ def wait_for_guide_position(page, anchor=None):
         : window.scrollY === 0''', arg=anchor)
     page.evaluate('new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))')
 
+def check_backend_lessons(page, label, before):
+    cases = [
+        ('serialization', 'An API sends an order as JSON.', 'DTO (data transfer object)', 'evolution'),
+        ('api-contracts', 'What must an API contract explain', 'An API contract is the agreement', 'cursor'),
+    ]
+    for slug, question, answer, explanation in cases:
+        guide = 'guide-cs-' + slug
+        page.get_by_role('button', name='CS Fundamentals', exact=True).click()
+        page.get_by_role('button', name='Browse cards', exact=True).click()
+        page.locator('#search').fill(question)
+        assert page.locator('#list details').count() == 1
+        page.locator('#list summary').click()
+        assert answer in page.locator('#list .answer-text').inner_text()
+        no_overflow(page)
+        page.screenshot(path=str(OUT/f'{label}-{slug}-card.png'))
+        page.locator('#list .guide-link').click()
+        page.wait_for_function('id => selectedGuide?.id === id', arg=guide)
+        assert page.evaluate('selectedGuideAnchor') == 'answer'
+        wait_for_guide_position(page, 'answer')
+        assert snap_state(page) == before
+        no_overflow(page)
+        page.screenshot(path=str(OUT/f'{label}-{slug}-start.png'))
+        page.go_back(); page.wait_for_function("view === 'browse'")
+        assert page.locator('#search').input_value() == question
+        page.go_forward(); page.wait_for_function('id => selectedGuide?.id === id', arg=guide)
+        page.locator(f'.guide-toc a[href="#guide/{guide}/{explanation}"]').click()
+        page.wait_for_function('anchor => selectedGuideAnchor === anchor', arg=explanation)
+        wait_for_guide_position(page, explanation)
+        no_overflow(page)
+        page.screenshot(path=str(OUT/f'{label}-{slug}-{explanation}.png'))
+        # Keep all old public anchors reloadable, alongside the new C# example.
+        for anchor in ['answer','mechanism','example','implementation','gotchas','practice','execution']:
+            page.goto(BASE+f'#guide/{guide}/{anchor}')
+            page.reload()
+            page.wait_for_function('data => selectedGuide?.id === data.id && selectedGuideAnchor === data.anchor', arg={'id':guide,'anchor':anchor})
+            assert page.locator('#guide-part-'+anchor).is_visible()
+            no_overflow(page)
+            assert snap_state(page) == before
+            if anchor == 'implementation':
+                wait_for_guide_position(page, anchor)
+                page.screenshot(path=str(OUT/f'{label}-{slug}-code.png'))
+        page.keyboard.press('1'); page.keyboard.press('Space')
+        assert snap_state(page) == before
+
 def exercise(page,label):
     errors=[]
     page.on('pageerror',lambda e:errors.append(str(e)))
@@ -103,6 +147,7 @@ def exercise(page,label):
     no_overflow(page);assert snap_state(page)==before
     # Space may scroll the page; test rating isolation after layout checks.
     page.keyboard.press('1');page.keyboard.press('Space');assert snap_state(page)==before
+    check_backend_lessons(page,label,before)
     page.get_by_role('button',name='Sign in',exact=True).click();page.locator('#loginEmail').fill('study-test@example.invalid');page.locator('#sendMagicLink').click();page.wait_for_function("document.querySelector('#authMessage').textContent.includes('Check your email')");assert page.evaluate('__testRemote.requests')==1
     page.locator('#closeAccount').click()
     page.evaluate("__testRemote.listener('SIGNED_IN',{user:{id:'test-account',email:'study-test@example.invalid'}})")
@@ -124,7 +169,7 @@ def exercise(page,label):
     page.locator('#importFile').set_input_files({'name':'progress.json','mimeType':'application/json','buffer':json.dumps(restored).encode()})
     page.wait_for_function("document.querySelector('#importFile').value === ''");assert snap_state(page)['cards']==restored['cards']
     assert not errors,errors
-    return {'viewport':label,'checks':'Today (3 actions), all section links, exact card/back, guide keyboard isolation, new-card ratings/undo, deep-link reload, stack foundations and all existing stack anchors, stack Back/Forward, search, auth UI with mock provider, cloud new-card save, sign-out guest isolation, export, cancelled/repeated backup restore, no page overflow','errors':errors}
+    return {'viewport':label,'checks':'Today (3 actions), all section links, exact card/back, guide keyboard isolation, new-card ratings/undo, deep-link reload, stack foundations and all existing stack anchors, stack Back/Forward, serialization and API cards/lessons/old anchors/C# examples/Back/Forward/progress isolation, search, auth UI with mock provider, cloud new-card save, sign-out guest isolation, export, cancelled/repeated backup restore, no page overflow','errors':errors}
 
 try:
     with sync_playwright() as p:

@@ -207,8 +207,8 @@
     {
       "id": "cs-serialization",
       "section": "cs",
-      "front": "Why should an API use explicit DTOs instead of serializing database entities directly?",
-      "back": "DTOs define the public contract independently of persistence. They reduce accidental field disclosure, unwanted client-settable fields, cyclic graphs, and coupling to schema changes. Serialization converts data to a representation; it does not validate permissions or business meaning.",
+      "front": "An API sends an order as JSON. What is a DTO, and why use it instead of sending the database entity?",
+      "back": "Serialization turns a C# object into data such as JSON. A DTO (data transfer object) is a small type that chooses what the API sends or accepts. For example, OrderResponse can expose orderId and total while leaving an internal review note on the server. This keeps the API separate from database details and makes accidental disclosure less likely. A request DTO should likewise contain only fields the caller may choose. Parsing JSON still does not prove the values are valid or that the caller has permission. When fields change, check that old and new clients can still understand the data.",
       "tags": "cs-networking serialization",
       "guideId": "guide-cs-serialization",
       "guideAnchor": "answer"
@@ -216,8 +216,8 @@
     {
       "id": "cs-api-contracts",
       "section": "cs",
-      "front": "What belongs in an API contract beyond an endpoint and JSON shape?",
-      "back": "Identity and authorization, input constraints, success and error semantics, idempotency, concurrency/version rules, pagination order, consistency expectations, and compatibility policy. A precise contract lets callers recover from failures without guessing.",
+      "front": "What must an API contract explain so a caller can use GET /orders without guessing?",
+      "back": "An API contract is the agreement about how an operation behaves. For GET /orders, explain who may read the orders, which inputs are allowed, what success and errors look like, and how to get the next page. For example: return only the signed-in customer’s orders, allow a page size from 1 to 100, sort newest first with ID as a tie-breaker, and return a cursor marking where to continue. Keep supported clients working when the API changes. For operations that change data, also explain safe retries and conflicting updates: after a timeout, a caller must not have to guess whether creating an order succeeded.",
       "tags": "cs-networking api-contracts",
       "guideId": "guide-cs-api-contracts",
       "guideAnchor": "answer"
@@ -5484,64 +5484,133 @@
       "id": "guide-cs-serialization",
       "title": "15 · Serialization and schema evolution",
       "section": "cs",
-      "summary": "DTOs define the public contract independently of persistence. They reduce accidental field disclosure, unwanted client-settable fields, cyclic graphs, and coupling to schema changes. Serialization converts data to a representation; it does not validate permissions or business meaning.",
+      "summary": "Follow an order from a C# object to JSON and back. Learn why an API chooses which fields to expose, and how to change those fields without breaking existing callers.",
       "sections": [
         {
           "id": "answer",
-          "title": "Recall target",
+          "title": "Start here: an object on the server, JSON on the wire",
           "paragraphs": [
-            "DTOs define the public contract independently of persistence. They reduce accidental field disclosure, unwanted client-settable fields, cyclic graphs, and coupling to schema changes. Serialization converts data to a representation; it does not validate permissions or business meaning."
-          ]
+            "Imagine your C# service has loaded an order from a database. In the running program, the order is an object with properties such as Id and Total. A browser or another service cannot use that same in-memory object directly. The server needs to send a representation the other program can read.",
+            "Serialization means turning data into a format that can be sent or stored. For a JSON API, that usually means turning a C# object into JSON text. Deserialization goes the other way: it reads JSON and builds a C# object. Neither step decides whether the caller is allowed to see the order.",
+            "For example, an object whose OrderId is 501 and Total is 25.50 can become the JSON below. The property names and values are the data being sent; the object’s methods and its location in memory are not."
+          ],
+          "code": "{\"orderId\":501,\"total\":25.50}",
+          "language": "json"
         },
         {
           "id": "mechanism",
-          "title": "Mental model",
+          "title": "Why introduce a DTO?",
           "paragraphs": [
-            "A producer and consumer may deploy at different times. Compatible changes need a policy for missing fields, unknown fields, nulls, enum expansion, naming, and numeric precision. Removing or changing the meaning of an existing field can break old clients even when the payload remains valid JSON."
+            "DTO stands for data transfer object. It is a small type that describes the data crossing a boundary, such as the response from your API. A database entity is a type used to represent stored data. Those two types have different jobs, even when some properties match.",
+            "Suppose the stored order contains Id, Total, and InternalNote. The customer needs the order number and total, but must not receive a note about a fraud review. An OrderResponse DTO contains only OrderId and Total. You explicitly copy those two values into it before serializing it.",
+            "This also separates two kinds of change. You can rename an internal database property or add an internal column without accidentally changing the JSON your clients receive. The public names can stay orderId and total."
           ]
         },
         {
           "id": "example",
-          "title": "Concrete example",
+          "title": "Walk through one request, one step at a time",
           "paragraphs": [
-            "The DTO below exposes an order ID and display total, not internal payment metadata or admin flags. A separate create-request DTO should accept only fields the caller can choose. Validate it after parsing and before applying business effects."
+            "1. A client asks for GET /orders/501. GET means it is asking to read something; /orders/501 identifies the order.",
+            "2. The server checks who is making the request and whether that person may read order 501. Choosing a DTO does not replace this permission check.",
+            "3. The server loads the order and creates OrderResponse from the fields it intends to expose. In the runnable example, the database row is represented by a simple in-memory object.",
+            "4. The JSON serializer turns that response DTO into text. The client reads the JSON and uses its orderId and total values. The example uses web-style JSON options so C# OrderId is written as orderId."
           ]
         },
         {
           "id": "implementation",
-          "title": "Exact runnable C# example",
-          "code": "using System;\nusing System.Text.Json;\n\nvar dto = new OrderSummary(501, 25.50m);\nstring json = JsonSerializer.Serialize(dto);\nConsole.WriteLine(json); // {\"OrderId\":501,\"Total\":25.50}\n\npublic sealed record OrderSummary(int OrderId, decimal Total);\n",
+          "title": "Runnable C#: choose the fields, then serialize them",
+          "paragraphs": [
+            "A record is a concise way to declare a C# data type. The first part below creates a response record, serializes it, and reads it back. The remaining checks demonstrate the old/new version behavior explained in the next sections."
+          ],
+          "code": "using System;\nusing System.Text.Json;\n\n// This stands in for a database row. Its internal note must stay on the server.\nvar entity = new OrderEntity(501, 25.50m, \"Manual fraud review\");\n\n// Choose exactly what the caller can see.\nvar response = new OrderResponse(entity.Id, entity.Total);\nvar options = new JsonSerializerOptions(JsonSerializerDefaults.Web);\nstring json = JsonSerializer.Serialize(response, options);\nConsole.WriteLine(json); // {\"orderId\":501,\"total\":25.50}\nCheck(!json.Contains(\"internalNote\"), \"Internal data leaked\");\n\n// Go in the other direction: JSON text becomes a C# object.\nvar copy = JsonSerializer.Deserialize<OrderResponse>(json, options)\n    ?? throw new InvalidOperationException(\"Expected an order\");\nCheck(copy == response, \"Round trip changed the order\");\n\n// An old reader ignores a newly added field with these default options.\nstring newJson = \"\"\"{\"orderId\":501,\"total\":25.50,\"currency\":\"USD\"}\"\"\";\nvar oldReader = JsonSerializer.Deserialize<OrderResponse>(newJson, options);\nCheck(oldReader == response, \"Old reader could not read the new response\");\n\n// A new reader also needs a plan for old messages without that field.\n// USD is valid here ONLY because all orders in this example were already USD.\nvar newReader = JsonSerializer.Deserialize<OrderResponseV2>(json, options)\n    ?? throw new InvalidOperationException(\"Expected an order\");\nCheck(newReader.Currency == \"USD\", \"Missing-field default was not applied\");\n\n// Parsing alone does not prove the data is complete or meaningful.\nvar incomplete = JsonSerializer.Deserialize<OrderResponse>(\"\"\"{\"orderId\":501}\"\"\", options);\nCheck(incomplete is not null && incomplete.Total == 0m,\n    \"This .NET 8 record leaves an omitted decimal at zero\");\nConsole.WriteLine(\"PASS: DTO boundary, round trip, old/new readers, missing field\");\n\nstatic void Check(bool condition, string message)\n{\n    if (!condition) throw new InvalidOperationException(message);\n}\n\npublic sealed record OrderEntity(int Id, decimal Total, string InternalNote);\npublic sealed record OrderResponse(int OrderId, decimal Total);\npublic sealed class OrderResponseV2\n{\n    public int OrderId { get; set; }\n    public decimal Total { get; set; }\n    public string Currency { get; set; } = \"USD\";\n}\n",
           "language": "csharp",
           "codeFile": "examples/cs-fundamentals/serialization/Program.cs"
         },
         {
+          "id": "requests",
+          "title": "Incoming JSON needs its own DTO and validation",
+          "paragraphs": [
+            "A response DTO says what the client may see. A request DTO says what the client may submit. For a create-order request, a client might choose productId and quantity. It should not choose an admin-only approval flag, and the server should calculate the price from trusted product data.",
+            "After deserialization, validate the request: is the quantity positive and within the allowed limit, does the product exist, and may this caller order it? An integer can be valid JSON and still be an invalid quantity. A client-provided customerId also does not prove who the caller is; use authenticated identity and check access.",
+            "Using a narrow request DTO helps prevent overposting: accepting a field the client should not be allowed to change. Explicit mapping and permission checks are still needed before updating stored data."
+          ]
+        },
+        {
+          "id": "schema",
+          "title": "A schema is the agreed shape and meaning of the data",
+          "paragraphs": [
+            "A schema describes field names, their types, which fields must be present, and what their values mean. It can be written in documentation or an API description; it does not have to be a separate file. For this order response, orderId is an integer and total is the order total in US dollars.",
+            "Schema evolution means changing that agreement over time. The challenge is that you can deploy the server today while an older mobile app, another service, or a message saved last week still uses the previous format.",
+            "A change is compatible with a particular reader when that reader still gets the data and behavior it expects. Syntactically valid JSON is not enough: changing total from dollars to cents would still produce a JSON number, but an old client would display the wrong amount."
+          ]
+        },
+        {
+          "id": "evolution",
+          "title": "Example: add a currency field without surprising old readers",
+          "paragraphs": [
+            "Start with version 1: {\"orderId\":501,\"total\":25.50}. Every order in this example is already priced in USD. Version 2 adds \"currency\":\"USD\" while keeping the original fields and their meanings.",
+            "First check an old reader with a new response. Does it ignore the unfamiliar currency field? System.Text.Json ignores unknown properties by default, so the OrderResponse record in our example can still read that response. A strict parser configured to reject unknown fields would need a different rollout plan.",
+            "Then check a new reader with an old response or saved message. What if currency is absent? Our new DTO initializes Currency to USD because that matches the historical data. Do not invent a default when the old meaning is unknown; the application must handle that absence explicitly.",
+            "Keep the new field optional for readers during this transition, document the rule, and test both combinations before rollout. If the system later starts returning totals in other currencies, an old client that assumes USD may become incorrect even though it ignores the new field. Adding a field does not automatically make every future use of it compatible."
+          ]
+        },
+        {
+          "id": "missing-null",
+          "title": "Missing, null, and invalid are different cases",
+          "paragraphs": [
+            "A missing property was not sent at all. A null property was sent with no value. An invalid value was sent but cannot be used, such as a negative quantity. Decide what each case means instead of hoping the serializer will decide for you.",
+            "In this .NET 8 example, leaving total out of the OrderResponse JSON produces Total = 0. Its constructor parameter alone does not require the JSON field to be present. A C# non-nullable string annotation alone also does not reject a missing or null JSON value at runtime.",
+            "For .NET 8 object properties, required or [JsonRequired] can require that a JSON property be present. Presence is only one check: a required string property can still arrive as null, and a present number can still violate a business rule. Validate values separately. Also handle malformed JSON and type mismatches as request errors."
+          ]
+        },
+        {
           "id": "gotchas",
-          "title": "Tradeoffs and common mistakes",
-          "bullets": [
-            "Deserialization success is not authorization. Never trust a supplied tenant ID as the authenticated identity.",
-            "Date/time formats and decimals need a documented cross-language contract.",
-            "Test old consumers against new producers and new consumers against stored old data."
+          "title": "Changes that need extra care",
+          "paragraphs": [
+            "Renaming total to amount acts like removing one field and adding another. An old client still looks for total. A gradual migration can keep total while adding amount with the same meaning, move clients over, and remove total only when the supported contract allows it. A separately versioned API is another option when both formats cannot sensibly coexist.",
+            "Changing a field’s type, making an optional request field mandatory, or changing units can break existing clients. Adding a new status such as \"refunded\" can also break a client that only handles \"pending\" and \"paid\". Plan how supported clients handle unfamiliar values.",
+            "Document details that affect interpretation: currency and units for money, time zone/offset for timestamps, and the expected range of numbers. C# decimal is useful for decimal arithmetic, but a client in another language may represent JSON numbers differently. Choose and test a representation both sides can handle."
           ]
         },
         {
           "id": "practice",
-          "title": "Practice check",
+          "title": "Check your understanding",
           "paragraphs": [
-            "How would you rename a required field without simultaneously breaking every deployed client?"
+            "Question 1: the database team adds InternalNote to the entity. Must it appear in the API response? Answer: no. A response DTO with only OrderId and Total keeps the public response unchanged.",
+            "Question 2: the new response adds currency. What two combinations should you test? Answer: old reader with new data, and new reader with old data. Check the configured parser and the meaning of missing values in both cases.",
+            "Question 3: deserialization produced an object with quantity = -2. Is the request valid? Answer: parsing succeeded, but validation must still reject the quantity. Permission checks are a separate step too.",
+            "Explain it aloud: “Serialization changes representation. A DTO chooses the data I send or accept. Schema evolution changes that shape or meaning over time, so I test the old and new sides together.”"
           ]
         },
         {
           "id": "execution",
-          "title": "Run and check",
+          "title": "Run the example and see what is checked",
           "paragraphs": [
-            "This self-contained .NET 8 / C# 12 example is paired with a test runner that compiles the exact displayed source and checks its output. File and concurrency examples also perform assertions. See the repository verification report for the latest executed status; compilation alone is not a proof of all concurrency behavior."
+            "The exact displayed Program.cs is compiled as .NET 8 / C# 12 by examples/cs-fundamentals/run_examples.py. It checks that internal data stays out of the response, that the JSON round trip keeps the exposed values, that an old reader tolerates the added field, that a new reader applies the documented default, and that an omitted decimal becomes zero in this example.",
+            "This is an in-memory demonstration. It does not call a real database, run an HTTP server, or implement authentication. Passing these checks proves these examples behave as shown; it does not replace API validation or compatibility tests for your own clients."
           ]
         }
       ],
       "sources": [
         {
-          "title": "Microsoft Learn: 15 · Serialization and schema evolution",
+          "title": "Microsoft Learn: System.Text.Json overview",
           "url": "https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/overview"
+        },
+        {
+          "title": "Microsoft Learn: use DTOs to shape API data",
+          "url": "https://learn.microsoft.com/en-us/aspnet/web-api/overview/data/using-web-api-with-entity-framework/part-5"
+        },
+        {
+          "title": "Microsoft Learn: handle unmapped JSON members",
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/missing-members"
+        },
+        {
+          "title": "Microsoft Learn: required JSON properties",
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/required-properties"
+        },
+        {
+          "title": "Microsoft Learn: nullable annotations and JSON",
+          "url": "https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/nullable-annotations"
         }
       ]
     },
@@ -5549,50 +5618,157 @@
       "id": "guide-cs-api-contracts",
       "title": "16 · API contracts, compatibility, and pagination",
       "section": "cs",
-      "summary": "Identity and authorization, input constraints, success and error semantics, idempotency, concurrency/version rules, pagination order, consistency expectations, and compatibility policy. A precise contract lets callers recover from failures without guessing.",
+      "summary": "Design a small orders API that callers can use without guessing. Work through response rules, safe retries, compatible changes, and why a cursor can be more reliable than a page number.",
       "sections": [
         {
           "id": "answer",
-          "title": "Recall target",
+          "title": "Start here: a contract tells the caller what to expect",
           "paragraphs": [
-            "Identity and authorization, input constraints, success and error semantics, idempotency, concurrency/version rules, pagination order, consistency expectations, and compatibility policy. A precise contract lets callers recover from failures without guessing."
+            "An API lets one program ask another program to do something. An endpoint is a particular operation the caller can address, such as GET /orders to read orders. The API contract is the agreement about how to call that operation and what happens in response.",
+            "Knowing the URL and JSON fields is only part of that agreement. The caller also needs to know who may use it, which input is allowed, what success and failure look like, whether retrying is safe, and how to get the next batch of results.",
+            "Why this matters: a caller cannot see your server’s internal steps. If its request times out, it may not know whether an order was created. If it requests the next page, it needs a rule that does not unexpectedly repeat or skip orders. A clear contract gives it a way to act."
           ]
         },
         {
           "id": "mechanism",
-          "title": "Mental model",
+          "title": "Describe one operation before choosing the details",
           "paragraphs": [
-            "Start from the user operation and its invariant. Define synchronous completion versus accepted work, bounded page sizes, validation behavior, and which fields are stable. Clients should not need to infer whether a timeout created an object or whether missing fields mean deletion."
+            "For an orders list, start with a plain sentence: “A signed-in customer can read a limited batch of their own orders, newest first.” That sentence already gives us access, size, and ordering rules.",
+            "Authentication means checking who the caller is. Authorization means checking what that caller may do. In this example, the server gets the customer identity from the authenticated session and filters every page to that customer’s orders. Supplying another customer’s ID or a cursor never grants access.",
+            "Next define valid input and outputs. A limit controls how many items the caller asks for. A cursor will identify where to continue. Decide how missing values, invalid values, and the end of the list behave, then document those decisions."
           ]
         },
         {
           "id": "example",
-          "title": "Concrete example",
+          "title": "A concrete contract for GET /orders",
           "paragraphs": [
-            "A toy GET /orders returns items in descending (createdAt, id) order and an opaque next cursor. A create uses an operation ID and returns the same result on a safe retry. A cancellation endpoint documents which workflow states are still cancellable and returns a conflict once shipment is final."
+            "Request: GET /orders?limit=2. In this example, omitting limit means 20; values from 1 to 100 are accepted, and other values get a 400 response explaining the invalid input. An omitted cursor starts at the beginning.",
+            "Success: 200 means the read succeeded. Return an items array and nextCursor. Sort by createdAt descending, then id descending; “descending” means newer times and larger IDs first. Treat createdAt as unchanging for this API and use a unique ID to settle equal times.",
+            "The example response below has two orders. The cursor text is illustrative. The client copies the returned token into the next request, GET /orders?limit=2&cursor=position-after-104. It should not construct or edit the token itself.",
+            "End of results: return nextCursor: null when no later items remain. An empty result uses items: [] and nextCursor: null, still with status 200. An invalid cursor gets a documented 400 error. Define any cursor expiry and filter restrictions as part of the contract too."
+          ],
+          "code": "{\"items\":[{\"id\":105},{\"id\":104}],\"nextCursor\":\"position-after-104\"}",
+          "language": "json"
+        },
+        {
+          "id": "pagination",
+          "title": "Pagination means reading a large result in smaller batches",
+          "paragraphs": [
+            "If a customer has 50,000 orders, returning all of them at once wastes memory, network time, and the caller’s time. Pagination divides the result into pages, which are small batches. A page size of 2 is useful for learning; a real API usually allows a larger but bounded size.",
+            "Every page needs a predictable order. “Give me the next two” has no meaning unless both client and server know what “next” means. Here, every request uses the same newest-first order and the same customer filter.",
+            "Two common approaches are offset pagination, which skips a number of rows, and keyset pagination, which continues after the last returned position. A cursor is a token used to carry a continuation position; the keyset position is what our example stores inside it."
+          ]
+        },
+        {
+          "id": "offset",
+          "title": "Offset: skip the rows that came before this page",
+          "paragraphs": [
+            "Suppose the ordered IDs are 105, 104, 103, 102. Page 1 uses offset=0 and limit=2, so it returns 105 and 104. Page 2 uses offset=2 and limit=2: skip two rows, then return two.",
+            "Now insert a newer order, 106, between those requests. The list becomes 106, 105, 104, 103, 102. Skipping the first two now returns 104 and 103. Order 104 appears twice because the row positions moved. A deletion before the offset can make the caller skip an order instead.",
+            "Offsets are simple and can support jumping to a numbered page. They can be fine for small or relatively stable lists. Large offsets can also be expensive because the database may still need to process the skipped rows."
+          ]
+        },
+        {
+          "id": "cursor",
+          "title": "Keyset: continue after the last order you actually saw",
+          "paragraphs": [
+            "Instead of remembering “I have skipped two rows,” remember “the last row I received had this createdAt and this id.” The next query asks for rows after that position in the agreed sort order.",
+            "Imagine 105 and 104 were both created at 10:00, while 103 was created at 09:59. If a one-item page returns 105, a cursor containing only 10:00 is ambiguous. Asking for times strictly before 10:00 would lose 104. Include both the time and unique ID so the next request can return 104.",
+            "For our descending order, a row comes after the cursor when its createdAt is earlier, or its createdAt is equal and its id is smaller. The filter and ordering must use the same pair of fields and the same direction.",
+            "After a page ending at 104, inserting 106 ahead of it does not move that boundary. The next page still returns 103 and 102. This does not create a frozen snapshot of the database: later inserts behind the cursor can appear, deletes disappear, and changing a sort key can still cause surprises. State the consistency you promise."
+          ]
+        },
+        {
+          "id": "implementation",
+          "title": "Runnable C#: the keyset rule without HTTP machinery",
+          "paragraphs": [
+            "ReadPage below takes rows, an optional continuation position, and a page size. Where keeps only rows after the cursor; OrderByDescending and ThenByDescending put them in the promised order; Take bounds the result. With a null cursor, it starts from the beginning.",
+            "This example runs on an in-memory list to keep the paging rule visible. It verifies an insertion between requests, equal timestamps, and the end of the list. A real database query should apply the same filter, order, and limit at the database, with a suitable index. Do not load the whole table into memory to paginate it."
+          ],
+          "code": "using System;\nusing System.Collections.Generic;\nusing System.Linq;\n\nvar orders = new List<OrderRow>\n{\n    new(105, new DateTimeOffset(2026, 1, 1, 10, 0, 0, TimeSpan.Zero)),\n    new(104, new DateTimeOffset(2026, 1, 1, 10, 0, 0, TimeSpan.Zero)),\n    new(103, new DateTimeOffset(2026, 1, 1, 9, 59, 0, TimeSpan.Zero)),\n    new(102, new DateTimeOffset(2026, 1, 1, 9, 58, 0, TimeSpan.Zero))\n};\n\nvar first = ReadPage(orders, after: null, limit: 2);\nConsole.WriteLine(\"Page 1: \" + string.Join(\", \", first.Select(x => x.Id)));\n// Keep the full position of the LAST returned row, not just its time.\nvar cursor = new OrderCursor(first[^1].CreatedAt, first[^1].Id);\n\n// A new order arrives before the caller asks for page 2.\norders.Add(new OrderRow(106, new DateTimeOffset(2026, 1, 1, 10, 1, 0, TimeSpan.Zero)));\nvar second = ReadPage(orders, cursor, limit: 2);\nConsole.WriteLine(\"Page 2: \" + string.Join(\", \", second.Select(x => x.Id)));\nCheck(second.Select(x => x.Id).SequenceEqual(new[] { 103, 102 }),\n    \"The new first row must not cause a repeated order\");\n\n// A one-row page ends at 105. The next page must still include 104,\n// even though they share the same CreatedAt value.\nvar tiedTime = ReadPage(orders, new OrderCursor(first[0].CreatedAt, 105), 1);\nCheck(tiedTime.Single().Id == 104, \"The ID tie-breaker skipped an order\");\nCheck(ReadPage(orders, new OrderCursor(second[^1].CreatedAt, 102), 2).Length == 0,\n    \"The last page should have no more rows\");\nConsole.WriteLine(\"PASS: insertion, timestamp tie, end of results\");\n\nstatic OrderRow[] ReadPage(IEnumerable<OrderRow> source, OrderCursor? after, int limit)\n{\n    if (limit < 1 || limit > 100) throw new ArgumentOutOfRangeException(nameof(limit));\n    // Descending order means rows AFTER the cursor have smaller keys.\n    return source\n        .Where(row => after is null\n            || row.CreatedAt < after.CreatedAt\n            || (row.CreatedAt == after.CreatedAt && row.Id < after.Id))\n        .OrderByDescending(row => row.CreatedAt)\n        .ThenByDescending(row => row.Id)\n        .Take(limit)\n        .ToArray();\n}\n\nstatic void Check(bool condition, string message)\n{\n    if (!condition) throw new InvalidOperationException(message);\n}\n\n// This is the paging rule in memory, not an HTTP server or cursor-token encoder.\npublic sealed record OrderRow(int Id, DateTimeOffset CreatedAt);\npublic sealed record OrderCursor(DateTimeOffset CreatedAt, int Id);\n",
+          "language": "csharp",
+          "codeFile": "examples/cs-fundamentals/api-contracts/Program.cs"
+        },
+        {
+          "id": "cursor-contract",
+          "title": "What the HTTP layer still needs to do",
+          "paragraphs": [
+            "The C# example passes an OrderCursor directly. A real HTTP API encodes that position as a token, returns it as nextCursor, and decodes it on the next request. “Opaque” means callers treat the token as a value to copy, not a format they depend on.",
+            "To know whether another page exists, a server can fetch limit + 1 matching rows. Return only limit rows; if there was an extra row, make a cursor from the last row actually returned. Otherwise return null. Using the extra row itself as the cursor would skip it on the next request.",
+            "Validate the token and its use with the current filters. If tampering would matter, protect its integrity, for example with a signature. Base64 encoding alone is not protection. Never let a cursor bypass authorization; check the authenticated customer on every request."
+          ]
+        },
+        {
+          "id": "retries",
+          "title": "A timeout is not proof that nothing happened",
+          "paragraphs": [
+            "Consider POST /orders, an operation that creates an order. The server might create it, but the response could be lost before the client receives it. A blind retry might create a second order. POST is not automatically safe to repeat.",
+            "Idempotency means repeated attempts have the same intended server effect as one attempt. For order creation, an API can provide an idempotency key: the caller chooses one key for this logical order and reuses it when retrying that same order request.",
+            "The server must enforce the promise. It checks the key within the caller’s scope, records the request and result reliably, and prevents concurrent requests with that key from creating duplicates. A repeat with the same content returns the recorded outcome; a reused key with different content is rejected under the documented rule.",
+            "Document how long keys are remembered and what happens while the first request is still running. A key in the request alone does not make an operation idempotent. Once the retention period ends, the client cannot assume the server will recognize an old retry."
+          ]
+        },
+        {
+          "id": "errors-concurrency",
+          "title": "Make failures and conflicting changes understandable",
+          "paragraphs": [
+            "An error response needs both a status code and a usable explanation. For example, this API can use 400 for invalid input, 401 for missing valid authentication, and 409 when an order cannot be cancelled because it has already shipped. Agree on a stable error code or structure so clients do not have to parse an English sentence.",
+            "For a long-running export, 202 Accepted means work was accepted for processing, not that a file is ready. Return a way to check the job’s status, and describe completion, failure, cancellation, and expiry.",
+            "Concurrent edits are another contract decision. If two callers edit the same order, one can overwrite the other. An API can return an ETag, a version marker, and require it in an If-Match header on an update. If the supplied ETag no longer matches, the server rejects the update with 412 so the caller can reload and decide what to do."
+          ]
+        },
+        {
+          "id": "compatibility",
+          "title": "Compatibility also includes behavior",
+          "paragraphs": [
+            "A compatible change keeps supported clients working as promised. Adding an optional response field is often manageable when clients ignore unknown fields. Removing a field, changing its type or units, or requiring new request data can break them.",
+            "Behavior matters too. Changing the default sort order can invalidate pagination assumptions. Adding a new order status can break a client that handles only the old statuses. An unchanged JSON shape does not guarantee unchanged behavior.",
+            "When changing the API, test actual old clients or representative old requests against the new server. Keep the old contract during a migration, or introduce an explicit new version and explain when the old one stops being supported. A version number labels a contract; it does not by itself make a breaking change safe."
           ]
         },
         {
           "id": "gotchas",
-          "title": "Tradeoffs and common mistakes",
-          "bullets": [
-            "Offset pagination can shift under inserts; keyset cursors need deterministic ordering and a tie-breaker.",
-            "Adding an enum value can break exhaustive clients, so “additive” does not always mean safe.",
-            "Rate limits and maximum sizes are part of resource protection, not optional documentation."
+          "title": "Before calling the contract complete",
+          "paragraphs": [
+            "Check the boundaries a caller will encounter: maximum page size, empty lists, invalid and expired cursors, access checks, rate limits, retry rules, and errors. Decide which facts remain stable between pages and which may change while the user is browsing.",
+            "Then test the cases most likely to expose a hidden assumption: insert a row between page requests, give two rows the same timestamp, retry a create after a lost response, and send an older request format. These are behaviors to verify, not just terms to put in documentation."
           ]
         },
         {
           "id": "practice",
-          "title": "Practice check",
+          "title": "Check your understanding",
           "paragraphs": [
-            "Write a five-line contract for an export job: submit, poll, cancel, expire, and retry."
+            "Question 1: page 1 returned 105 and 104, then 106 was inserted at the beginning. What does offset=2 return? Answer: 104 and 103, so 104 repeats. A keyset cursor after 104 returns 103 and 102 in this example.",
+            "Question 2: why store both createdAt and id in this cursor? Answer: timestamps can be equal. The unique ID settles the order within that tied time and makes the continuation position precise.",
+            "Question 3: POST /orders timed out. Can the client assume no order exists? Answer: no. The request might have succeeded and lost its response. Follow the API’s retry and idempotency-key rules.",
+            "Explain it aloud: “A contract tells clients what they can send and rely on, including failures and retries. Pagination needs a stable order. A keyset cursor continues after a known row position, so inserts ahead of it do not shift an offset.”"
+          ]
+        },
+        {
+          "id": "execution",
+          "title": "Run and check",
+          "paragraphs": [
+            "The exact displayed C# file is compiled as .NET 8 / C# 12 by examples/cs-fundamentals/run_examples.py. Expected pages are 105, 104 and then 103, 102. The program also asserts that the timestamp tie keeps 104 and that reading after the final row returns no rows.",
+            "This checks the keyset selection rule. HTTP status handling, authentication, token encoding, a limit + 1 response wrapper, database indexing, and durable idempotency-key storage are described here but are not implemented by this small example."
           ]
         }
       ],
       "sources": [
         {
-          "title": "Microsoft Learn: 16 · API contracts, compatibility, and pagination",
+          "title": "Microsoft Learn: web API design best practices",
           "url": "https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design"
+        },
+        {
+          "title": "Microsoft Learn: pagination and fully unique ordering",
+          "url": "https://learn.microsoft.com/en-us/ef/core/querying/pagination"
+        },
+        {
+          "title": "RFC 9110: HTTP semantics, idempotence, and conditional requests",
+          "url": "https://www.rfc-editor.org/rfc/rfc9110.html"
+        },
+        {
+          "title": "Microsoft Azure REST API guidelines: repeatability and compatibility",
+          "url": "https://github.com/microsoft/api-guidelines/blob/vNext/azure/Guidelines.md"
         }
       ]
     },

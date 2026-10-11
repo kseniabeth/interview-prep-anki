@@ -43,3 +43,21 @@ test('stack lessons begin with foundations and retain existing card/deep-link ta
  for(const [id,anchor] of [['card-22','brackets'],['card-20','next-greater'],['card-75','csharp']])assert.deepEqual(content.cardGuides[id],{guideId:'coding-stacks',anchor});
  assert.deepEqual(content.cardGuides['card-89'],{guideId:'coding-csharp-heaps-queues',anchor:'stack'});
 });
+test('serialization and API lessons retain card identities and old anchors with executable examples',()=>{
+ const manifest=JSON.parse(fs.readFileSync(path.join(root,'examples/cs-fundamentals/manifest.json'),'utf8'));
+ for(const [cardId,guideId,folder] of [['cs-serialization','guide-cs-serialization','serialization'],['cs-api-contracts','guide-cs-api-contracts','api-contracts']]){
+  const card=content.cards.find(c=>c.id===cardId),guide=content.guides.find(g=>g.id===guideId);
+  assert.equal(card.section,'cs');
+  assert.deepEqual(content.cardGuides[cardId],{guideId,anchor:'answer'});
+  for(const anchor of ['answer','mechanism','example','gotchas','practice'])assert(guide.sections.some(s=>s.id===anchor),`${guideId}/${anchor}: old link lost`);
+  assert.equal(guide.sections[0].id,'answer');
+  const implementation=guide.sections.find(s=>s.id==='implementation');
+  assert.equal(implementation.codeFile,`examples/cs-fundamentals/${folder}/Program.cs`);
+  assert(manifest.some(m=>m.guideId===guideId&&m.codeFile===implementation.codeFile));
+  assert(guide.sections.some(s=>s.id==='execution'));
+ }
+ const serialization=content.guides.find(g=>g.id==='guide-cs-serialization');
+ for(const anchor of ['requests','schema','evolution','missing-null'])assert(serialization.sections.some(s=>s.id===anchor));
+ const api=content.guides.find(g=>g.id==='guide-cs-api-contracts');
+ for(const anchor of ['pagination','offset','cursor','cursor-contract','retries','errors-concurrency','compatibility'])assert(api.sections.some(s=>s.id===anchor));
+});
