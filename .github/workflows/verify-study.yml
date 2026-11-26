@@ -38,10 +38,10 @@ jobs:
           RECALL_QA_OUTPUT: qa/browser
         run: python tests/browser_smoke.py
       - name: Keep browser screenshots and report
-        if: always()
+        if: failure()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: study-browser-checks
           path: qa/browser
           if-no-files-found: ignore
-          retention-days: 7
+          retention-days: 1
